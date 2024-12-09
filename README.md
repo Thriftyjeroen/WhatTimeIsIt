@@ -13,7 +13,7 @@ Dit zijn onze teamregels/afspraken:
 9. Als je vast zit laat je dat aan het groepje weten.
 10. Als je niet weet wat je kunt doen laat je dat het groepje weten, die geven je wel een taak.
 11. Je zorgt ervoor dat alle groepsleden toegang hebben tot bestanden van het project. (gebruik Git/Onedrive/Teams zo veel mogelijk)
-12. Iedereen in de groep is gelijkwaardig behalve Sam.
+12. Iedereen in de groep is gelijkwaardig.
 13. Kritiek en feedback richt je op het product/werk en niet op de persoon.
 14. Jij weet waar iedereen (binnen jouw team) mee bezig is.
 15. Help elkaar.
@@ -29,3 +29,11 @@ Dit zijn onze teamregels/afspraken:
 25. Randy pesten is begrijpelijk.
 26. Dominick niet.
 27. Kenneth pesten op eigen risico.
+
+
+SCRUM Values:
+Commitment - Werk aan je werk (5, 21)
+Courage - Vraag om hulp als nodig (9, 15)
+Focus - Blijf aan je werk werken als mogelijk (6, 18, 19, 22)
+Openness - Blijf open praten over problemen en werk van jezelf en anderen (7, 9, 10, 14, 17, 18)
+Respect - Respecteer opleidingsgenoten (3, 4, 7, 8, 12, 13, 15, 16, 20, 21, 22, 25, 26, 27)
