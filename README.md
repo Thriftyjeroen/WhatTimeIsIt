@@ -25,10 +25,11 @@ Dit zijn onze teamregels/afspraken:
 21. Je werkt aan jouw taken.
 22. Als het te onrustig is, gaan we over naar handen opsteken en dan praten we niet door elkaar heen.
 23. Aan het begin van de dag, text standup + fysieke standup.
-24. Code is leesbaar en begrijpelijk, voeg desnoods comments toe/diagram.
+24. Code is leesbaar en begrijpelijk voor iedereen, voeg desnoods comments toe/diagram.
 25. Randy pesten is begrijpelijk.
-26. Dominick niet.
+26. Dominick pesten is niet begrijpelijk.
 27. Kenneth pesten op eigen risico.
+28. Grote spelbrekende bugs pushen word niet getolereerd, test eerst.
 
 
 SCRUM Values:
