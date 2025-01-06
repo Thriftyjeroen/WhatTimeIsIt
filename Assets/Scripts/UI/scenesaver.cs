@@ -4,23 +4,22 @@ using UnityEngine.SceneManagement;
 public class SceneSaver : MonoBehaviour
 {
     private string lastSceneName;
+    private string previousSceneName; // To store the scene before the last one
 
     void Start()
     {
         DontDestroyOnLoad(gameObject);
         lastSceneName = SceneManager.GetActiveScene().name;
+        previousSceneName = lastSceneName; // Initially, it's the same as the current scene
     }
-
-    void Update()
-    {
-    }
+    
 
     public void loadLastScene()
     {
-        if (!string.IsNullOrEmpty(lastSceneName))
+        if (!string.IsNullOrEmpty(previousSceneName))
         {
-            Debug.Log("Loading scene: " + lastSceneName);
-            SceneManager.LoadScene(lastSceneName);
+            Debug.Log("Loading last scene: " + previousSceneName);
+            SceneManager.LoadScene(previousSceneName);
         }
         else
         {
@@ -30,7 +29,9 @@ public class SceneSaver : MonoBehaviour
 
     public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        lastSceneName = scene.name;
+       
+        previousSceneName = lastSceneName;
+        lastSceneName = scene.name; 
     }
 
     void OnEnable()
