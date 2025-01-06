@@ -3,6 +3,9 @@ using UnityEngine;
 public class Player_movement : MonoBehaviour
 {
     public float speed = 5f;
+    public float jumppower = 16.5f;
+    bool grounded;
+    string layername = "ground";
     [SerializeField] Rigidbody rb;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -10,6 +13,7 @@ public class Player_movement : MonoBehaviour
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
     }
+   
 
     // Update is called once per frame
     void Update()
@@ -30,6 +34,27 @@ public class Player_movement : MonoBehaviour
         if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
         {
             transform.Translate(Vector3.right * speed * Time.deltaTime);
+        }
+        if (Input.GetKeyDown(KeyCode.Space) && grounded)
+        {
+            Jump();
+            grounded = false;
+        }
+    }
+    private void Jump()
+    {
+        
+        rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
+
+        rb.AddForce(transform.up * jumppower, ForceMode.Impulse);
+    }
+    void OnCollisionEnter(Collision collision)
+    {
+        int layerIndex = LayerMask.NameToLayer(layername);
+
+        if (collision.gameObject.layer == layerIndex)
+        {
+            grounded = true;
         }
     }
 }
