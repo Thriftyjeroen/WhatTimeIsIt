@@ -26,6 +26,6 @@ public class Health : MonoBehaviour
     }
     public void setText()
     {
-        HealthText.text = health.ToString();
+        HealthText.text = "health: " + health.ToString();
     }
 }
