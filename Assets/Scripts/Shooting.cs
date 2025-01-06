@@ -9,7 +9,6 @@ public class shooting : MonoBehaviour
     public bool automaticFire;
     int magazineRemainingAmmo, bulletsShot;
     bool firing, readyToFire, reloading;
-    public float pullDownThreshold;
 
     public Transform gun;
     public Camera cam;
@@ -93,8 +92,6 @@ public class shooting : MonoBehaviour
     private void Reload()
     {
         reloading = true;
-        //work in progress 'cruelty squad' style interactive reload
-        gun.transform.rotation = Quaternion.Euler(Input.GetAxis("Mouse Y"), 0, 0);
         Invoke("ReloadFinished", reloadSpeed);
     }
     private void ReloadFinished()
