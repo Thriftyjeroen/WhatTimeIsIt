@@ -15,7 +15,7 @@ public class UI_Manager : MonoBehaviour
     {
         
     }
-    public void Button2(int pScene) => SceneManager.LoadScene(pScene);
+    public void Button(int pScene) => SceneManager.LoadScene(pScene);
 
     public void Quit()
     {

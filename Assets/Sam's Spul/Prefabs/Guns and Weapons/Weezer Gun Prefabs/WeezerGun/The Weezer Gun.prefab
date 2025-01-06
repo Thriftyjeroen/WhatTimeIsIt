@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2154681771393850985
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8418876453664126872}
+  m_Layer: 0
+  m_Name: ShootingPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8418876453664126872
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2154681771393850985}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.005033476, y: 0.07, z: -4.31}
+  m_LocalScale: {x: 1.357331, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5967622258351525627}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4281792126838991863
 GameObject:
   m_ObjectHideFlags: 0
@@ -13,6 +44,7 @@ GameObject:
   - component: {fileID: 5404412481907387657}
   - component: {fileID: 2734896226160231090}
   - component: {fileID: 3399587988673581565}
+  - component: {fileID: 2518967941141226236}
   m_Layer: 0
   m_Name: The Weezer Gun
   m_TagString: Untagged
@@ -35,6 +67,7 @@ Transform:
   m_Children:
   - {fileID: 4190069286117536696}
   - {fileID: 6620567253945033856}
+  - {fileID: 8418876453664126872}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1915309226810366446
@@ -7070,6 +7103,36 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2518967941141226236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4281792126838991863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 365a6545eb501d945a233e70a6118789, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 20
+  timeBetweenShooting: 0.5
+  reloadSpeed: 1.82
+  range: 10000
+  timeBetweenShots: 0
+  spreadX: 0.2
+  spreadY: 0.01
+  magazineZise: 4
+  bulletsPerShot: 4
+  automaticFire: 0
+  gun: {fileID: 5635094648501330850, guid: 11e31e73605d1374ba1027523a299266, type: 3}
+  cam: {fileID: 0}
+  shootingPoint: {fileID: 8418876453664126872}
+  enemy:
+    serializedVersion: 2
+    m_Bits: 63
+  muzzleFlash: {fileID: 1000010254994808, guid: 9defeac88977c0d448aa4541073ee9e4, type: 3}
+  bulletHole: {fileID: 1000010844420130, guid: 4edabb1c0dde62743b137378c7d22980, type: 3}
 --- !u!1001 &654117171157027036
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4795981829030199128
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 53380915425191434}
+  m_Layer: 0
+  m_Name: ShootingPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &53380915425191434
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4795981829030199128}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 6, y: 0, z: -10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4966806316832395917}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5310690117072153468
 GameObject:
   m_ObjectHideFlags: 0
@@ -12,7 +43,9 @@ GameObject:
   - component: {fileID: 6675559213597704671}
   - component: {fileID: 2518859261724132264}
   - component: {fileID: 6543972256782121517}
-  - component: {fileID: 6848122772974372304}
+  - component: {fileID: 3300196618597750432}
+  - component: {fileID: 6224786360892789135}
+  - component: {fileID: 6650888955037882168}
   m_Layer: 0
   m_Name: Gun2
   m_TagString: Untagged
@@ -30,7 +63,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.13733, y: 0.13733, z: 0.13733}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8602608693976078137}
@@ -7249,12 +7282,42 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 9255
+  m_VersionIndex: 9258
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
   m_SelectedVertices: 
---- !u!95 &6848122772974372304
+--- !u!114 &3300196618597750432
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5310690117072153468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 365a6545eb501d945a233e70a6118789, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 20
+  timeBetweenShooting: 0.5
+  reloadSpeed: 2.92
+  range: 10000
+  timeBetweenShots: 0.08
+  spreadX: 0.03
+  spreadY: 0.03
+  magazineZise: 9
+  bulletsPerShot: 9
+  automaticFire: 0
+  gun: {fileID: 5635094648501330850}
+  cam: {fileID: 0}
+  shootingPoint: {fileID: 53380915425191434}
+  enemy:
+    serializedVersion: 2
+    m_Bits: 63
+  muzzleFlash: {fileID: 1000010254994808, guid: 9defeac88977c0d448aa4541073ee9e4, type: 3}
+  bulletHole: {fileID: 1000010844420130, guid: 4edabb1c0dde62743b137378c7d22980, type: 3}
+--- !u!95 &6224786360892789135
 Animator:
   serializedVersion: 7
   m_ObjectHideFlags: 0
@@ -7276,6 +7339,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &6650888955037882168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5310690117072153468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f6f6c7c5794b274b9ef2e9524a11f96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3135311189185645806
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7287,6 +7362,10 @@ PrefabInstance:
     - target: {fileID: 4339165064476326216, guid: 4d58805f0616be149a4f1833026db27b, type: 3}
       propertyPath: m_Name
       value: gun2 Bullets
+      objectReference: {fileID: 0}
+    - target: {fileID: 5368625703046056588, guid: 4d58805f0616be149a4f1833026db27b, type: 3}
+      propertyPath: m_VersionIndex
+      value: 2110
       objectReference: {fileID: 0}
     - target: {fileID: 7168267196245258445, guid: 4d58805f0616be149a4f1833026db27b, type: 3}
       propertyPath: m_LocalScale.x
@@ -7412,7 +7491,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8953032702354308796, guid: 7d15a510328ec044c9775b41dfd01841, type: 3}
       propertyPath: m_VersionIndex
-      value: 10054
+      value: 10057
       objectReference: {fileID: 0}
     - target: {fileID: 8953032702354308796, guid: 7d15a510328ec044c9775b41dfd01841, type: 3}
       propertyPath: m_SelectedEdges.Array.size
@@ -26359,6 +26438,9 @@ PrefabInstance:
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 8454594706096580901, guid: 7d15a510328ec044c9775b41dfd01841, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 53380915425191434}
+    - targetCorrespondingSourceObject: {fileID: 8454594706096580901, guid: 7d15a510328ec044c9775b41dfd01841, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 5257972231962590243}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d15a510328ec044c9775b41dfd01841, type: 3}
@@ -26433,7 +26515,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 67ecb4848d6590c43a65e8d697124a62, type: 2}
     - target: {fileID: 7043106419890526263, guid: 13bdc22ff3fc39d47a1e192bed3509ee, type: 3}
       propertyPath: m_VersionIndex
-      value: 9412
+      value: 9415
       objectReference: {fileID: 0}
     - target: {fileID: 7043106419890526263, guid: 13bdc22ff3fc39d47a1e192bed3509ee, type: 3}
       propertyPath: m_SelectedEdges.Array.size
