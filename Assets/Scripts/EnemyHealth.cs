@@ -47,10 +47,10 @@ public class EnemyHealth : MonoBehaviour
         Debug.Log("Enemy died!");
 
         // Play death effect if assigned
-        if (deathEffect != null)
-        {
-            Instantiate(deathEffect, transform.position, Quaternion.identity);
-        }
+       // if (deathEffect != 0)
+       // {
+       //     Instantiate(deathEffect, transform.position, Quaternion.identity);
+       // }
 
         // Destroy the enemy GameObject
         Destroy(gameObject);
