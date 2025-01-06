@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -14,27 +15,10 @@ public class UI_Manager : MonoBehaviour
     {
         
     }
-    public void GetUIElement(int Number)
-        
-    {
-        switch (Number)
-        {
-            case 1:
-                SceneManager.LoadScene("");
-            break;
-            case 2:
-                SceneManager.LoadScene("");
-                break;
-            case 3:
-                SceneManager.LoadScene("");
-                break;
-            case 4:
-                SceneManager.LoadScene("");
-                break;
-            case 5:
-                Application.Quit();
-                break;
-        }
+    public void Button2(int pScene) => SceneManager.LoadScene(pScene);
 
+    public void Quit()
+    {
+        Application.Quit();
     }
 }
