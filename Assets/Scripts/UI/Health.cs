@@ -4,7 +4,7 @@ using UnityEngine;
 public class Health : MonoBehaviour
 {
     [SerializeField] TMP_Text HealthText;
-    int health;
+    int health = 100;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -26,6 +26,6 @@ public class Health : MonoBehaviour
     }
     public void setText()
     {
-        HealthText.text = "health: " + health.ToString();
+        HealthText.text = "hitpoints: " + health.ToString();
     }
 }
