@@ -1,3 +1,5 @@
+using System.Collections;
+using UnityEditor.Rendering;
 using UnityEngine;
 
 public class shooting : MonoBehaviour
@@ -17,6 +19,7 @@ public class shooting : MonoBehaviour
     public LayerMask enemy;
 
     public GameObject muzzleFlash, bulletHole;
+    [SerializeField] private TrailRenderer bulletTracer;
     private void Awake()
     {
         //on Awake it will reload ur gun so when you start its always filled with bullets. also ready to fire is set to true
@@ -66,12 +69,12 @@ public class shooting : MonoBehaviour
         {
             Debug.Log(rayHit.collider.name);
             Debug.DrawLine(transform.position, rayHit.point, Color.green, 1000f);
-            Instantiate(bulletHole, rayHit.point, Quaternion.identity);
-            if (rayHit.collider.CompareTag("Enemy"))
-            {
+            Instantiate(bulletHole, rayHit.point, Quaternion.LookRotation(rayHit.normal));
+            //if (rayHit.collider.CompareTag("Enemy"))
+            //{
                 //To hit an enemy they need to be tagged with enemy and also have a TakeDamage method
                 //rayHit.collider.GetComponent<Enemy>().TakeDamage(damage);
-            }
+            //}
         }
         else
         {
@@ -83,7 +86,7 @@ public class shooting : MonoBehaviour
         //bullets shot count down by one so you can make guns using burst fire or shotgun blasts
         bulletsShot--;
         Instantiate(muzzleFlash, shootingPoint);
-
+        StartCoroutine(SpawnTrail(bulletTracer, rayHit));
         Debug.Log("Shot Fired");
         Invoke("ResetShot", timeBetweenShooting);
         if (bulletsShot > 0 && magazineRemainingAmmo > 0)
@@ -112,5 +115,20 @@ public class shooting : MonoBehaviour
         //reload finished used with Invoke so different guns can have different reloading speeds
         magazineRemainingAmmo = magazineZise;
         reloading = false;
+    }
+    private IEnumerator SpawnTrail(TrailRenderer Trail, RaycastHit hit)
+    {
+        Debug.Log("start ienumerator");
+        GameObject t = Instantiate(Trail, shootingPoint.position, Quaternion.Inverse(shootingPoint.rotation)).gameObject;
+        float time = 0;
+        while (time < 100)
+        {
+            t.transform.position += t.transform.forward * 10f * Time.deltaTime;
+            
+            time += Time.deltaTime;
+            yield return null;
+        }
+        //t.transform.position = hit.point;
+       //Destroy(Trail, time);
     }
 }
