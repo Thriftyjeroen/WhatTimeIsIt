@@ -573,6 +573,7 @@ GameObject:
   - component: {fileID: 1020872488}
   - component: {fileID: 1020872487}
   - component: {fileID: 1020872489}
+  - component: {fileID: 1020872490}
   m_Layer: 0
   m_Name: scenemanger
   m_TagString: Untagged
@@ -619,6 +620,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bd2c4d27069d2174e96249ae554f10be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1020872490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1020872486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d65d3d48cb3fcd3429cd7414bba405ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1100134190
@@ -704,9 +717,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnityEngine.Object, UnityEngine
-        m_MethodName: 
+      - m_Target: {fileID: 1020872490}
+        m_TargetAssemblyTypeName: scenemangerscript, Assembly-CSharp
+        m_MethodName: LoadLastScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
