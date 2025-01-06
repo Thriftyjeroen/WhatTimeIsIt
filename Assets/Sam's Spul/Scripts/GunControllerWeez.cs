@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class GunControllerWeez: MonoBehaviour
 {
-    [SerializeField] Animator animator;
+    [SerializeField] Animator animatorWeezGun;
+    [SerializeField] Animator animatorGun2;
 
-    private bool hasShot = false;
 
     void Update()
     {
@@ -12,28 +12,11 @@ public class GunControllerWeez: MonoBehaviour
         {
             Shoot();
         }
-
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            Reload();
-        }
     }
 
     void Shoot()
     {
-        if (!hasShot)
-        {
-            animator.SetTrigger("Shoot");
-            hasShot = true;
-        }
-    }
-
-    void Reload()
-    {
-        if (hasShot)
-        {
-            animator.SetTrigger("Reload");
-            hasShot = false; // Reset after reloading
-        }
+        animatorGun2.SetTrigger("Reload");
+        animatorWeezGun.SetTrigger("Reload");
     }
 }
