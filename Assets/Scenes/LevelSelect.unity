@@ -316,6 +316,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
+  jumppower: 6.5
   rb: {fileID: 257400720}
 --- !u!136 &257400722
 CapsuleCollider:
@@ -591,7 +592,7 @@ GameObject:
   - component: {fileID: 638063799}
   - component: {fileID: 638063798}
   - component: {fileID: 638063797}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
