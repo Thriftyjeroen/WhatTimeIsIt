@@ -1,60 +1,116 @@
 using UnityEngine;
 
-public class Player_movement : MonoBehaviour
+[RequireComponent(typeof(Rigidbody))]
+public class Movement : MonoBehaviour
 {
-    public float speed = 5f;
-    public float jumppower = 16.5f;
-    bool grounded;
+    public Transform orientation;
+    float horizontalInput;
+    float verticalInput;
+    bool isGrounded;
+    float speed = 5f;
+    float jumpForce = 7.5f;
+    float airMultiplier = 0.5f;
+    int jumpCount = 0;
+    int maxJumps = 2;
+    Rigidbody body;
+    Vector3 moveDirection;
     string layername = "ground";
-    [SerializeField] Rigidbody rb;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
+    [SerializeField]float groundDrag = 4f;
+    [SerializeField]float airDrag = 1f;
+
     void Start()
     {
+        body = GetComponent<Rigidbody>();
+        body.freezeRotation = true;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
     }
-   
 
-    // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
-        {
-            transform.Translate(Vector3.forward * speed * Time.deltaTime);
-        }
-        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
-        {
-            transform.Translate(Vector3.left * speed * Time.deltaTime);
-        }
-        if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
-        {
-            transform.Translate(Vector3.back * speed * Time.deltaTime);
-        }
-        
-        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
-        {
-            transform.Translate(Vector3.right * speed * Time.deltaTime);
-        }
-        if (Input.GetKeyDown(KeyCode.Space) && grounded)
-        {
-            Jump();
-            grounded = false;
-        }
-    }
-    private void Jump()
-    {
-        
-        rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
+        horizontalInput = Input.GetAxis("Horizontal");
+        verticalInput = Input.GetAxis("Vertical");
 
-        rb.AddForce(transform.up * jumppower, ForceMode.Impulse);
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (isGrounded)
+            {
+                body.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+                isGrounded = false;
+                jumpCount = 1;
+            }
+            else if (jumpCount < maxJumps)
+            {
+                body.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+                jumpCount++;
+            }
+        }
+
+        SpeedControl();
+        AdjustDrag();
     }
+
+    void FixedUpdate()
+    {
+        MovePlayer();
+    }
+
+    private void MovePlayer()
+    {
+        moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
+
+        if (isGrounded)
+        {
+            body.AddForce(moveDirection.normalized * speed * 10f, ForceMode.Force);
+        }
+        else
+        {
+            body.AddForce(moveDirection.normalized * speed * 10f * airMultiplier, ForceMode.Force);
+        }
+    }
+
+    private void SpeedControl()
+    {
+        Vector3 flatVelocity = new Vector3(body.linearVelocity.x, 0, body.linearVelocity.z);
+
+        if (flatVelocity.magnitude > speed)
+        {
+            Vector3 limitedVelocity = flatVelocity.normalized * speed;
+            body.linearVelocity = new Vector3(limitedVelocity.x, body.linearVelocity.y, limitedVelocity.z);
+        }
+    }
+
+    private void AdjustDrag()
+    {
+        if (isGrounded)
+        {
+            body.linearDamping = groundDrag;
+        }
+        else
+        {
+            body.linearDamping = airDrag;
+        }
+    }
+
     void OnCollisionEnter(Collision collision)
     {
         int layerIndex = LayerMask.NameToLayer(layername);
 
         if (collision.gameObject.layer == layerIndex)
         {
-            grounded = true;
+            isGrounded = true;
+            jumpCount = 0;
+        }
+    }
+
+    void OnCollisionExit(Collision collision)
+    {
+        int layerIndex = LayerMask.NameToLayer(layername);
+
+        if (collision.gameObject.layer == layerIndex)
+        {
+            isGrounded = false;
         }
     }
 }
