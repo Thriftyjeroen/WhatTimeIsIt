@@ -83,7 +83,7 @@ public class shooting : MonoBehaviour
         magazineRemainingAmmo--;
         //bullets shot count down by one so you can make guns using burst fire or shotgun blasts
         bulletsShot--;
-        Instantiate(muzzleFlash, shootingPoint);
+        //Instantiate(muzzleFlash, shootingPoint);
         
         Debug.Log("Shot Fired");
         Invoke("ResetShot", timeBetweenShooting);
@@ -128,7 +128,7 @@ public class shooting : MonoBehaviour
             yield return null;
         }
         Trail.transform.position = hit.point;
-        Instantiate(bulletHole, rayHit.point, Quaternion.LookRotation(rayHit.normal));
+        Instantiate(bulletHole, rayHit.point + (hit.normal * 0.1f), Quaternion.FromToRotation(Vector3.up, rayHit.normal));
         Destroy(Trail, time);
     }
 }
