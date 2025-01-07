@@ -69,24 +69,22 @@ public class shooting : MonoBehaviour
         {
             Debug.Log(rayHit.collider.name);
             Debug.DrawLine(transform.position, rayHit.point, Color.green, 1000f);
-            Instantiate(bulletHole, rayHit.point, Quaternion.LookRotation(rayHit.normal));
+           
+            TrailRenderer trail = Instantiate(bulletTracer, shootingPoint.transform.position, Quaternion.identity);
+            StartCoroutine(SpawnTrail(trail, rayHit));
             //if (rayHit.collider.CompareTag("Enemy"))
             //{
-                //To hit an enemy they need to be tagged with enemy and also have a TakeDamage method
-                //rayHit.collider.GetComponent<Enemy>().TakeDamage(damage);
+            //To hit an enemy they need to be tagged with enemy and also have a TakeDamage method
+            //rayHit.collider.GetComponent<Enemy>().TakeDamage(damage);
             //}
         }
-        else
-        {
-            Debug.DrawLine(transform.position, transform.position + (transform.forward * range), Color.red, 1000f);
-        }
-
+        
         //takes one bullet out of remaining ammo
         magazineRemainingAmmo--;
         //bullets shot count down by one so you can make guns using burst fire or shotgun blasts
         bulletsShot--;
         Instantiate(muzzleFlash, shootingPoint);
-        StartCoroutine(SpawnTrail(bulletTracer, rayHit));
+        
         Debug.Log("Shot Fired");
         Invoke("ResetShot", timeBetweenShooting);
         if (bulletsShot > 0 && magazineRemainingAmmo > 0)
@@ -119,16 +117,18 @@ public class shooting : MonoBehaviour
     private IEnumerator SpawnTrail(TrailRenderer Trail, RaycastHit hit)
     {
         Debug.Log("start ienumerator");
-        GameObject t = Instantiate(Trail, shootingPoint.position, Quaternion.Inverse(shootingPoint.rotation)).gameObject;
         float time = 0;
-        while (time < 100)
+        Vector3 startPosition = Trail.transform.position;
+        while (time < 1)
         {
-            t.transform.position += t.transform.forward * 10f * Time.deltaTime;
+            //t.transform.position += t.transform.forward * 10f * Time.deltaTime;
+            Trail.transform.position = Vector3.Lerp(startPosition, hit.point, time);
             
-            time += Time.deltaTime;
+            time += Time.deltaTime / Trail.time;
             yield return null;
         }
-        //t.transform.position = hit.point;
-       //Destroy(Trail, time);
+        Trail.transform.position = hit.point;
+        Instantiate(bulletHole, rayHit.point, Quaternion.LookRotation(rayHit.normal));
+        Destroy(Trail, time);
     }
 }
