@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5577391178892445454}
   - component: {fileID: 4663852078094840640}
   m_Layer: 0
-  m_Name: GunSoundPlayer
+  m_Name: GunOpenSound
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -43,8 +43,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 694e1741f5081294597f0ebbc69e1b39, type: 3}
-  m_Resource: {fileID: 8300000, guid: 694e1741f5081294597f0ebbc69e1b39, type: 3}
+  m_audioClip: {fileID: 8300000, guid: b37effe906c4781489fbd57542cf06ca, type: 3}
+  m_Resource: {fileID: 8300000, guid: b37effe906c4781489fbd57542cf06ca, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
