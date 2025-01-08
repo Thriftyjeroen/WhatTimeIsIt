@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DestroySelf : MonoBehaviour
 {
-    private float destroyDelay = 5f;
+    [SerializeField] private float destroyDelay = 5f;
 
     void Start()
     {

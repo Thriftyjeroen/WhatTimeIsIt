@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4752471114590956491}
   - component: {fileID: 1251891468165921196}
   - component: {fileID: 9157009637923908716}
+  - component: {fileID: 1030212268293416638}
   m_Layer: 0
   m_Name: Crossbow
   m_TagString: Untagged
@@ -7615,13 +7616,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 20
   timeBetweenShooting: 0.5
-  reloadSpeed: 2.1
+  reloadSpeed: 2.29
   range: 10000
   timeBetweenShots: 0.08
-  spreadX: 0.03
-  spreadY: 0.03
-  magazineZise: 9
-  bulletsPerShot: 9
+  spreadX: 0
+  spreadY: 0
+  magazineZise: 1
+  bulletsPerShot: 1
   automaticFire: 0
   gun: {fileID: 8532058676982787475}
   cam: {fileID: 0}
@@ -7632,6 +7633,21 @@ MonoBehaviour:
   muzzleFlash: {fileID: 1000010254994808, guid: 9defeac88977c0d448aa4541073ee9e4, type: 3}
   bulletHole: {fileID: 2972552224966586805, guid: 9a2c9aaa93b33b2409e4269385a1d78b, type: 3}
   bulletTracer: {fileID: 5031712833824843428, guid: 9337765c684567b4ca3f367747006dca, type: 3}
+--- !u!114 &1030212268293416638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1825085595656664444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebe6dd9a306c33d478293b079594d032, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animatorWeezGun: {fileID: 0}
+  animatorGun2: {fileID: 0}
+  animatorCrossbow: {fileID: 0}
 --- !u!1 &2678819039688835109
 GameObject:
   m_ObjectHideFlags: 0
