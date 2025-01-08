@@ -4,29 +4,33 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    private const float NORMAL_FOV = 60f;
+    private const float HOOKSHOT_FOV = 100f;
+
     [SerializeField] private Transform debugHitPointTransform;
     [SerializeField] private Transform hookshotTransform;
 
     public Camera playerCamera;
-    public float walkSpeed = 6f;
-    public float runSpeed = 12f;
-    public float jumpPower = 7f;
-    public float gravity = 16f;
+    public float walkSpeed = 12f;
+    public float runSpeed = 16f;
+    public float jumpPower = 10f;
+    public float gravity = 25f;
     public float lookSpeed = 2f;
-    public float lookXLimit = 75f;
+    public float lookXLimit = 45f;
     public float defaultHeight = 2f;
     public float crouchHeight = 1f;
     public float crouchSpeed = 3f;
 
+    private State state;
+    private float hookshotSize;
+    private float rotationX = 0f;
+    private bool canMove = true;
     private Vector3 moveDirection = Vector3.zero;
     private Vector3 hookshotPosition;
-    private float rotationX = 0;
-    private CharacterController characterController;
     private Vector3 characterVelocityMomentum;
-    private float hookshotSize;
-
-    private bool canMove = true;
-    private State state;
+    private CharacterController characterController;
+    private CameraFov cameraFov;
+    private Collider playerCollider;
 
     private enum State
     {
@@ -39,6 +43,8 @@ public class PlayerMovement : MonoBehaviour
     {
         state = State.Normal;
         characterController = GetComponent<CharacterController>();
+        cameraFov = playerCamera.GetComponent<CameraFov>();
+        playerCollider = GetComponent<Collider>(); // Get the player's collider
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         hookshotTransform.gameObject.SetActive(false);
@@ -46,26 +52,25 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        // Apply momentum separately
+        if (characterController.isGrounded)
+        {
+            characterVelocityMomentum = Vector3.zero;
+        }
+
         if (characterVelocityMomentum.magnitude > 0)
         {
             characterController.Move(characterVelocityMomentum * Time.deltaTime);
-
-            // Gradually reduce momentum over time (damping)
-            float momentumDamping = 3f;
+            float momentumDamping = 0.5f;
             characterVelocityMomentum -= characterVelocityMomentum * momentumDamping * Time.deltaTime;
 
-            // Stop momentum if it becomes negligible
             if (characterVelocityMomentum.magnitude < 0.1f)
             {
                 characterVelocityMomentum = Vector3.zero;
             }
         }
 
-        // Handle player rotation
         HandleMouseLook();
 
-        // Handle state-based movement
         switch (state)
         {
             default:
@@ -73,9 +78,8 @@ public class PlayerMovement : MonoBehaviour
                 HandleNormalMovement();
                 break;
             case State.HookshotThrown:
-                HandleHookshotTrow();
+                HandleHookshotThrow();
                 HandleNormalMovement();
-
                 break;
             case State.HookshotFlyingPlayer:
                 HandleHookshotMovement();
@@ -87,16 +91,12 @@ public class PlayerMovement : MonoBehaviour
     {
         if (canMove)
         {
-            // Rotate camera vertically
             rotationX += -Input.GetAxis("Mouse Y") * lookSpeed;
             rotationX = Mathf.Clamp(rotationX, -lookXLimit, lookXLimit);
             playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
-
-            // Rotate player horizontally
             transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * lookSpeed, 0);
         }
     }
-
 
     private void HandleNormalMovement()
     {
@@ -117,7 +117,13 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
+            ResetGravityForce();
             moveDirection.y = movementDirectionY;
+        }
+
+        if (characterController.isGrounded)
+        {
+            characterVelocityMomentum = Vector3.zero;
         }
 
         if (!characterController.isGrounded)
@@ -145,8 +151,15 @@ public class PlayerMovement : MonoBehaviour
     {
         if (TestInputDownHookshot())
         {
-            if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out RaycastHit raycastHit))
+            LayerMask mask = LayerMask.GetMask("PlayerLayer"); // Use your relevant layer
+            mask = ~mask; // Invert the layer mask to exclude "Default" layer (assuming player collider is in "Default")
+
+            if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out RaycastHit raycastHit, Mathf.Infinity, mask))
             {
+                if (raycastHit.distance > 69f)
+                {
+                    return;
+                }
                 debugHitPointTransform.position = raycastHit.point;
                 hookshotPosition = raycastHit.point;
                 hookshotSize = 0f;
@@ -157,24 +170,50 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void HandleHookshotTrow()
+    private void HandleHookshotThrow()
     {
         hookshotTransform.LookAt(hookshotPosition);
 
-        float hookshotThrowSpeed = 100f;
-        hookshotSize += hookshotThrowSpeed * Time.deltaTime;
+        float hookshotThrowSpeed = 175f;
+        Vector3 hookshotDirection = (hookshotPosition - transform.position).normalized;
 
-        hookshotTransform.localScale = new Vector3(1,1, hookshotSize);
+        // Perform a raycast to detect walls or obstacles, ignoring the player's collider
+        LayerMask mask = LayerMask.GetMask("PlayerLayer");
+        mask = ~mask; // Exclude player's own collider layer
+        float raycastDistance = hookshotSize + hookshotThrowSpeed * Time.deltaTime;
 
-        if (hookshotSize >= Vector3.Distance(transform.position, hookshotPosition))
+        if (Physics.Raycast(transform.position, hookshotDirection, out RaycastHit hit, raycastDistance, mask))
+        {
+            hookshotPosition = hit.point; // Update target to collision point
+            hookshotSize = Vector3.Distance(transform.position, hookshotPosition); // Adjust rope length
+        }
+        else
+        {
+            hookshotSize += hookshotThrowSpeed * Time.deltaTime;
+        }
+
+        // Clamp the rope size to the distance to the target
+        float distanceToTarget = Vector3.Distance(transform.position, hookshotPosition);
+        hookshotSize = Mathf.Min(hookshotSize, distanceToTarget);
+
+        // Update rope visuals
+        hookshotTransform.localScale = new Vector3(1, 1, hookshotSize);
+
+        // Debug visuals for raycasting
+        Debug.DrawLine(transform.position, transform.position + hookshotDirection * raycastDistance, Color.red, 0.1f);
+
+        // Transition to flying state when rope reaches the target
+        if (hookshotSize >= distanceToTarget)
         {
             state = State.HookshotFlyingPlayer;
+            cameraFov.SetCameraFov(HOOKSHOT_FOV);
         }
     }
 
     private void HandleHookshotMovement()
     {
         hookshotTransform.LookAt(hookshotPosition);
+
         Vector3 hookshotDirection = (hookshotPosition - transform.position).normalized;
 
         float hookshotSpeedMin = 30f;
@@ -185,52 +224,54 @@ public class PlayerMovement : MonoBehaviour
         // Move player along hookshot direction
         characterController.Move(hookshotDirection * hookshotSpeed * hookshotSpeedMult * Time.deltaTime);
 
-        // Check if player reached the hookshot point
-        float reachedHookshotDistance = 1f;
-        if (Vector3.Distance(transform.position, hookshotPosition) < reachedHookshotDistance)
+        // Dynamically adjust the rope's length
+        float distanceToHookshot = Vector3.Distance(transform.position, hookshotPosition);
+        hookshotTransform.localScale = new Vector3(1, 1, distanceToHookshot);
+
+        // Check if player has reached the target
+        float reachedHookshotDistance = 2f;
+        if (distanceToHookshot < reachedHookshotDistance)
         {
             state = State.Normal;
+            canMove = true;
             ResetGravityForce();
             hookshotTransform.gameObject.SetActive(false);
+            cameraFov.SetCameraFov(NORMAL_FOV);
             return;
         }
 
         // Cancel hookshot on secondary input
         if (TestInputDownHookshot())
         {
-            state = State.Normal;
-            ResetGravityForce();
-            hookshotTransform.gameObject.SetActive(false);
-
+            characterVelocityMomentum = Vector3.zero;
+            RetractHookshot();
             return;
         }
 
         // Handle jump cancelation
         if (TestInputJump())
         {
-            // Reset vertical movement to avoid stacking forces
             moveDirection.y = 0;
-
-            // Apply horizontal momentum based on hookshot direction
-            float momentumExtraSpeed = 7f;
+            float momentumExtraSpeed = 12f;
             Vector3 hookshotMomentum = hookshotDirection * momentumExtraSpeed * hookshotSpeed;
-
-            // Add upward jump velocity
-            float jumpSpeed = 15f; // Limit upward force
+            float jumpSpeed = 20f;
             Vector3 jumpMomentum = Vector3.up * jumpSpeed;
 
-            // Combine horizontal and vertical momentum
             characterVelocityMomentum = hookshotMomentum + jumpMomentum;
-
-            // Clamp total momentum magnitude
-            float maxMomentum = 50f; // Adjust as needed
+            float maxMomentum = 66f;
             characterVelocityMomentum = Vector3.ClampMagnitude(characterVelocityMomentum, maxMomentum);
 
-            // Reset hookshot state
-            state = State.Normal;
-            ResetGravityForce();
-            hookshotTransform.gameObject.SetActive(false);
+            RetractHookshot();
         }
+    }
+
+
+    private void RetractHookshot()
+    {
+        state = State.Normal;
+        ResetGravityForce();
+        hookshotTransform.gameObject.SetActive(false);
+        cameraFov.SetCameraFov(NORMAL_FOV);
     }
 
     private void ResetGravityForce()
