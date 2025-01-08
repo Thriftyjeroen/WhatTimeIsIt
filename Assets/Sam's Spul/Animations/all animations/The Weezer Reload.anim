@@ -6515,7 +6515,7 @@ AnimationClip:
   m_HasGenericRootTransform: 1
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 1.8166667
+  - time: 1.8
     functionName: OnReloadComplete
     data: 
     objectReferenceParameter: {fileID: 0}
