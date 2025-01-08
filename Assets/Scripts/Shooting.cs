@@ -63,7 +63,8 @@ public class shooting : MonoBehaviour
         //spread
         float x = Random.Range(-spreadX, spreadX);
         float y = Random.Range(-spreadY, spreadY);
-        Vector3 direction = cam.transform.forward + new Vector3(x, y, 0);
+        Vector3 spreadOffset = cam.transform.right * x + cam.transform.up * y;
+        Vector3 direction = cam.transform.forward + spreadOffset;
         //raycast using the random range from spread as 'direction'
         if (Physics.Raycast(cam.transform.position, direction, out rayHit, range, enemy))
         {
