@@ -13,7 +13,6 @@ public class Player_Movement : MonoBehaviour
     public Camera playerCamera;
     public float walkSpeed = 12f;
     public float runSpeed = 16f;
-    public float slidespeed = 10f;
     public float jumpPower = 10f;
     public float gravity = 25f;
     public float lookSpeed = 2f;
@@ -151,21 +150,15 @@ public class Player_Movement : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.LeftControl) && isRunning && canMove && !issliding)
         {
-            print("is sliding");
             issliding = true;
-            characterController.height = crouchHeight;  
-            walkSpeed = slidespeed;  
-            runSpeed = slidespeed;
-            print("hi");
-
+            characterController.height = crouchHeight;
         }
         else if (!Input.GetKey(KeyCode.LeftControl) && issliding)
         {
-      
             issliding = false;
-            characterController.height = defaultHeight;  
-            walkSpeed = 6f; 
-            runSpeed = 12f;   
+            characterController.height = defaultHeight;
+            walkSpeed = 6f;
+            runSpeed = 12f;
         }
         else
         {
@@ -184,6 +177,7 @@ public class Player_Movement : MonoBehaviour
 
         characterController.Move(moveDirection * Time.deltaTime);
     }
+  
 
     private void HandleHookshotStart()
     {
@@ -326,6 +320,9 @@ public class Player_Movement : MonoBehaviour
     {
         return Input.GetKeyDown(KeyCode.Space);
     }
-    
-    
+    private void OnCollisionEnter(Collision collision)
+    {
+        print(collision.gameObject.name);
+    }
+
 }
