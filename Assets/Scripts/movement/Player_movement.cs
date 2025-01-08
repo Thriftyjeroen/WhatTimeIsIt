@@ -1,228 +1,331 @@
-using TMPro;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody))]
-public class Movement : MonoBehaviour
+public class Player_Movement : MonoBehaviour
 {
-    public Transform orientation;
-    float horizontalInput;
-    float verticalInput;
-    bool isGrounded;
-    bool isWallRunning;
-    bool isNearWall;
-    float baseSpeed = 5f;
-    float sprintMultiplier = 2f;
-    float wallRunSpeed = 7f;
-    float speed;
-    float jumpForce = 7.5f;
-    float airMultiplier = 0.5f;
-    int jumpCount = 0;
-    int maxJumps = 2;
-    Rigidbody body;
-    Vector3 moveDirection;
-    Vector3 wallJumpDirection;
-    string groundLayer = "ground";
-    string wallLayer = "wall";
+    private const float NORMAL_FOV = 60f;
+    private const float HOOKSHOT_FOV = 100f;
 
-    [SerializeField] float groundDrag = 4f;
-    [SerializeField] float airDrag = 1f;
-    [SerializeField] float wallRunGravity = 2f;
-    [SerializeField] float wallDistance = 1.5f;
+    [SerializeField] private Transform debugHitPointTransform;
+    [SerializeField] private Transform hookshotTransform;
+
+    public Camera playerCamera;
+    public float walkSpeed = 12f;
+    public float runSpeed = 16f;
+    public float slidespeed = 10f;
+    public float jumpPower = 10f;
+    public float gravity = 25f;
+    public float lookSpeed = 2f;
+    public float lookXLimit = 45f;
+    public float defaultHeight = 2f;
+    public float crouchHeight = 1f;
+    public float crouchSpeed = 3f;
+    public int jumpCount = 0;
+    public int maxJumps = 2;
+    private float rotationspeed = 10f;
+
+    private State state;
+    private float hookshotSize;
+    private float rotationX = 0f;
+    private bool canMove = true;
+    private bool issliding;
+    private Vector3 moveDirection = Vector3.zero;
+    private Vector3 hookshotPosition;
+    private Vector3 characterVelocityMomentum;
+    private CharacterController characterController;
+    private CameraFov cameraFov;
+    private Collider playerCollider;
+
+    private enum State
+    {
+        Normal,
+        HookshotThrown,
+        HookshotFlyingPlayer,
+    }
 
     void Start()
     {
-        body = GetComponent<Rigidbody>();
-        body.freezeRotation = true;
-        Cursor.visible = false;
+        state = State.Normal;
+        characterController = GetComponent<CharacterController>();
+        cameraFov = playerCamera.GetComponent<CameraFov>();
+        playerCollider = GetComponent<Collider>(); // Get the player's collider
         Cursor.lockState = CursorLockMode.Locked;
-
-        speed = baseSpeed;
+        Cursor.visible = false;
+        hookshotTransform.gameObject.SetActive(false);
     }
 
     void Update()
     {
-        horizontalInput = Input.GetAxis("Horizontal");
-        verticalInput = Input.GetAxis("Vertical");
-
-        CheckWallRunning();
-
-        if (Input.GetKey(KeyCode.LeftShift) && isGrounded)
+        if (characterController.isGrounded)
         {
-            speed = baseSpeed * sprintMultiplier;
-        }
-        else
-        {
-            speed = baseSpeed;
+            characterVelocityMomentum = Vector3.zero;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (characterVelocityMomentum.magnitude > 0)
         {
-            if (isGrounded)
+            characterController.Move(characterVelocityMomentum * Time.deltaTime);
+            float momentumDamping = 0.5f;
+            characterVelocityMomentum -= characterVelocityMomentum * momentumDamping * Time.deltaTime;
+
+            if (characterVelocityMomentum.magnitude < 0.1f)
             {
-                Jump();
-            }
-            else if (jumpCount < maxJumps)
-            {
-                Jump();
+                characterVelocityMomentum = Vector3.zero;
             }
         }
 
-        if (isWallRunning && Input.GetKeyDown(KeyCode.Space))
-        {
-            WallRunJump();
-        }
+        HandleMouseLook();
 
-        SpeedControl();
-        AdjustDrag();
+        switch (state)
+        {
+            default:
+            case State.Normal:
+                HandleNormalMovement();
+                break;
+            case State.HookshotThrown:
+                HandleHookshotThrow();
+                HandleNormalMovement();
+                break;
+            case State.HookshotFlyingPlayer:
+                HandleHookshotMovement();
+                break;
+        }
     }
 
-    void FixedUpdate()
+    private void HandleMouseLook()
     {
-        if (isWallRunning)
+        if (canMove)
         {
-            WallRunMovement();
+            rotationX += -Input.GetAxis("Mouse Y") * lookSpeed;
+            rotationX = Mathf.Clamp(rotationX, -lookXLimit, lookXLimit);
+            playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
+            transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * lookSpeed, 0);
+        }
+    }
+
+    private void HandleNormalMovement()
+    {
+        HandleHookshotStart();
+
+        Vector3 forward = transform.TransformDirection(Vector3.forward);
+        Vector3 right = transform.TransformDirection(Vector3.right);
+
+        bool isRunning = Input.GetKey(KeyCode.LeftShift);
+        float curSpeedX = canMove ? (isRunning ? runSpeed : walkSpeed) * Input.GetAxis("Vertical") : 0;
+        float curSpeedY = canMove ? (isRunning ? runSpeed : walkSpeed) * Input.GetAxis("Horizontal") : 0;
+        float movementDirectionY = moveDirection.y;
+        moveDirection = (forward * curSpeedX) + (right * curSpeedY);
+
+        if (TestInputJump() && canMove && characterController.isGrounded)
+        {
+            moveDirection.y = jumpPower;
+            jumpCount++;
+        }
+        else if (TestInputJump() && canMove && jumpCount < maxJumps)
+        {
+            moveDirection.y = jumpPower;
+            jumpCount++;
         }
         else
         {
-            MovePlayer();
+            ResetGravityForce();
+            moveDirection.y = movementDirectionY;
         }
-    }
 
-    private void MovePlayer()
-    {
-        moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
-
-        if (isGrounded)
+        if (characterController.isGrounded)
         {
-            body.AddForce(moveDirection.normalized * speed * 10f, ForceMode.Force);
-        }
-        else
-        {
-            body.AddForce(moveDirection.normalized * speed * 10f * airMultiplier, ForceMode.Force);
-        }
-    }
-
-    private void WallRunMovement()
-    {
-        moveDirection = orientation.forward;
-
-        Vector3 wallRunForce = moveDirection.normalized * wallRunSpeed + Vector3.down * wallRunGravity;
-
-        body.AddForce(wallRunForce, ForceMode.Force);
-
-        body.linearVelocity = new Vector3(body.linearVelocity.x, Mathf.Clamp(body.linearVelocity.y, -2f, 2f), body.linearVelocity.z);
-    }
-
-    private void WallRunJump()
-    {
-        body.useGravity = true;
-
-        if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            wallJumpDirection = transform.up + (-orientation.right);
-        }
-        if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            wallJumpDirection = transform.up + orientation.right;
-        }
-        body.AddForce(wallJumpDirection.normalized * jumpForce, ForceMode.Impulse);
-        isWallRunning = false;
-    }
-
-    private void Jump()
-    {
-        body.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-        jumpCount++;
-    }
-
-    private void SpeedControl()
-    {
-        Vector3 flatVelocity = new Vector3(body.linearVelocity.x, 0, body.linearVelocity.z);
-
-        if (flatVelocity.magnitude > speed)
-        {
-            Vector3 limitedVelocity = flatVelocity.normalized * speed;
-            body.linearVelocity = new Vector3(limitedVelocity.x, body.linearVelocity.y, limitedVelocity.z);
-        }
-    }
-
-    private void AdjustDrag()
-    {
-        if (isGrounded)
-        {
-            body.linearDamping = groundDrag;
-        }
-        else
-        {
-            body.linearDamping = airDrag;
-        }
-    }
-
-    void OnCollisionEnter(Collision collision)
-    {
-        int groundLayerIndex = LayerMask.NameToLayer(groundLayer);
-        int wallLayerIndex = LayerMask.NameToLayer(wallLayer);
-
-        if (collision.gameObject.layer == groundLayerIndex)
-        {
-            isGrounded = true;
+            characterVelocityMomentum = Vector3.zero;
             jumpCount = 0;
-            isWallRunning = false;
-            body.useGravity = true;
         }
-        else if (collision.gameObject.layer == wallLayerIndex)
+
+        if (!characterController.isGrounded)
         {
-            StartWallRun();
+            moveDirection.y -= gravity * Time.deltaTime;
         }
-    }
 
-    void OnCollisionExit(Collision collision)
-    {
-        int groundLayerIndex = LayerMask.NameToLayer(groundLayer);
-        int wallLayerIndex = LayerMask.NameToLayer(wallLayer);
-
-        if (collision.gameObject.layer == groundLayerIndex)
+        if (Input.GetKey(KeyCode.LeftControl) && canMove)
         {
-            isGrounded = false;
+            characterController.height = crouchHeight;
+            walkSpeed = crouchSpeed;
+            runSpeed = crouchSpeed;
         }
-        else if (collision.gameObject.layer == wallLayerIndex)
+        if (Input.GetKeyDown(KeyCode.LeftControl) && isRunning && canMove && !issliding)
         {
-            StopWallRun();
+            print("is sliding");
+            issliding = true;
+            characterController.height = crouchHeight;  
+            walkSpeed = slidespeed;  
+            runSpeed = slidespeed;
+            print("hi");
+
         }
-    }
-
-    private void StartWallRun()
-    {
-        if (!isGrounded && isNearWall)
+        else if (!Input.GetKey(KeyCode.LeftControl) && issliding)
         {
-            isWallRunning = true;
-            body.useGravity = false;
-        }
-    }
-
-    private void StopWallRun()
-    {
-        isWallRunning = false;
-        body.useGravity = true;
-    }
-
-    private void CheckWallRunning()
-    {
-        RaycastHit hit;
-        isNearWall = false;
-
-        if (Physics.Raycast(transform.position, orientation.right, out hit, wallDistance) || Physics.Raycast(transform.position, -orientation.right, out hit, wallDistance))
-        {
-            isNearWall = true;
+      
+            issliding = false;
+            characterController.height = defaultHeight;  
+            walkSpeed = 6f; 
+            runSpeed = 12f;   
         }
         else
         {
-            isNearWall = false;
+            characterController.height = defaultHeight;
+            walkSpeed = 6f;
+            runSpeed = 12f;
         }
-
-        if (!isNearWall)
+        if (issliding)
         {
-            StopWallRun();
+            rotationX += rotationspeed * Time.deltaTime;
+            rotationX = Mathf.Lerp(rotationX, -20f, Time.deltaTime * rotationspeed);
+            playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
+        }
+        
+      
+
+        characterController.Move(moveDirection * Time.deltaTime);
+    }
+
+    private void HandleHookshotStart()
+    {
+        if (TestInputDownHookshot())
+        {
+            LayerMask mask = LayerMask.GetMask("PlayerLayer"); // Use your relevant layer
+            mask = ~mask; // Invert the layer mask to exclude "Default" layer (assuming player collider is in "Default")
+
+            if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out RaycastHit raycastHit, Mathf.Infinity, mask))
+            {
+                if (raycastHit.distance > 69f)
+                {
+                    return;
+                }
+                debugHitPointTransform.position = raycastHit.point;
+                hookshotPosition = raycastHit.point;
+                hookshotSize = 0f;
+                hookshotTransform.gameObject.SetActive(true);
+                hookshotTransform.localScale = Vector3.zero;
+                state = State.HookshotThrown;
+            }
         }
     }
+
+    private void HandleHookshotThrow()
+    {
+        hookshotTransform.LookAt(hookshotPosition);
+
+        float hookshotThrowSpeed = 175f;
+        Vector3 hookshotDirection = (hookshotPosition - transform.position).normalized;
+
+        // Perform a raycast to detect walls or obstacles, ignoring the player's collider
+        LayerMask mask = LayerMask.GetMask("PlayerLayer");
+        mask = ~mask; // Exclude player's own collider layer
+        float raycastDistance = hookshotSize + hookshotThrowSpeed * Time.deltaTime;
+
+        if (Physics.Raycast(transform.position, hookshotDirection, out RaycastHit hit, raycastDistance, mask))
+        {
+            hookshotPosition = hit.point; // Update target to collision point
+            hookshotSize = Vector3.Distance(transform.position, hookshotPosition); // Adjust rope length
+        }
+        else
+        {
+            hookshotSize += hookshotThrowSpeed * Time.deltaTime;
+        }
+
+        // Clamp the rope size to the distance to the target
+        float distanceToTarget = Vector3.Distance(transform.position, hookshotPosition);
+        hookshotSize = Mathf.Min(hookshotSize, distanceToTarget);
+
+        // Update rope visuals
+        hookshotTransform.localScale = new Vector3(1, 1, hookshotSize);
+
+        // Debug visuals for raycasting
+        Debug.DrawLine(transform.position, transform.position + hookshotDirection * raycastDistance, Color.red, 0.1f);
+
+        // Transition to flying state when rope reaches the target
+        if (hookshotSize >= distanceToTarget)
+        {
+            state = State.HookshotFlyingPlayer;
+            cameraFov.SetCameraFov(HOOKSHOT_FOV);
+        }
+    }
+
+    private void HandleHookshotMovement()
+    {
+        hookshotTransform.LookAt(hookshotPosition);
+
+        Vector3 hookshotDirection = (hookshotPosition - transform.position).normalized;
+
+        float hookshotSpeedMin = 30f;
+        float hookshotSpeedMax = 60f;
+        float hookshotSpeed = Mathf.Clamp(Vector3.Distance(transform.position, hookshotPosition), hookshotSpeedMin, hookshotSpeedMax);
+        float hookshotSpeedMult = 2f;
+
+        // Move player along hookshot direction
+        characterController.Move(hookshotDirection * hookshotSpeed * hookshotSpeedMult * Time.deltaTime);
+
+        // Dynamically adjust the rope's length
+        float distanceToHookshot = Vector3.Distance(transform.position, hookshotPosition);
+        hookshotTransform.localScale = new Vector3(1, 1, distanceToHookshot);
+
+        // Check if player has reached the target
+        float reachedHookshotDistance = 2f;
+        if (distanceToHookshot < reachedHookshotDistance)
+        {
+            state = State.Normal;
+            canMove = true;
+            ResetGravityForce();
+            hookshotTransform.gameObject.SetActive(false);
+            cameraFov.SetCameraFov(NORMAL_FOV);
+            return;
+        }
+
+        // Cancel hookshot on secondary input
+        if (TestInputDownHookshot())
+        {
+            characterVelocityMomentum = Vector3.zero;
+            RetractHookshot();
+            return;
+        }
+
+        // Handle jump cancelation
+        if (TestInputJump())
+        {
+            moveDirection.y = 0;
+            float momentumExtraSpeed = 12f;
+            Vector3 hookshotMomentum = hookshotDirection * momentumExtraSpeed * hookshotSpeed;
+            float jumpSpeed = 20f;
+            Vector3 jumpMomentum = Vector3.up * jumpSpeed;
+
+            characterVelocityMomentum = hookshotMomentum + jumpMomentum;
+            float maxMomentum = 66f;
+            characterVelocityMomentum = Vector3.ClampMagnitude(characterVelocityMomentum, maxMomentum);
+
+            RetractHookshot();
+        }
+    }
+
+
+    private void RetractHookshot()
+    {
+        state = State.Normal;
+        ResetGravityForce();
+        hookshotTransform.gameObject.SetActive(false);
+        cameraFov.SetCameraFov(NORMAL_FOV);
+    }
+
+    private void ResetGravityForce()
+    {
+        moveDirection.y = 0;
+    }
+
+    private bool TestInputDownHookshot()
+    {
+        return Input.GetKeyDown(KeyCode.F);
+    }
+
+    private bool TestInputJump()
+    {
+        return Input.GetKeyDown(KeyCode.Space);
+    }
+    
+    
 }

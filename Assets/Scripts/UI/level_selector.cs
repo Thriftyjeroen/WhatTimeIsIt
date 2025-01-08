@@ -3,13 +3,14 @@ using UnityEngine;
 
 public class level_selector : MonoBehaviour
 {
-    [SerializeField] Rigidbody body;
+    [SerializeField] CapsuleCollider player;
     [SerializeField] GameObject PopUp;
-    [SerializeField]TMP_Text leveltext;
+    [SerializeField] TMP_Text leveltext;
     string levelname;
 
     void Start()
     {
+
         if (PopUp == null)
         {
             Debug.LogError("PopUp is not assigned in the Inspector!");
@@ -49,10 +50,10 @@ public class level_selector : MonoBehaviour
         print("yes");
     }
 
-    private void OnCollisionEnter(Collision collision)
+
+    private void OnTriggerEnter(Collider collision)
     {
-        print(collision.gameObject.name);
-        
+
 
         if (collision.gameObject.name == "level_1")
         {
@@ -60,10 +61,8 @@ public class level_selector : MonoBehaviour
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
             PopUp.SetActive(true);
-            Debug.Log("LEVEL1 Collision detected!");
+
             levelname = "world1-1";
         }
-
-
     }
 }
