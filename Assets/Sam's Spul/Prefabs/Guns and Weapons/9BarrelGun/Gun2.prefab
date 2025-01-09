@@ -46,6 +46,7 @@ GameObject:
   - component: {fileID: 3300196618597750432}
   - component: {fileID: 6224786360892789135}
   - component: {fileID: 6650888955037882168}
+  - component: {fileID: 8960491691223312609}
   m_Layer: 0
   m_Name: Gun2
   m_TagString: Untagged
@@ -7301,7 +7302,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 20
   timeBetweenShooting: 0.5
-  reloadSpeed: 2.92
+  reloadSpeed: 2.1
   range: 10000
   timeBetweenShots: 0.08
   spreadX: 0.03
@@ -7317,6 +7318,7 @@ MonoBehaviour:
     m_Bits: 63
   muzzleFlash: {fileID: 1000010254994808, guid: 9defeac88977c0d448aa4541073ee9e4, type: 3}
   bulletHole: {fileID: 1000010844420130, guid: 4edabb1c0dde62743b137378c7d22980, type: 3}
+  bulletTracer: {fileID: 0}
 --- !u!95 &6224786360892789135
 Animator:
   serializedVersion: 7
@@ -7351,6 +7353,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f6f6c7c5794b274b9ef2e9524a11f96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8960491691223312609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5310690117072153468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebe6dd9a306c33d478293b079594d032, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animatorWeezGun: {fileID: 0}
+  animatorGun2: {fileID: 0}
+  animatorCrossbow: {fileID: 0}
 --- !u!1001 &3135311189185645806
 PrefabInstance:
   m_ObjectHideFlags: 0
