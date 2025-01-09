@@ -510,6 +510,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2132428493142045987}
     - target: {fileID: 3300196618597750432, guid: 11e31e73605d1374ba1027523a299266, type: 3}
+      propertyPath: bulletHole
+      value: 
+      objectReference: {fileID: 2972552224966586805, guid: 9a2c9aaa93b33b2409e4269385a1d78b, type: 3}
+    - target: {fileID: 3300196618597750432, guid: 11e31e73605d1374ba1027523a299266, type: 3}
+      propertyPath: bulletTracer
+      value: 
+      objectReference: {fileID: 5031712833824843428, guid: 9337765c684567b4ca3f367747006dca, type: 3}
+    - target: {fileID: 3300196618597750432, guid: 11e31e73605d1374ba1027523a299266, type: 3}
       propertyPath: enemy.m_Bits
       value: 4294967295
       objectReference: {fileID: 0}
@@ -1116,7 +1124,7 @@ PrefabInstance:
     - target: {fileID: 1039081632170677732, guid: 00ab4a0cc8811d94facd5da2e5d05f2b, type: 3}
       propertyPath: animatorFlintlock
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 4788117113733127504}
     - target: {fileID: 2289797446575101082, guid: 00ab4a0cc8811d94facd5da2e5d05f2b, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.15733945
@@ -1173,6 +1181,14 @@ PrefabInstance:
       propertyPath: cam
       value: 
       objectReference: {fileID: 2132428493142045987}
+    - target: {fileID: 5323261816262812062, guid: 00ab4a0cc8811d94facd5da2e5d05f2b, type: 3}
+      propertyPath: bulletHole
+      value: 
+      objectReference: {fileID: 2972552224966586805, guid: 9a2c9aaa93b33b2409e4269385a1d78b, type: 3}
+    - target: {fileID: 5323261816262812062, guid: 00ab4a0cc8811d94facd5da2e5d05f2b, type: 3}
+      propertyPath: bulletTracer
+      value: 
+      objectReference: {fileID: 5031712833824843428, guid: 9337765c684567b4ca3f367747006dca, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
