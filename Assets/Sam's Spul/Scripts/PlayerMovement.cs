@@ -13,7 +13,7 @@ public class PlayerMovement : MonoBehaviour
     public Camera playerCamera;
     public float walkSpeed = 12f;
     public float runSpeed = 16f;
-    public float jumpPower = 10f;
+    public float jumpPower = 15f;
     public float gravity = 25f;
     public float lookSpeed = 2f;
     public float lookXLimit = 45f;
@@ -254,7 +254,7 @@ public class PlayerMovement : MonoBehaviour
             moveDirection.y = 0;
             float momentumExtraSpeed = 12f;
             Vector3 hookshotMomentum = hookshotDirection * momentumExtraSpeed * hookshotSpeed;
-            float jumpSpeed = 20f;
+            float jumpSpeed = 50f;
             Vector3 jumpMomentum = Vector3.up * jumpSpeed;
 
             characterVelocityMomentum = hookshotMomentum + jumpMomentum;
