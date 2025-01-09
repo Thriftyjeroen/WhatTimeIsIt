@@ -5,6 +5,7 @@ public class GunControllerWeez: MonoBehaviour
     [SerializeField] Animator animatorWeezGun;
     [SerializeField] Animator animatorGun2;
     [SerializeField] Animator animatorCrossbow;
+    [SerializeField] Animator animatorFlintlock;
     private bool canShoot = true;
 
     void Update()
@@ -21,6 +22,7 @@ public class GunControllerWeez: MonoBehaviour
         animatorGun2.SetTrigger("Reload");
         animatorWeezGun.SetTrigger("Reload");
         animatorCrossbow.SetTrigger("Reload");
+        animatorFlintlock.SetTrigger("Reload");
     }
     public void OnReloadComplete()
     {

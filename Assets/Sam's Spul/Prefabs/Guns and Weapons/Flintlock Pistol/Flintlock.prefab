@@ -12,6 +12,9 @@ GameObject:
   - component: {fileID: 7603509807564540200}
   - component: {fileID: 3354826141384371606}
   - component: {fileID: 623350693377597122}
+  - component: {fileID: 5323261816262812062}
+  - component: {fileID: 1039081632170677732}
+  - component: {fileID: 2152326806341613780}
   m_Layer: 0
   m_Name: Flintlock
   m_TagString: Untagged
@@ -34,6 +37,7 @@ Transform:
   m_Children:
   - {fileID: 6349085778561076207}
   - {fileID: 7851892522234424594}
+  - {fileID: 5958780356241587502}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7603509807564540200
@@ -6904,6 +6908,75 @@ MonoBehaviour:
   m_SelectedFaces: 
   m_SelectedEdges: []
   m_SelectedVertices: 
+--- !u!114 &5323261816262812062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 312977827984678102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 365a6545eb501d945a233e70a6118789, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 0
+  timeBetweenShooting: 0
+  reloadSpeed: 1.1
+  range: 1000000
+  timeBetweenShots: 0
+  spreadX: 0
+  spreadY: 0
+  magazineZise: 1
+  bulletsPerShot: 1
+  automaticFire: 0
+  gun: {fileID: 2289797446575101082}
+  cam: {fileID: 0}
+  shootingPoint: {fileID: 5958780356241587502}
+  enemy:
+    serializedVersion: 2
+    m_Bits: 831
+  muzzleFlash: {fileID: 0}
+  bulletHole: {fileID: 0}
+  bulletTracer: {fileID: 0}
+--- !u!114 &1039081632170677732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 312977827984678102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebe6dd9a306c33d478293b079594d032, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animatorWeezGun: {fileID: 3399587988673581565, guid: 0e1185e9b93019c46baeac0852ec8ad1, type: 3}
+  animatorGun2: {fileID: 6224786360892789135, guid: 11e31e73605d1374ba1027523a299266, type: 3}
+  animatorCrossbow: {fileID: 1251891468165921196, guid: 52d3bce587ed4ae41a68536711b6fef3, type: 3}
+  animatorFlintlock: {fileID: 2152326806341613780}
+--- !u!95 &2152326806341613780
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 312977827984678102}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 5fcb3e1a099ccfa47bbaa71546d54400, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &5937539684194832111
 GameObject:
   m_ObjectHideFlags: 0
@@ -16852,3 +16925,34 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
+--- !u!1 &8336197632941732461
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5958780356241587502}
+  m_Layer: 0
+  m_Name: ShootingPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5958780356241587502
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8336197632941732461}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -1, z: -0, w: -0.00000035762784}
+  m_LocalPosition: {x: 0, y: 0.62, z: -8.14}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2289797446575101082}
+  m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
