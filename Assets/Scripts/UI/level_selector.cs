@@ -1,15 +1,17 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class level_selector : MonoBehaviour
 {
-    [SerializeField] Rigidbody body;
+    [SerializeField] CapsuleCollider player;
     [SerializeField] GameObject PopUp;
-    [SerializeField]TMP_Text leveltext;
+    [SerializeField] TMP_Text leveltext;
     string levelname;
 
     void Start()
     {
+
         if (PopUp == null)
         {
             Debug.LogError("PopUp is not assigned in the Inspector!");
@@ -46,13 +48,17 @@ public class level_selector : MonoBehaviour
     }
     public void AnswerYes()
     {
+        //send you to the level
         print("yes");
+        
+            SceneManager.LoadScene(levelname);
+        
     }
 
-    private void OnCollisionEnter(Collision collision)
+
+    private void OnTriggerEnter(Collider collision)
     {
-        print(collision.gameObject.name);
-        
+
 
         if (collision.gameObject.name == "level_1")
         {
@@ -60,10 +66,17 @@ public class level_selector : MonoBehaviour
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
             PopUp.SetActive(true);
-            Debug.Log("LEVEL1 Collision detected!");
-            levelname = "world1-1";
+
+            levelname = "world 1-1";
         }
+        if (collision.gameObject.name == "level_2")
+        {
+            Time.timeScale = 0;
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+            PopUp.SetActive(true);
 
-
+            levelname = "world 1-2";
+        }
     }
 }
