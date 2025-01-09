@@ -1698,7 +1698,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -473.1, y: -238.4}
+  m_AnchoredPosition: {x: -473.1, y: -247.06}
   m_SizeDelta: {x: 21.6356, y: 21.6356}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &758335251
@@ -1766,8 +1766,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 20
-  m_fontSizeBase: 20
+  m_fontSize: 5
+  m_fontSizeBase: 5
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1804,7 +1804,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: 0, w: 6.589347}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   _SortingLayer: 0
@@ -3792,6 +3792,8 @@ GameObject:
   - component: {fileID: 1179796497}
   - component: {fileID: 1179796499}
   - component: {fileID: 1179796500}
+  - component: {fileID: 1179796501}
+  - component: {fileID: 1179796502}
   m_Layer: 0
   m_Name: scenemanager
   m_TagString: Untagged
@@ -3852,6 +3854,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd2c4d27069d2174e96249ae554f10be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1179796501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1179796496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96c45828f8a05194e8419c2facd0ce0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  board: {fileID: 1640302804}
+  loadingCircle: {fileID: 1284997429802860730, guid: f1f66738a3fedc34ab03d143e1d642d4, type: 3}
+  level: 1
+  playerName: leon
+--- !u!114 &1179796502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1179796496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96c45828f8a05194e8419c2facd0ce0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  board: {fileID: 758335251}
+  loadingCircle: {fileID: 1284997429802860730, guid: f1f66738a3fedc34ab03d143e1d642d4, type: 3}
+  level: 2
+  playerName: LEON
 --- !u!1 &1199647977
 GameObject:
   m_ObjectHideFlags: 0
@@ -5444,7 +5478,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1640302802}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.4327}
+  m_LocalPosition: {x: 0, y: 0, z: -0.30328}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5452,8 +5486,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -497.7, y: -238.4}
-  m_SizeDelta: {x: 21.6356, y: 21.6356}
+  m_AnchoredPosition: {x: -498, y: -243.2}
+  m_SizeDelta: {x: 15.1623, y: 15.162}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1640302804
 MonoBehaviour:
@@ -5520,8 +5554,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 20
-  m_fontSizeBase: 20
+  m_fontSize: 5
+  m_fontSizeBase: 5
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -6574,6 +6608,7 @@ MonoBehaviour:
   animatorWeezGun: {fileID: 103379673}
   animatorGun2: {fileID: 1221302572}
   animatorCrossbow: {fileID: 473135989}
+  animatorFlintlock: {fileID: 0}
 --- !u!114 &1860006360
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6758,7 +6793,6 @@ MonoBehaviour:
   crouchSpeed: 3
   jumpCount: 0
   maxJumps: 1
-  slidetime: 0
 --- !u!1 &1905343928
 GameObject:
   m_ObjectHideFlags: 0
