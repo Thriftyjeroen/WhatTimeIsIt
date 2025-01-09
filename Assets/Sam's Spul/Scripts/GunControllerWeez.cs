@@ -2,38 +2,31 @@ using UnityEngine;
 
 public class GunControllerWeez: MonoBehaviour
 {
-    [SerializeField] Animator animator;
-
-    private bool hasShot = false;
+    [SerializeField] Animator animatorWeezGun;
+    [SerializeField] Animator animatorGun2;
+    [SerializeField] Animator animatorCrossbow;
+    [SerializeField] Animator animatorFlintlock;
+    private bool canShoot = true;
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && canShoot)
         {
-            Shoot();
-        }
-
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            Reload();
+                Shoot();
         }
     }
 
     void Shoot()
     {
-        if (!hasShot)
-        {
-            animator.SetTrigger("Shoot");
-            hasShot = true;
-        }
+        canShoot = false;
+        animatorGun2.SetTrigger("Reload");
+        animatorWeezGun.SetTrigger("Reload");
+        animatorCrossbow.SetTrigger("Reload");
+        animatorFlintlock.SetTrigger("Reload");
     }
-
-    void Reload()
+    public void OnReloadComplete()
     {
-        if (hasShot)
-        {
-            animator.SetTrigger("Reload");
-            hasShot = false; // Reset after reloading
-        }
+        print("can shoot");
+        canShoot=true;
     }
 }
