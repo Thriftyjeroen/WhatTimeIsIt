@@ -1,5 +1,4 @@
 using System.Collections;
-using UnityEditor.Rendering;
 using UnityEngine;
 
 public class shooting : MonoBehaviour
@@ -129,7 +128,7 @@ public class shooting : MonoBehaviour
             yield return null;
         }
         Trail.transform.position = hit.point;
-        Instantiate(bulletHole, rayHit.point + (hit.normal * 0.1f), Quaternion.FromToRotation(Vector3.up, rayHit.normal));
+        Instantiate(bulletHole, hit.point + (hit.normal * 0.1f), Quaternion.FromToRotation(Vector3.up, rayHit.normal));
         Destroy(Trail, time);
     }
 }
