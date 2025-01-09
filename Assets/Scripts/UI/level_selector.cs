@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class level_selector : MonoBehaviour
 {
@@ -47,7 +48,11 @@ public class level_selector : MonoBehaviour
     }
     public void AnswerYes()
     {
+        //send you to the level
         print("yes");
+        
+            SceneManager.LoadScene(levelname);
+        
     }
 
 
@@ -62,7 +67,16 @@ public class level_selector : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             PopUp.SetActive(true);
 
-            levelname = "world1-1";
+            levelname = "world 1-1";
+        }
+        if (collision.gameObject.name == "level_2")
+        {
+            Time.timeScale = 0;
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+            PopUp.SetActive(true);
+
+            levelname = "world 1-2";
         }
     }
 }
