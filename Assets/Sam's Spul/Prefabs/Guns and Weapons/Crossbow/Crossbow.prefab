@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 1251891468165921196}
   - component: {fileID: 9157009637923908716}
   - component: {fileID: 1030212268293416638}
+  - component: {fileID: 7597267408721323624}
   m_Layer: 0
   m_Name: Crossbow
   m_TagString: Untagged
@@ -7648,6 +7649,19 @@ MonoBehaviour:
   animatorWeezGun: {fileID: 3399587988673581565, guid: 0e1185e9b93019c46baeac0852ec8ad1, type: 3}
   animatorGun2: {fileID: 6224786360892789135, guid: 11e31e73605d1374ba1027523a299266, type: 3}
   animatorCrossbow: {fileID: 1251891468165921196}
+  animatorFlintlock: {fileID: 2152326806341613780, guid: 00ab4a0cc8811d94facd5da2e5d05f2b, type: 3}
+--- !u!114 &7597267408721323624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1825085595656664444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f6f6c7c5794b274b9ef2e9524a11f96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2678819039688835109
 GameObject:
   m_ObjectHideFlags: 0
