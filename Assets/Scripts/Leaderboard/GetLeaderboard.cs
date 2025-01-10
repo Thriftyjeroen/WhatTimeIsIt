@@ -54,7 +54,7 @@ public class GetLeaderboard : MonoBehaviour
             {
                 if (scores[j].name == pName)
                 {
-                    board.text = board.text + $"\n===={j + 1}====\n{scores[j].name} - {scores[j].score}";
+                    board.text = board.text + $"\n\n==============\nYou are in place {j + 1}\n{scores[j].name} - {scores[j].score}";
                 }
             }
         }

@@ -22,6 +22,7 @@ public class Player_Movement : MonoBehaviour
     public float crouchSpeed = 3f;
     public int jumpCount = 0;
     public int maxJumps = 2;
+    public float slideSpeed = 12f;
     private float rotationspeed = 10f;
     public LayerMask walllayer;
 
@@ -67,7 +68,6 @@ public class Player_Movement : MonoBehaviour
             characterController.Move(characterVelocityMomentum * Time.deltaTime);
             float momentumDamping = 0.5f;
             characterVelocityMomentum -= characterVelocityMomentum * momentumDamping * Time.deltaTime;
-
             if (characterVelocityMomentum.magnitude < 0.1f)
             {
                 characterVelocityMomentum = Vector3.zero;
@@ -169,16 +169,27 @@ public class Player_Movement : MonoBehaviour
         }
         if (issliding)
         {
+            slideSpeed -= Time.deltaTime * 5;
+            moveDirection = (forward * slideSpeed) + (right * slideSpeed);
             rotationX += rotationspeed * Time.deltaTime;
             rotationX = Mathf.Lerp(rotationX, -20f, Time.deltaTime * rotationspeed);
             playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
+            characterController.Move(moveDirection * Time.deltaTime);
+            if (slideSpeed <= 0)
+            {
+                issliding = false;
+            }
         }
-        
-      
+        else
+        {
+            slideSpeed = runSpeed;
+            characterController.Move(moveDirection * Time.deltaTime);
+        }
 
-        characterController.Move(moveDirection * Time.deltaTime);
+
+
     }
-  
+
 
     private void HandleHookshotStart()
     {
