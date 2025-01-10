@@ -7368,6 +7368,7 @@ MonoBehaviour:
   animatorWeezGun: {fileID: 0}
   animatorGun2: {fileID: 0}
   animatorCrossbow: {fileID: 0}
+  animatorFlintlock: {fileID: 0}
 --- !u!1001 &3135311189185645806
 PrefabInstance:
   m_ObjectHideFlags: 0
