@@ -23,6 +23,7 @@ public class Player_Movement : MonoBehaviour
     public int jumpCount = 0;
     public int maxJumps = 2;
     private float rotationspeed = 10f;
+    public LayerMask walllayer;
 
     private State state;
     private float hookshotSize;
@@ -322,7 +323,10 @@ public class Player_Movement : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        print(collision.gameObject.name);
+        if (((1 << collision.gameObject.layer) & walllayer) != 0)
+        {
+            Debug.Log("Je raakt de muur!");
+        }
     }
 
 }
