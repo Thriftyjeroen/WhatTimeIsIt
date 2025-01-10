@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEngine.Rendering.DebugUI;
 
 public class settings : MonoBehaviour
 {
@@ -22,7 +23,15 @@ public class settings : MonoBehaviour
     }
     public void changevolume()
     {
-        AudioListener.volume = slider.value;
-        audiotext.text = slider.value.ToString();
+        // Ensure the slider value is set to the current volume level when the game starts
+        slider.value = AudioListener.volume;
+
+        // Add listener to handle slider changes
+        slider.onValueChanged.AddListener(onvolumechange);
+        audiotext.text = slider.value.ToString();   
+    }
+    void onvolumechange(float value)
+    {
+        AudioListener.volume = value;
     }
 }

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class shooting : MonoBehaviour
@@ -17,6 +18,7 @@ public class shooting : MonoBehaviour
     public LayerMask enemy;
 
     public GameObject muzzleFlash, bulletHole;
+    [SerializeField] private TrailRenderer bulletTracer;
     private void Awake()
     {
         //on Awake it will reload ur gun so when you start its always filled with bullets. also ready to fire is set to true
@@ -60,30 +62,29 @@ public class shooting : MonoBehaviour
         //spread
         float x = Random.Range(-spreadX, spreadX);
         float y = Random.Range(-spreadY, spreadY);
-        Vector3 direction = cam.transform.forward + new Vector3(x, y, 0);
+        Vector3 spreadOffset = cam.transform.right * x + cam.transform.up * y;
+        Vector3 direction = cam.transform.forward + spreadOffset;
         //raycast using the random range from spread as 'direction'
         if (Physics.Raycast(cam.transform.position, direction, out rayHit, range, enemy))
         {
             Debug.Log(rayHit.collider.name);
             Debug.DrawLine(transform.position, rayHit.point, Color.green, 1000f);
-            Instantiate(bulletHole, rayHit.point, Quaternion.identity);
-            if (rayHit.collider.CompareTag("Enemy"))
-            {
-                //To hit an enemy they need to be tagged with enemy and also have a TakeDamage method
-                //rayHit.collider.GetComponent<Enemy>().TakeDamage(damage);
-            }
+           
+            TrailRenderer trail = Instantiate(bulletTracer, shootingPoint.transform.position, Quaternion.identity);
+            StartCoroutine(SpawnTrail(trail, rayHit));
+            //if (rayHit.collider.CompareTag("Enemy"))
+            //{
+            //To hit an enemy they need to be tagged with enemy and also have a TakeDamage method
+            //rayHit.collider.GetComponent<Enemy>().TakeDamage(damage);
+            //}
         }
-        else
-        {
-            Debug.DrawLine(transform.position, transform.position + (transform.forward * range), Color.red, 1000f);
-        }
-
+        
         //takes one bullet out of remaining ammo
         magazineRemainingAmmo--;
         //bullets shot count down by one so you can make guns using burst fire or shotgun blasts
         bulletsShot--;
-        Instantiate(muzzleFlash, shootingPoint);
-
+        //Instantiate(muzzleFlash, shootingPoint);
+        
         Debug.Log("Shot Fired");
         Invoke("ResetShot", timeBetweenShooting);
         if (bulletsShot > 0 && magazineRemainingAmmo > 0)
@@ -112,5 +113,22 @@ public class shooting : MonoBehaviour
         //reload finished used with Invoke so different guns can have different reloading speeds
         magazineRemainingAmmo = magazineZise;
         reloading = false;
+    }
+    private IEnumerator SpawnTrail(TrailRenderer Trail, RaycastHit hit)
+    {
+        Debug.Log("start ienumerator");
+        float time = 0;
+        Vector3 startPosition = Trail.transform.position;
+        while (time < 1)
+        {
+            //t.transform.position += t.transform.forward * 10f * Time.deltaTime;
+            Trail.transform.position = Vector3.Lerp(startPosition, hit.point, time);
+            
+            time += Time.deltaTime / Trail.time;
+            yield return null;
+        }
+        Trail.transform.position = hit.point;
+        Instantiate(bulletHole, hit.point + (hit.normal * 0.1f), Quaternion.FromToRotation(Vector3.up, rayHit.normal));
+        Destroy(Trail, time);
     }
 }
