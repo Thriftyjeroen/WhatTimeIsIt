@@ -93,7 +93,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 20201, guid: 0000000000000000f000000000000000, type: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: ee2b6919e96d1d345a01403672a279b8, type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -7779,7 +7779,7 @@ PrefabInstance:
       objectReference: {fileID: 783455922}
     - target: {fileID: 992466982549743572, guid: 0e1185e9b93019c46baeac0852ec8ad1, type: 3}
       propertyPath: m_VersionIndex
-      value: 79
+      value: 91
       objectReference: {fileID: 0}
     - target: {fileID: 1048195017231556220, guid: 0e1185e9b93019c46baeac0852ec8ad1, type: 3}
       propertyPath: m_Enabled
@@ -7799,7 +7799,7 @@ PrefabInstance:
       objectReference: {fileID: 209037812}
     - target: {fileID: 1759262600328939561, guid: 0e1185e9b93019c46baeac0852ec8ad1, type: 3}
       propertyPath: m_VersionIndex
-      value: 79
+      value: 91
       objectReference: {fileID: 0}
     - target: {fileID: 1915309226810366446, guid: 0e1185e9b93019c46baeac0852ec8ad1, type: 3}
       propertyPath: m_Mesh
@@ -7827,7 +7827,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2734896226160231090, guid: 0e1185e9b93019c46baeac0852ec8ad1, type: 3}
       propertyPath: m_VersionIndex
-      value: 6108
+      value: 6120
       objectReference: {fileID: 0}
     - target: {fileID: 2952722976604159247, guid: 0e1185e9b93019c46baeac0852ec8ad1, type: 3}
       propertyPath: m_Mesh
@@ -7835,7 +7835,7 @@ PrefabInstance:
       objectReference: {fileID: 1748552037}
     - target: {fileID: 2952722976604159247, guid: 0e1185e9b93019c46baeac0852ec8ad1, type: 3}
       propertyPath: m_VersionIndex
-      value: 6169
+      value: 6181
       objectReference: {fileID: 0}
     - target: {fileID: 3346945947632641342, guid: 0e1185e9b93019c46baeac0852ec8ad1, type: 3}
       propertyPath: m_Enabled
@@ -7979,7 +7979,7 @@ PrefabInstance:
       objectReference: {fileID: 501366627}
     - target: {fileID: 8062446017947861304, guid: 0e1185e9b93019c46baeac0852ec8ad1, type: 3}
       propertyPath: m_VersionIndex
-      value: 7230
+      value: 7242
       objectReference: {fileID: 0}
     - target: {fileID: 8122201088870999735, guid: 0e1185e9b93019c46baeac0852ec8ad1, type: 3}
       propertyPath: m_Mesh
@@ -7987,7 +7987,7 @@ PrefabInstance:
       objectReference: {fileID: 458527788}
     - target: {fileID: 8122201088870999735, guid: 0e1185e9b93019c46baeac0852ec8ad1, type: 3}
       propertyPath: m_VersionIndex
-      value: 79
+      value: 91
       objectReference: {fileID: 0}
     - target: {fileID: 8286992196149243551, guid: 0e1185e9b93019c46baeac0852ec8ad1, type: 3}
       propertyPath: m_Mesh
@@ -7995,7 +7995,7 @@ PrefabInstance:
       objectReference: {fileID: 573057790}
     - target: {fileID: 8286992196149243551, guid: 0e1185e9b93019c46baeac0852ec8ad1, type: 3}
       propertyPath: m_VersionIndex
-      value: 79
+      value: 91
       objectReference: {fileID: 0}
     - target: {fileID: 8741564145607692486, guid: 0e1185e9b93019c46baeac0852ec8ad1, type: 3}
       propertyPath: m_Layer
