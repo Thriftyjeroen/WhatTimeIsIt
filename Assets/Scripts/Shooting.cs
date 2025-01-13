@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class shooting : MonoBehaviour
 {
+    [SerializeField] ScoreManager scoreManager;
+
     // gun stats
     public int damage;
     public float timeBetweenShooting, reloadSpeed, range, timeBetweenShots, spreadX, spreadY;
@@ -72,11 +74,12 @@ public class shooting : MonoBehaviour
            
             TrailRenderer trail = Instantiate(bulletTracer, shootingPoint.transform.position, Quaternion.identity);
             StartCoroutine(SpawnTrail(trail, rayHit));
-            //if (rayHit.collider.CompareTag("Enemy"))
-            //{
+            if (rayHit.collider.CompareTag("Enemy"))
+            {
             //To hit an enemy they need to be tagged with enemy and also have a TakeDamage method
-            //rayHit.collider.GetComponent<Enemy>().TakeDamage(damage);
-            //}
+                rayHit.collider.GetComponent<EnemyHealth>().TakeDamage(damage);
+                scoreManager.DamageDone(damage);
+            }
         }
         
         //takes one bullet out of remaining ammo
