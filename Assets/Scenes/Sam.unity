@@ -17816,6 +17816,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: temp player
       objectReference: {fileID: 0}
+    - target: {fileID: 561872733691996967, guid: 34d0592f8cd05014b8b41ed4497d97b5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 612201027479863617, guid: 34d0592f8cd05014b8b41ed4497d97b5, type: 3}
       propertyPath: m_Mesh
       value: 
