@@ -8,8 +8,9 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] private int scoreToAdd = 0;
     [SerializeField] private TMP_Text fullScoreText;
     [SerializeField] private TMP_Text tempScoreText;
+    [SerializeField] GameObject multIncreasePlayer;
     private int chips = 0;
-    private float mult = 1;
+    [SerializeField] private float mult = 1;
 
     private Coroutine countDownCoroutine;
 
@@ -33,6 +34,7 @@ public class ScoreManager : MonoBehaviour
     public void IncreaseMult(float amount)
     {
         mult += amount;
+        Instantiate(multIncreasePlayer);
 
         // If currently adding score, finalize it and start fresh
         FinalizeOngoingScore();
