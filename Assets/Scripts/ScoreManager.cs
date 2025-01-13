@@ -1,0 +1,97 @@
+using TMPro;
+using System.Collections;
+using UnityEngine;
+
+public class ScoreManager : MonoBehaviour
+{
+    [SerializeField] private int fullScore = 0;
+    [SerializeField] private int scoreToAdd = 0;
+    [SerializeField] private TMP_Text fullScoreText;
+    [SerializeField] private TMP_Text tempScoreText;
+    private int chips = 0;
+    private float mult = 1;
+
+    private Coroutine countDownCoroutine;
+
+    private void Start()
+    {
+        StartCoroutine(KeepAddingScore());
+    }
+
+    public void DamageDone(int damage)
+    {
+        chips += damage * 100;
+
+        // If currently adding score, finalize it and start fresh
+        FinalizeOngoingScore();
+        StartCountDown();
+
+        UpdateTempScoreText();
+    }
+
+    public void IncreaseMult(float amount)
+    {
+        mult += amount;
+
+        // If currently adding score, finalize it and start fresh
+        FinalizeOngoingScore();
+        StartCountDown();
+
+        UpdateTempScoreText();
+    }
+
+    private void FinalizeOngoingScore()
+    {
+        // Immediately add any score left to `fullScore`
+        if (scoreToAdd > 0)
+        {
+            fullScore += scoreToAdd;
+            fullScoreText.text = fullScore.ToString();
+            scoreToAdd = 0;
+        }
+    }
+
+    private void StartCountDown()
+    {
+        if (countDownCoroutine != null)
+        {
+            StopCoroutine(countDownCoroutine);
+        }
+        countDownCoroutine = StartCoroutine(CountDown());
+    }
+
+    private void UpdateTempScoreText()
+    {
+        tempScoreText.text = $"{chips} x {mult}";
+    }
+
+    private IEnumerator CountDown()
+    {
+        // Wait 5 seconds before calculating scoreToAdd
+        yield return new WaitForSecondsRealtime(5f);
+
+        scoreToAdd = Mathf.RoundToInt(chips * mult);
+        chips = 0;
+        mult = 1;
+        tempScoreText.text = scoreToAdd.ToString();
+    }
+
+    private IEnumerator KeepAddingScore()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(0.01f);
+
+            if (scoreToAdd > 0)
+            {
+                int increment = Mathf.Min(10, scoreToAdd);
+                fullScore += increment;
+                scoreToAdd -= increment;
+
+                // Update score displays
+                fullScoreText.text = fullScore.ToString();
+                tempScoreText.text = scoreToAdd.ToString();
+            }
+        }
+    }
+}
