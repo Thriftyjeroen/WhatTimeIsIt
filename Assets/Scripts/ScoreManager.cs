@@ -16,6 +16,7 @@ public class ScoreManager : MonoBehaviour
     private void Start()
     {
         StartCoroutine(KeepAddingScore());
+        StartCoroutine(KeepDecayingScore());
     }
 
     public void DamageDone(int damage)
@@ -40,7 +41,7 @@ public class ScoreManager : MonoBehaviour
         UpdateTempScoreText();
     }
 
-    private void FinalizeOngoingScore()
+    public void FinalizeOngoingScore()
     {
         // Immediately add any score left to `fullScore`
         if (scoreToAdd > 0)
@@ -65,6 +66,18 @@ public class ScoreManager : MonoBehaviour
         tempScoreText.text = $"{chips} x {mult}";
     }
 
+    private IEnumerator KeepDecayingScore()
+    {
+        while (true)
+        {
+            yield return new WaitForSecondsRealtime(0.1f);
+            if (fullScore > 0)
+            {
+                fullScore -= 1;
+                fullScoreText.text = fullScore.ToString();
+            }
+        }
+    }
     private IEnumerator CountDown()
     {
         // Wait 5 seconds before calculating scoreToAdd
