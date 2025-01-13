@@ -99,11 +99,15 @@ public class ScoreManager : MonoBehaviour
 
             if (scoreToAdd > 0)
             {
-                int increment = Mathf.Min(10, scoreToAdd);
+                // Scale the increment based on scoreToAdd size
+                int increment = Mathf.CeilToInt(scoreToAdd * 0.1f); // Adjust increment proportionally
+                increment = Mathf.Max(increment, 1); // Ensure at least 1 is added per iteration
+
+                // Transfer score to fullScore
                 fullScore += increment;
                 scoreToAdd -= increment;
 
-                // Update score displays
+                // Update UI
                 fullScoreText.text = fullScore.ToString();
                 tempScoreText.text = scoreToAdd.ToString();
             }

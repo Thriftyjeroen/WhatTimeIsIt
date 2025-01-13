@@ -34,7 +34,7 @@ public class shooting : MonoBehaviour
     }
     private void GetInput()
     {
-
+        if (Input.GetKeyDown(KeyCode.G)) scoreManager.IncreaseMult(1);
         if (automaticFire)
         {
             //while user holds down the key, this allows for full automatic fire
