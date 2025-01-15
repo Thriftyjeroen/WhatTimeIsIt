@@ -50,7 +50,10 @@ public class level_selector : MonoBehaviour
     {
         //send you to the level
         print("yes");
-        
+        if(levelname == "world 1-1")
+        {
+            SceneManager.LoadScene("buildLevel");
+        }
             SceneManager.LoadScene(levelname);
         
     }
