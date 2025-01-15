@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Spawnenemies : MonoBehaviour
+public class SpawnEnemies : MonoBehaviour
 {
     [SerializeField] int amaunt;
     [SerializeField] float respawnTimer;
@@ -10,7 +10,7 @@ public class Spawnenemies : MonoBehaviour
     [SerializeField] List<GameObject> spawnPos = new List<GameObject>();
     [SerializeField] List<GameObject> enemyTypes = new List<GameObject>();
     [SerializeField] List<GameObject> enemiesNotActive = new List<GameObject>();
-    [SerializeField] List<GameObject> enemiesActive = new List<GameObject>();
+    List<GameObject> enemiesActive = new List<GameObject>();
 
     bool activated = false;
     float time = 0;
