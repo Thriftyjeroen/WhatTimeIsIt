@@ -20,14 +20,18 @@ public class Spawnenemies : MonoBehaviour
     void Update() => Reinforcement();
     void SpawnFirstWave()//spawns the starting enemies
     {
-        //for (int i = 0; i < amaunt; i++) Instantiate(enemies[Random.Range(0, enemies.Count)], spawnPos[Random.Range(0, spawnPos.Count)].transform.position, Quaternion.identity);
-        foreach (GameObject enemy in enemiesNotActive) enemy.SetActive(true);
+        while(enemiesNotActive.Count != 0)
+        {
+            GameObject enemy = enemiesNotActive[0];
+            enemy.SetActive(true);
+            enemiesActive.Add(enemy);
+            enemiesNotActive.Remove(enemy);
+        }
     }
     void Reinforcement()//if the player unlockes the area there will be at least 1 new enemy spawned based on the number of the respawnTimer
     {
         if (!activated) return;
         time += Time.deltaTime;
-        print($"{time},{respawnTimer}");
         if (time < respawnTimer) return;
         if (enemiesNotActive.Count != 0)
         {
@@ -44,10 +48,10 @@ public class Spawnenemies : MonoBehaviour
     {
         string name = collision.gameObject.name.ToLower();
         if (name.Contains("player")) activated = true;
-        print(activated + " " + name);
     }
-    public void enemyDead(GameObject enemy)
+    public void EnemyDead(GameObject enemy)
     {
+        print(enemy.name);
         enemiesNotActive.Add(enemy);
         enemiesActive.Remove(enemy);
         enemy.SetActive(false);
