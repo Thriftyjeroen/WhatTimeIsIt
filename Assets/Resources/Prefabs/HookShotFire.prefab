@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 487546411473580241}
   - component: {fileID: 5577391178892445454}
-  - component: {fileID: 4663852078094840640}
+  - component: {fileID: 5764054518423532738}
   m_Layer: 0
-  m_Name: GunShootSound
+  m_Name: HookShotFire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -43,12 +43,12 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 694e1741f5081294597f0ebbc69e1b39, type: 3}
-  m_Resource: {fileID: 8300000, guid: 694e1741f5081294597f0ebbc69e1b39, type: 3}
+  m_audioClip: {fileID: 8300000, guid: ff33a447fe4156a40adb576d2c9b340c, type: 3}
+  m_Resource: {fileID: 8300000, guid: ff33a447fe4156a40adb576d2c9b340c, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.55
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -130,7 +130,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &4663852078094840640
+--- !u!114 &5764054518423532738
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -139,6 +139,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 2937974747773357501}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22bbbd70b2e4e504ca0c9e00d1f1ae49, type: 3}
+  m_Script: {fileID: 11500000, guid: 7ac01c9f8c2908d4bbd9050eb6644891, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

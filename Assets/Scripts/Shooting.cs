@@ -5,6 +5,7 @@ using static UnityEngine.Rendering.DebugUI.Table;
 public class shooting : MonoBehaviour
 {
     //gun references
+    [SerializeField] ScoreManager scoreManager;
     [SerializeField] GameObject weezGun;
     [SerializeField] GameObject gun2;
     [SerializeField] GameObject crossbow;
