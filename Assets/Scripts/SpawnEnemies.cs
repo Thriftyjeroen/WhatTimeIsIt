@@ -15,11 +15,10 @@ public class SpawnEnemies : MonoBehaviour
     bool activated = false;
     float time = 0;
 
-
     void Start() => SpawnFirstWave();
     void Update() => Reinforcement();
     void SpawnFirstWave()//spawns the starting enemies
-    {
+    { 
         while(enemiesNotActive.Count != 0)
         {
             GameObject enemy = enemiesNotActive[0];
