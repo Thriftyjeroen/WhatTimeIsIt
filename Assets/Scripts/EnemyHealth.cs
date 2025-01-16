@@ -5,10 +5,10 @@ public class EnemyHealth : MonoBehaviour
     // Enemy's starting health
     public int maxHealth = 100;
     private int currentHealth;
-    [SerializeField] shooting shooting;  
+   [SerializeField] shooting shooting;  
 
     // Reference to a possible death effect
-    public GameObject deathEffect;
+  //  public GameObject deathEffect;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -22,7 +22,7 @@ public class EnemyHealth : MonoBehaviour
     {
         // Placeholder for player attack logic
         // Example: Replace with actual attack detection logic (e.g., collision or raycast)
-        if (Input.GetKeyDown(KeyCode.Space)) // Simulate attack with space key
+        if (Input.GetKeyDown(KeyCode.Mouse0)) // Simulate attack with space key
         {
             // Check weapon type and deal damage
             TakeDamage(shooting.damage);
