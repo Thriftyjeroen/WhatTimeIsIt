@@ -1,4 +1,5 @@
 using System.Collections;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using static UnityEngine.Rendering.DebugUI.Table;
 
@@ -19,15 +20,18 @@ public class shooting : MonoBehaviour
     int magazineRemainingAmmo, bulletsShot;
     bool firing, readyToFire, reloading;
     bool specialAbilityReady, specialAbilityActive;
+    
 
     public Transform gun;
     public Camera cam;
     public RaycastHit rayHit;
     public Transform shootingPoint;
     public LayerMask enemy;
-
+    [SerializeField] private GameObject bomb;
+    [SerializeField] private float bombThrowForce;
     public GameObject muzzleFlash, bulletHole;
     [SerializeField] private TrailRenderer bulletTracer;
+    [SerializeField] private ScoreManager scoreManager;
     private void Awake()
     {
         //on Awake it will reload ur gun so when you start its always filled with bullets. also ready to fire is set to true
@@ -91,6 +95,12 @@ public class shooting : MonoBehaviour
             if (rayHit.collider.CompareTag("Enemy"))
             {
                 rayHit.collider.GetComponent<EnemyHealth>().TakeDamage(damage);
+                scoreManager.IncreaseScore(damage);
+            }
+            if (rayHit.collider.CompareTag("Bomb"))
+            {
+                rayHit.collider.GetComponent<Bomb>().Explode();
+                scoreManager.IncreaseMult(1);
             }
         }
         
@@ -144,7 +154,7 @@ public class shooting : MonoBehaviour
     {
 
         //if weezer gun is active
-        if (weezGun.active)
+        if (weezGun.activeInHierarchy)
         {
             if (!specialAbilityActive)
             {
@@ -163,7 +173,7 @@ public class shooting : MonoBehaviour
                 specialAbilityActive = false;
             }
         }
-        else if (gun2.active)
+        else if (gun2.activeInHierarchy)
         {
             if (!specialAbilityActive)
             {
@@ -179,7 +189,18 @@ public class shooting : MonoBehaviour
                 {
                     timeBetweenShots = 0.08f;
                 }
+            }
+        }
+        else if(flintlock.activeInHierarchy)
+        {
+            Debug.Log("flintlock abilty activated");
+            if (!specialAbilityActive)
+            {
                 
+                //throw a bomb
+                GameObject obj = Instantiate(bomb, transform.position + transform.forward * 1, Quaternion.identity);
+                Rigidbody rb = obj.GetComponent<Rigidbody>();
+                rb.AddForce((-transform.forward + Vector3.up) * bombThrowForce , ForceMode.Impulse);
             }
         }
         else
