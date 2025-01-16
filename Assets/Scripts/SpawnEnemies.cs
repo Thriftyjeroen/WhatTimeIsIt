@@ -16,7 +16,7 @@ public class SpawnEnemies : MonoBehaviour
     float time = 0;
 
     void Start() => SpawnFirstWave();
-    void Update() => Reinforcement();
+    void Update() => Reinforcement(); 
     void SpawnFirstWave()//spawns the starting enemies
     { 
         while(enemiesNotActive.Count != 0)
@@ -50,7 +50,6 @@ public class SpawnEnemies : MonoBehaviour
     }
     public void EnemyDead(GameObject enemy)
     {
-        print(enemy.name);
         enemiesNotActive.Add(enemy);
         enemiesActive.Remove(enemy);
         enemy.SetActive(false);
