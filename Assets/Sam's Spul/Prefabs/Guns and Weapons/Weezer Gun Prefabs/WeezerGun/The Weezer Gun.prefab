@@ -7116,6 +7116,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 365a6545eb501d945a233e70a6118789, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weezGun: {fileID: 4281792126838991863}
+  gun2: {fileID: 5310690117072153468, guid: 11e31e73605d1374ba1027523a299266, type: 3}
+  crossbow: {fileID: 1825085595656664444, guid: 52d3bce587ed4ae41a68536711b6fef3, type: 3}
+  flintlock: {fileID: 312977827984678102, guid: 00ab4a0cc8811d94facd5da2e5d05f2b, type: 3}
   damage: 20
   timeBetweenShooting: 0.5
   reloadSpeed: 1.82
@@ -7123,6 +7127,7 @@ MonoBehaviour:
   timeBetweenShots: 0
   spreadX: 0.2
   spreadY: 0.01
+  specialAbilityCooldown: 0
   magazineZise: 4
   bulletsPerShot: 4
   automaticFire: 0
