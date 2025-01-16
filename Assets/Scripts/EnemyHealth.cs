@@ -5,7 +5,8 @@ public class EnemyHealth : MonoBehaviour
     // Enemy's starting health
     public int maxHealth = 100;
     private int currentHealth;
-   [SerializeField] shooting shooting;  
+   [SerializeField] shooting shooting;
+   SpawnEnemies spawnEnemies; 
 
     // Reference to a possible death effect
   //  public GameObject deathEffect;
@@ -15,6 +16,7 @@ public class EnemyHealth : MonoBehaviour
     {
         // Initialize the enemy's health to the maximum health
         currentHealth = maxHealth;
+      spawnEnemies = FindFirstObjectByType<SpawnEnemies>();
     }
 
     // Update is called once per frame
@@ -47,12 +49,13 @@ public class EnemyHealth : MonoBehaviour
         Debug.Log("Enemy died!");
 
         // Play death effect if assigned
-       // if (deathEffect != 0)
-       // {
-       //     Instantiate(deathEffect, transform.position, Quaternion.identity);
-       // }
+        // if (deathEffect != 0)
+        // {
+        //     Instantiate(deathEffect, transform.position, Quaternion.identity);
+        // }
 
         // Destroy the enemy GameObject
-        Destroy(gameObject);   
+        spawnEnemies.EnemyDead(this.gameObject);
+
     }
 }
