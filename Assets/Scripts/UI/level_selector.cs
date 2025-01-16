@@ -49,7 +49,6 @@ public class level_selector : MonoBehaviour
     public void AnswerYes()
     {
         //send you to the level
-        print("yes");
         if(levelname == "world 1-1")
         {
             SceneManager.LoadScene("buildLevel");
@@ -61,7 +60,6 @@ public class level_selector : MonoBehaviour
 
     private void OnTriggerEnter(Collider collision)
     {
-
 
         if (collision.gameObject.name == "level_1")
         {
