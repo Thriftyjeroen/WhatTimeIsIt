@@ -23,24 +23,25 @@ public class WeaponSwitching : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
-            SwitchWeapon(weezer, weezerAnimator);
+            SwitchWeapon(weezer, weezerAnimator, "Idle");
 
         if (Input.GetKeyDown(KeyCode.Alpha2))
-            SwitchWeapon(nineBarrel, nineBarrelAnimator);
+            SwitchWeapon(nineBarrel, nineBarrelAnimator, "Idle");
 
         if (Input.GetKeyDown(KeyCode.Alpha3))
-            SwitchWeapon(crossbow, crossbowAnimator);
+            SwitchWeapon(crossbow, crossbowAnimator, "Idle");
 
         if (Input.GetKeyDown(KeyCode.Alpha4))
-            SwitchWeapon(flintlock, flintlockAnimator);
+            SwitchWeapon(flintlock, flintlockAnimator, "Idle");
     }
 
-    void SwitchWeapon(GameObject weapon, Animator animator)
+    void SwitchWeapon(GameObject weapon, Animator animator, string defaultState)
     {
         DeactivateAllWeapons();
 
-        // Stop ongoing animations to prevent freeze
-        ResetAnimator(animator);
+        // Reset animator state to idle
+        ResetAnimatorToDefault(animator, defaultState);
+        animator.SetTrigger("Idle");
 
         weapon.SetActive(true);
     }
@@ -53,12 +54,12 @@ public class WeaponSwitching : MonoBehaviour
         flintlock.SetActive(false);
     }
 
-    void ResetAnimator(Animator animator)
+    void ResetAnimatorToDefault(Animator animator, string defaultState)
     {
         if (animator != null)
         {
-            animator.Rebind();  // Resets the Animator to its default state
-            animator.Update(0); // Apply the reset immediately
+            animator.Play(defaultState); // Transition to the default state
+            animator.Update(0);         // Apply the state immediately
         }
     }
 }

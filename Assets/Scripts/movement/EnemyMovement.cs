@@ -21,6 +21,8 @@ public class EnemyMovement : MonoBehaviour
 
     void Update()
     {
+        transform.forward = wanderTarget;
+        
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
 
         if (distanceToPlayer <= detectionRange)
@@ -47,6 +49,7 @@ public class EnemyMovement : MonoBehaviour
 
             MoveTowards(wanderTarget);
         }
+
     }
 
     void MoveTowards(Vector3 target)
