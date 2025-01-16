@@ -9,11 +9,7 @@ public class inventory_manager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        print(Slot1.sprite.name);
-        print(Slot2.sprite.name);
-        print(Slot3.sprite.name);
-        print(Slot4.sprite.name);
-        print(CrossBow.name+ "_0");
+      
     }
 
     // Update is called once per frame

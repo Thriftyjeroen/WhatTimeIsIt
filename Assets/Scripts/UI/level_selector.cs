@@ -49,7 +49,7 @@ public class level_selector : MonoBehaviour
     public void AnswerYes()
     {
         //send you to the level
-        print("yes");
+        Time.timeScale = 1.0f;
         if(levelname == "world 1-1")
         {
             SceneManager.LoadScene("buildLevel");
@@ -57,29 +57,26 @@ public class level_selector : MonoBehaviour
             SceneManager.LoadScene(levelname);
         
     }
-
+    private void ShowPopup(string level)
+    {
+        Time.timeScale = 0;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+        PopUp.SetActive(true);
+        levelname = level;
+    }
 
     private void OnTriggerEnter(Collider collision)
     {
 
-
         if (collision.gameObject.name == "level_1")
         {
-            Time.timeScale = 0;
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
-            PopUp.SetActive(true);
-
-            levelname = "world 1-1";
+            ShowPopup("world 1-1");
         }
+        // Trigger for level 2
         if (collision.gameObject.name == "level_2")
         {
-            Time.timeScale = 0;
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
-            PopUp.SetActive(true);
-
-            levelname = "world 1-2";
+            ShowPopup("world 1-2");
         }
     }
 }
