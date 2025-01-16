@@ -32,6 +32,9 @@ public class PlayerMovement : MonoBehaviour
     private CameraFov cameraFov;
     private Collider playerCollider;
 
+
+    [SerializeField] GameObject hookPullSound;
+    private GameObject soundObject;
     private enum State
     {
         Normal,
@@ -160,6 +163,9 @@ public class PlayerMovement : MonoBehaviour
                 {
                     return;
                 }
+
+                soundObject = Instantiate(hookPullSound);
+
                 debugHitPointTransform.position = raycastHit.point;
                 hookshotPosition = raycastHit.point;
                 hookshotSize = 0f;
@@ -232,6 +238,8 @@ public class PlayerMovement : MonoBehaviour
         float reachedHookshotDistance = 2f;
         if (distanceToHookshot < reachedHookshotDistance)
         {
+            Destroy(soundObject);
+
             state = State.Normal;
             canMove = true;
             ResetGravityForce();
@@ -243,6 +251,8 @@ public class PlayerMovement : MonoBehaviour
         // Cancel hookshot on secondary input
         if (TestInputDownHookshot())
         {
+            Destroy(soundObject);
+
             characterVelocityMomentum = Vector3.zero;
             RetractHookshot();
             return;
@@ -251,6 +261,8 @@ public class PlayerMovement : MonoBehaviour
         // Handle jump cancelation
         if (TestInputJump())
         {
+            Destroy(soundObject);
+
             moveDirection.y = 0;
             float momentumExtraSpeed = 12f;
             Vector3 hookshotMomentum = hookshotDirection * momentumExtraSpeed * hookshotSpeed;
