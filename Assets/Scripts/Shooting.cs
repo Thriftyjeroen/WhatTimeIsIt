@@ -6,6 +6,7 @@ using static UnityEngine.Rendering.DebugUI.Table;
 public class shooting : MonoBehaviour
 {
     //gun references
+    [SerializeField] ScoreManager scoreManager;
     [SerializeField] GameObject weezGun;
     [SerializeField] GameObject gun2;
     [SerializeField] GameObject crossbow;
@@ -47,7 +48,7 @@ public class shooting : MonoBehaviour
     }
     private void GetInput()
     {
-
+        if (Input.GetKeyDown(KeyCode.G)) scoreManager.IncreaseMult(1);
         if (automaticFire)
         {
             //while user holds down the key, this allows for full automatic fire

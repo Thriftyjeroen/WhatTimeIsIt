@@ -29,6 +29,7 @@ public class Pausescreen : MonoBehaviour
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
         pausescreen.SetActive(true);
+        Time.timeScale = 0f;
 
     }
     public void PauseScreenOff()
@@ -37,5 +38,6 @@ public class Pausescreen : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         pausescreen.SetActive(false);
         ison = false;
+        Time.timeScale = 1f;
     }
 }
