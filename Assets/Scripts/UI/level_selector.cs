@@ -49,6 +49,7 @@ public class level_selector : MonoBehaviour
     public void AnswerYes()
     {
         //send you to the level
+        Time.timeScale = 1.0f;
         if(levelname == "world 1-1")
         {
             SceneManager.LoadScene("buildLevel");
