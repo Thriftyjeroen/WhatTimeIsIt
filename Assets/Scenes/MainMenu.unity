@@ -610,13 +610,13 @@ MonoBehaviour:
       - m_Target: {fileID: 1806998035}
         m_TargetAssemblyTypeName: UI_Manager, Assembly-CSharp
         m_MethodName: Button
-        m_Mode: 3
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 3
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: Settings
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &204517078
@@ -959,13 +959,13 @@ MonoBehaviour:
       - m_Target: {fileID: 1806998035}
         m_TargetAssemblyTypeName: UI_Manager, Assembly-CSharp
         m_MethodName: Button
-        m_Mode: 3
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 2
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: LevelSelect
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &407653450
@@ -1549,13 +1549,13 @@ MonoBehaviour:
       - m_Target: {fileID: 1806998035}
         m_TargetAssemblyTypeName: UI_Manager, Assembly-CSharp
         m_MethodName: Button
-        m_Mode: 3
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 2
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: LevelSelect
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1098927166
