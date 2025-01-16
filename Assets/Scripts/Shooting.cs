@@ -89,7 +89,7 @@ public class shooting : MonoBehaviour
         {
             Debug.Log(rayHit.collider.name);
             Debug.DrawLine(transform.position, rayHit.point, Color.green, 1000f);
-           
+            Instantiate(bulletHole, rayHit.point + (rayHit.normal * 0.1f), Quaternion.FromToRotation(Vector3.up, rayHit.normal));
             TrailRenderer trail = Instantiate(bulletTracer, shootingPoint.transform.position, Quaternion.identity);
             StartCoroutine(SpawnTrail(trail, rayHit));
             if (rayHit.collider.CompareTag("Enemy"))
@@ -147,7 +147,7 @@ public class shooting : MonoBehaviour
             yield return null;
         }
         Trail.transform.position = hit.point;
-        Instantiate(bulletHole, hit.point + (hit.normal * 0.1f), Quaternion.FromToRotation(Vector3.up, rayHit.normal));
+        
         //Destroy(Trail, time);
     }
     private void ActivateSpecialAbility()
