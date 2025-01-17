@@ -221,7 +221,7 @@ public class shooting : MonoBehaviour
                     {
                             hp.TakeDamage(damage);
                             scoreManager.IncreaseScore(damage);
-                        if (hits.Length > 1)
+                        if (hits.Length > 2)
                         {
                             scoreManager.IncreaseMult(1);
                         }
