@@ -6921,6 +6921,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 365a6545eb501d945a233e70a6118789, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weezGun: {fileID: 0}
+  gun2: {fileID: 0}
+  crossbow: {fileID: 0}
+  flintlock: {fileID: 0}
+  mountPoint: {fileID: 0}
   damage: 0
   timeBetweenShooting: 0
   reloadSpeed: 1.1
@@ -6928,6 +6933,7 @@ MonoBehaviour:
   timeBetweenShots: 0
   spreadX: 0
   spreadY: 0
+  specialAbilityCooldown: 0
   magazineZise: 1
   bulletsPerShot: 1
   automaticFire: 0
@@ -6937,9 +6943,11 @@ MonoBehaviour:
   enemy:
     serializedVersion: 2
     m_Bits: 831
-  muzzleFlash: {fileID: 0}
+  bomb: {fileID: 0}
+  bombThrowForce: 20
   bulletHole: {fileID: 0}
   bulletTracer: {fileID: 0}
+  scoreManager: {fileID: 0}
 --- !u!114 &1039081632170677732
 MonoBehaviour:
   m_ObjectHideFlags: 0

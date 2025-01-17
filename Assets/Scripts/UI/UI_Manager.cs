@@ -7,18 +7,25 @@ public class UI_Manager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
+       
+    }
+    public void Button(string pScene)
+    {
+        if (SceneManager.GetActiveScene().name != pScene) // Avoid reloading the current scene
+        {
+            SceneManager.LoadScene(pScene);
+        }
         
     }
-    public void Button(int pScene) => SceneManager.LoadScene(pScene);
-
     public void Quit()
     {
         Application.Quit();
     }
+    
 }
