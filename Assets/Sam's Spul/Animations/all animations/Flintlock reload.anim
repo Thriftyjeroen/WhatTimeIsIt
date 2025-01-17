@@ -3799,6 +3799,13 @@ AnimationClip:
   m_HasGenericRootTransform: 1
   m_HasMotionFloatCurves: 0
   m_Events:
+  - time: 0
+    functionName: OnReloadComplete
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
   - time: 0.016666668
     functionName: PlaySound
     data: FlintlockFire
@@ -3809,13 +3816,6 @@ AnimationClip:
   - time: 0.85
     functionName: PlaySound
     data: BulletInsertSound
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 1.0833334
-    functionName: OnReloadComplete
-    data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
