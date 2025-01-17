@@ -205,7 +205,28 @@ public class shooting : MonoBehaviour
         {
             if (!specialAbilityActive)
             {
-                
+                RaycastHit[] hits = Physics.RaycastAll(cam.transform.position, cam.transform.forward, range, enemy);
+
+                foreach (RaycastHit hit in hits)
+                {
+                    GameObject enemy = hit.collider.gameObject;
+                    Debug.DrawLine(transform.position, hit.point, Color.green, 1000f);
+                    // Example: Log the name of each enemy hit
+                    Debug.Log($"Hit enemy: {enemy.name}");
+                    if (enemy.TryGetComponent(out Rigidbody rb))
+                    {
+                        rb.AddForce((-transform.forward) * 10f, ForceMode.Impulse );
+                    }
+                    if (enemy.TryGetComponent(out EnemyHealth hp))
+                    {
+                            hp.TakeDamage(damage);
+                            scoreManager.IncreaseScore(damage);
+                        if (hits.Length > 1)
+                        {
+                            scoreManager.IncreaseMult(1);
+                        }
+                    }
+                }
             }
         }
         // Start cooldown
