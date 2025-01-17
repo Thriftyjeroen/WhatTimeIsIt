@@ -6,14 +6,17 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Sam.unity
-    guid: 188011e10af3a134d8cfe78cdcc400e4
+    path: Assets/Scenes/NameInput.unity
+    guid: f1d8978a057e2d44e9de744f7355df99
   - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
     path: Assets/Scenes/LevelSelect.unity
     guid: 8db833b9c2223354c89bee0faae888f8
+  - enabled: 1
+    path: Assets/Scenes/Sam.unity
+    guid: 188011e10af3a134d8cfe78cdcc400e4
   - enabled: 1
     path: Assets/Scenes/settings.unity
     guid: 31442728dcf65144c9b26933c0584ee2
