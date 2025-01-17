@@ -1,6 +1,9 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using static UnityEngine.Rendering.DebugUI.Table;
+using static UnityEngine.UI.Image;
+using Random = UnityEngine.Random;
 
 public class shooting : MonoBehaviour
 {
@@ -19,7 +22,7 @@ public class shooting : MonoBehaviour
     int magazineRemainingAmmo, bulletsShot;
     bool firing, readyToFire, reloading;
     bool specialAbilityReady, specialAbilityActive;
-    
+
 
     public Transform gun;
     public Camera cam;
@@ -37,7 +40,7 @@ public class shooting : MonoBehaviour
         magazineRemainingAmmo = magazineZise;
         readyToFire = true;
         specialAbilityReady = true;
-        
+
     }
     private void Update()
     {
@@ -99,10 +102,10 @@ public class shooting : MonoBehaviour
             if (rayHit.collider.CompareTag("Bomb"))
             {
                 rayHit.collider.GetComponent<Bomb>().Explode(1);
-                
+
             }
         }
-        
+
         //takes one bullet out of remaining ammo
         magazineRemainingAmmo--;
         //bullets shot count down by one so you can make guns using burst fire or shotgun blasts
@@ -141,12 +144,12 @@ public class shooting : MonoBehaviour
         {
             //t.transform.position += t.transform.forward * 10f * Time.deltaTime;
             Trail.transform.position = Vector3.Lerp(startPosition, hit.point, time);
-            
+
             time += Time.deltaTime / Trail.time;
             yield return null;
         }
         Trail.transform.position = hit.point;
-        
+
         //Destroy(Trail, time);
     }
     private void ActivateSpecialAbility()
@@ -187,15 +190,22 @@ public class shooting : MonoBehaviour
                 }
             }
         }
-        else if(flintlock.activeInHierarchy)
+        else if (flintlock.activeInHierarchy)
+        {
+            if (!specialAbilityActive)
+            {
+
+                //throw a bomb
+                GameObject obj = Instantiate(bomb, transform.position + transform.forward * 1, Quaternion.identity);
+                Rigidbody rb = obj.GetComponent<Rigidbody>();
+                rb.AddForce((-transform.forward + Vector3.up) * bombThrowForce, ForceMode.Impulse);
+            }
+        }
+        else if (crossbow.activeInHierarchy)
         {
             if (!specialAbilityActive)
             {
                 
-                //throw a bomb
-                GameObject obj = Instantiate(bomb, transform.position + transform.forward * 1, Quaternion.identity);
-                Rigidbody rb = obj.GetComponent<Rigidbody>();
-                rb.AddForce((-transform.forward + Vector3.up) * bombThrowForce , ForceMode.Impulse);
             }
         }
         // Start cooldown
@@ -205,7 +215,7 @@ public class shooting : MonoBehaviour
     private void ApplyKickback()
     {
         PlayerMovement player = FindFirstObjectByType<PlayerMovement>();
-        Vector3 knockbackDirection = -cam.transform.forward + Vector3.up * 0.2f; 
+        Vector3 knockbackDirection = -cam.transform.forward + Vector3.up * 0.2f;
         float knockbackStrength = 50f;
         StartCoroutine(ApplyKnockbackOverTime(player, knockbackDirection, knockbackStrength));
     }
