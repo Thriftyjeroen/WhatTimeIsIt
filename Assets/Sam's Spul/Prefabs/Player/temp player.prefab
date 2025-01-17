@@ -166,6 +166,7 @@ MonoBehaviour:
   defaultHeight: 2
   crouchHeight: 1
   crouchSpeed: 3
+  hookPullSound: {fileID: 2937974747773357501, guid: b1124ff46b2034d4b85d9a207601d3c4, type: 3}
 --- !u!114 &721074264279442573
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -194,10 +195,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fb91050c7bfc01489a9dfa7223fc3ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gunControllerWeez: {fileID: 0}
   weezer: {fileID: 7893429711858770592}
   nineBarrel: {fileID: 8215994413814748084}
   crossbow: {fileID: 6682768787027785476}
   flintlock: {fileID: 7674304968583399780}
+  weezerAnimator: {fileID: 8776706996348164266}
+  nineBarrelAnimator: {fileID: 7031112411839696675}
+  crossbowAnimator: {fileID: 6104184867628055508}
+  flintlockAnimator: {fileID: 4788117113733127504}
 --- !u!1 &3181429498910337282
 GameObject:
   m_ObjectHideFlags: 0

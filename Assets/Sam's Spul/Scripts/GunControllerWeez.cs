@@ -26,7 +26,6 @@ public class GunControllerWeez: MonoBehaviour
     }
     public void OnReloadComplete()
     {
-        print("can shoot");
-        canShoot=true;
+        canShoot = true;
     }
 }
