@@ -1308,7 +1308,7 @@ GameObject:
   - component: {fileID: 1926542998}
   - component: {fileID: 1926542997}
   m_Layer: 5
-  m_Name: Unavailable
+  m_Name: Error
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1334,7 +1334,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Name unavailable
+  m_text: Server error, please try again later
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d93e295193dfbbb44815c1faae87d6a6, type: 2}
   m_sharedMaterial: {fileID: -6883640551302303023, guid: d93e295193dfbbb44815c1faae87d6a6, type: 2}
@@ -1361,12 +1361,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
+  m_fontSize: 21.95
   m_fontSizeBase: 36
   m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 1
+  m_fontSizeMax: 36
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
@@ -1429,8 +1429,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 82}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -2.8005, y: 98.8035}
+  m_SizeDelta: {x: 198.133, y: 38.7976}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1954391383
 GameObject:
@@ -1462,7 +1462,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nameInput: {fileID: 120596238}
-  unavailableText: {fileID: 1926542997}
+  errorText: {fileID: 1926542997}
 --- !u!4 &1954391385
 Transform:
   m_ObjectHideFlags: 0
