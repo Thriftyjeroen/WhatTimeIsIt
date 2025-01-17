@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class UI_Manager : MonoBehaviour
 {
+    public Pausescreen Pausescreen;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -27,5 +28,8 @@ public class UI_Manager : MonoBehaviour
     {
         Application.Quit();
     }
-    
+    public void Continue()
+    {
+        Pausescreen.PauseScreenOff();
+    }
 }
