@@ -2,64 +2,66 @@ using UnityEngine;
 
 public class WeaponSwitching : MonoBehaviour
 {
+    [SerializeField] GunControllerWeez gunControllerWeez;
+
     [SerializeField] GameObject weezer;
     [SerializeField] GameObject nineBarrel;
     [SerializeField] GameObject crossbow;
     [SerializeField] GameObject flintlock;
 
-    Animator weezerAnimator, nineBarrelAnimator, crossbowAnimator, flintlockAnimator;
+    [SerializeField] Animator weezerAnimator;
+    [SerializeField] Animator nineBarrelAnimator;
+    [SerializeField] Animator crossbowAnimator;
+    [SerializeField] Animator flintlockAnimator;
 
-    void Start()
-    {
-        // Initialize Animators
-        weezerAnimator = weezer.GetComponent<Animator>();
-        nineBarrelAnimator = nineBarrel.GetComponent<Animator>();
-        crossbowAnimator = crossbow.GetComponent<Animator>();
-        flintlockAnimator = flintlock.GetComponent<Animator>();
-
-        DeactivateAllWeapons();
-    }
-
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-            SwitchWeapon(weezer, weezerAnimator, "Idle");
-
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-            SwitchWeapon(nineBarrel, nineBarrelAnimator, "Idle");
-
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-            SwitchWeapon(crossbow, crossbowAnimator, "Idle");
-
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-            SwitchWeapon(flintlock, flintlockAnimator, "Idle");
-    }
-
-    void SwitchWeapon(GameObject weapon, Animator animator, string defaultState)
-    {
-        DeactivateAllWeapons();
-
-        // Reset animator state to idle
-        ResetAnimatorToDefault(animator, defaultState);
-        animator.SetTrigger("Idle");
-
-        weapon.SetActive(true);
-    }
-
-    void DeactivateAllWeapons()
+    private void Start()
     {
         weezer.SetActive(false);
         nineBarrel.SetActive(false);
-        crossbow.SetActive(false);
         flintlock.SetActive(false);
+        crossbow.SetActive(false);
     }
 
-    void ResetAnimatorToDefault(Animator animator, string defaultState)
+    private void Update()
     {
-        if (animator != null)
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            animator.Play(defaultState); // Transition to the default state
-            animator.Update(0);         // Apply the state immediately
+            weezerAnimator.Play("Idle");
+            weezer.SetActive(true);
+            nineBarrel.SetActive(false);
+            flintlock.SetActive(false);
+            crossbow.SetActive(false);
+            gunControllerWeez.OnReloadComplete();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            weezerAnimator.Play("Idle");
+            weezer.SetActive(false);
+            nineBarrel.SetActive(true);
+            flintlock.SetActive(false);
+            crossbow.SetActive(false);
+            gunControllerWeez.OnReloadComplete();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            weezerAnimator.Play("Idle");
+            weezer.SetActive(false);
+            nineBarrel.SetActive(false);
+            flintlock.SetActive(false);
+            crossbow.SetActive(true);
+            gunControllerWeez.OnReloadComplete();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            weezerAnimator.Play("Idle");
+            weezer.SetActive(false);
+            nineBarrel.SetActive(false);
+            flintlock.SetActive(true);
+            crossbow.SetActive(false);
+            gunControllerWeez.OnReloadComplete();
         }
     }
 }

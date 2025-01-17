@@ -5,7 +5,6 @@ using static UnityEngine.Rendering.DebugUI.Table;
 public class shooting : MonoBehaviour
 {
     //gun references
-    [SerializeField] ScoreManager scoreManager;
     [SerializeField] GameObject weezGun;
     [SerializeField] GameObject gun2;
     [SerializeField] GameObject crossbow;
@@ -20,15 +19,18 @@ public class shooting : MonoBehaviour
     int magazineRemainingAmmo, bulletsShot;
     bool firing, readyToFire, reloading;
     bool specialAbilityReady, specialAbilityActive;
+    
 
     public Transform gun;
     public Camera cam;
     public RaycastHit rayHit;
     public Transform shootingPoint;
-    public LayerMask enemy;
-
-    public GameObject muzzleFlash, bulletHole;
+    public LayerMask enemy, player;
+    [SerializeField] private GameObject bomb;
+    [SerializeField] private float bombThrowForce;
+    public GameObject bulletHole;
     [SerializeField] private TrailRenderer bulletTracer;
+    [SerializeField] private ScoreManager scoreManager;
     private void Awake()
     {
         //on Awake it will reload ur gun so when you start its always filled with bullets. also ready to fire is set to true
@@ -44,7 +46,6 @@ public class shooting : MonoBehaviour
     }
     private void GetInput()
     {
-        if (Input.GetKeyDown(KeyCode.G)) scoreManager.IncreaseMult(1);
         if (automaticFire)
         {
             //while user holds down the key, this allows for full automatic fire
@@ -82,16 +83,23 @@ public class shooting : MonoBehaviour
         Vector3 spreadOffset = cam.transform.right * x + cam.transform.up * y;
         Vector3 direction = cam.transform.forward + spreadOffset;
         //raycast using the random range from spread as 'direction'
-        if (Physics.Raycast(cam.transform.position, direction, out rayHit, range, enemy))
+        if (Physics.Raycast(cam.transform.position, direction, out rayHit, range, ~player))
         {
-            Debug.Log(rayHit.collider.name);
             Debug.DrawLine(transform.position, rayHit.point, Color.green, 1000f);
-           
+            Instantiate(bulletHole, rayHit.point + (rayHit.normal * 0.1f), Quaternion.FromToRotation(Vector3.up, rayHit.normal));
             TrailRenderer trail = Instantiate(bulletTracer, shootingPoint.transform.position, Quaternion.identity);
             StartCoroutine(SpawnTrail(trail, rayHit));
+
             if (rayHit.collider.CompareTag("Enemy"))
             {
                 rayHit.collider.GetComponent<EnemyHealth>().TakeDamage(damage);
+                scoreManager.IncreaseScore(damage);
+            }
+
+            if (rayHit.collider.CompareTag("Bomb"))
+            {
+                rayHit.collider.GetComponent<Bomb>().Explode(1);
+                
             }
         }
         
@@ -138,18 +146,17 @@ public class shooting : MonoBehaviour
             yield return null;
         }
         Trail.transform.position = hit.point;
-        Instantiate(bulletHole, hit.point + (hit.normal * 0.1f), Quaternion.FromToRotation(Vector3.up, rayHit.normal));
+        
         //Destroy(Trail, time);
     }
     private void ActivateSpecialAbility()
     {
 
         //if weezer gun is active
-        if (weezGun.active)
+        if (weezGun.activeInHierarchy)
         {
             if (!specialAbilityActive)
             {
-                Debug.Log("activated weez gun special");
                 mountPoint.transform.Rotate(0, 0, -90);
                 spreadX = 0.01f;
                 spreadY = 0.2f;
@@ -157,18 +164,16 @@ public class shooting : MonoBehaviour
             }
             else
             {
-                Debug.Log("de-activated 9 barrle gun special");
                 mountPoint.transform.Rotate(0, 0, 90);
                 spreadX = 0.2f;
                 spreadY = 0.01f;
                 specialAbilityActive = false;
             }
         }
-        else if (gun2.active)
+        else if (gun2.activeInHierarchy)
         {
             if (!specialAbilityActive)
             {
-                Debug.Log("activated 9 barrle gun special");
                 spreadX = 0.1f;
                 spreadY = 0.1f;
                 timeBetweenShots = 0.01f;
@@ -180,12 +185,18 @@ public class shooting : MonoBehaviour
                 {
                     timeBetweenShots = 0.08f;
                 }
-                
             }
         }
-        else
+        else if(flintlock.activeInHierarchy)
         {
-            Debug.Log("uh oh, no ability activated!");
+            if (!specialAbilityActive)
+            {
+                
+                //throw a bomb
+                GameObject obj = Instantiate(bomb, transform.position + transform.forward * 1, Quaternion.identity);
+                Rigidbody rb = obj.GetComponent<Rigidbody>();
+                rb.AddForce((-transform.forward + Vector3.up) * bombThrowForce , ForceMode.Impulse);
+            }
         }
         // Start cooldown
         specialAbilityReady = false;
@@ -218,6 +229,5 @@ public class shooting : MonoBehaviour
     private void ResetSpecialAbility()
     {
         specialAbilityReady = true;
-        Debug.Log("Special ability ready!");
     }
 }
