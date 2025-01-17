@@ -12,6 +12,6 @@ public class EndLevel : MonoBehaviour //if the player reach the end of the level
     private void OnTriggerEnter(Collider other)
     {
         //if (other.gameObject.name.ToLower().Contains("player")) SceneManager.LoadScene(loadScene);
-        if (other.gameObject.name.ToLower().Contains("player")) switchScenes.Button(loadScene);
+        if (other.gameObject.name.ToLower().Contains("player")) switchScenes.Button(1);
     }
 }
