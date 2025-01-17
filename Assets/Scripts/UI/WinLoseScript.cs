@@ -19,17 +19,19 @@ public class WinLoseScript : MonoBehaviour
     public void Win() 
     {
         PopUp.SetActive(true);
+        print("hi");
         WinLoseText.text = "you have won";
     }
     public void Lose()
     {
         PopUp.SetActive(true);
+        print("you lose");
         WinLoseText.text = "you have lost";
 
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.name.ToLower().Contains("YouWin"))
+        if (other.gameObject.name.ToLower().Contains("finish"))
         {
             Win();
         }
