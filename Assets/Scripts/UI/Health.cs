@@ -15,10 +15,7 @@ public class Health : MonoBehaviour
     void Update()
     {
         setText();
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            TakeDamager(10);
-        }
+       
     }
     public void setText()
     {
