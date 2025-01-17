@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class GunControllerWeez: MonoBehaviour
@@ -10,6 +11,7 @@ public class GunControllerWeez: MonoBehaviour
 
     void Update()
     {
+        
         if (Input.GetMouseButtonDown(0) && canShoot)
         {
                 Shoot();
@@ -18,15 +20,15 @@ public class GunControllerWeez: MonoBehaviour
 
     void Shoot()
     {
+        Debug.Log("shoot animation SHOULD play");
         canShoot = false;
         animatorGun2.SetTrigger("Reload");
         animatorWeezGun.SetTrigger("Reload");
         animatorCrossbow.SetTrigger("Reload");
-        animatorFlintlock.SetTrigger("Reload");
+        animatorFlintlock.SetTrigger("doodooCaca");
     }
     public void OnReloadComplete()
     {
-        print("can shoot");
-        canShoot=true;
+        canShoot = true;
     }
 }

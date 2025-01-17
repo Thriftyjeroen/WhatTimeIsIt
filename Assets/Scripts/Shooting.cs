@@ -6,7 +6,6 @@ using static UnityEngine.Rendering.DebugUI.Table;
 public class shooting : MonoBehaviour
 {
     //gun references
-    [SerializeField] ScoreManager scoreManager;
     [SerializeField] GameObject weezGun;
     [SerializeField] GameObject gun2;
     [SerializeField] GameObject crossbow;
@@ -30,7 +29,7 @@ public class shooting : MonoBehaviour
     public LayerMask enemy;
     [SerializeField] private GameObject bomb;
     [SerializeField] private float bombThrowForce;
-    public GameObject muzzleFlash, bulletHole;
+    public GameObject bulletHole;
     [SerializeField] private TrailRenderer bulletTracer;
     [SerializeField] private ScoreManager scoreManager;
     private void Awake()
@@ -48,7 +47,6 @@ public class shooting : MonoBehaviour
     }
     private void GetInput()
     {
-        if (Input.GetKeyDown(KeyCode.G)) scoreManager.IncreaseMult(1);
         if (automaticFire)
         {
             //while user holds down the key, this allows for full automatic fire
@@ -86,9 +84,8 @@ public class shooting : MonoBehaviour
         Vector3 spreadOffset = cam.transform.right * x + cam.transform.up * y;
         Vector3 direction = cam.transform.forward + spreadOffset;
         //raycast using the random range from spread as 'direction'
-        if (Physics.Raycast(cam.transform.position, direction, out rayHit, range, enemy))
+        if (Physics.Raycast(cam.transform.position, direction, out rayHit, range))
         {
-            Debug.Log(rayHit.collider.name);
             Debug.DrawLine(transform.position, rayHit.point, Color.green, 1000f);
             Instantiate(bulletHole, rayHit.point + (rayHit.normal * 0.1f), Quaternion.FromToRotation(Vector3.up, rayHit.normal));
             TrailRenderer trail = Instantiate(bulletTracer, shootingPoint.transform.position, Quaternion.identity);
@@ -97,11 +94,12 @@ public class shooting : MonoBehaviour
             {
                 rayHit.collider.GetComponent<EnemyHealth>().TakeDamage(damage);
                 scoreManager.IncreaseScore(damage);
+
             }
             if (rayHit.collider.CompareTag("Bomb"))
             {
-                rayHit.collider.GetComponent<Bomb>().Explode();
-                scoreManager.IncreaseMult(1);
+                rayHit.collider.GetComponent<Bomb>().Explode(1);
+                
             }
         }
         

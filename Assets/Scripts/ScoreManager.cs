@@ -20,6 +20,7 @@ public class ScoreManager : MonoBehaviour
         StartCoroutine(KeepDecayingScore());
     }
 
+
     public void IncreaseScore(int damage)
     {
         chips += damage * 10;

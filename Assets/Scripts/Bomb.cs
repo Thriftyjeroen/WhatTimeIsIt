@@ -35,12 +35,12 @@ public class Bomb : MonoBehaviour
         currentTime += Time.deltaTime;
         if(currentTime > maxTime)
         {
-            Explode();
+            Explode(0);
         }
         GetComponent<Rigidbody>().linearVelocity -= Vector3.up * gravityScale;
     }
 
-    public void Explode()
+    public void Explode(int _shot)
     {
         Collider[] hitColliders = new Collider[10];
         int collidersHit = Physics.OverlapSphereNonAlloc(transform.position, explosionRadius, hitColliders);
@@ -53,10 +53,15 @@ public class Bomb : MonoBehaviour
             if (hitColliders[i].TryGetComponent(out EnemyHealth enemy))
             {
                 float damage = maxDamage - Vector3.Distance(transform.position, hitColliders[i].transform.position) * maxDamage / explosionRadius;
-                enemy.TakeDamage((int)Mathf.Round(damage));
-                scoreManager.IncreaseScore((int)Mathf.Round(damage));
+                if (damage > 0)
+                {
+                    enemy.TakeDamage((int)Mathf.Round(damage));
+                    scoreManager.IncreaseScore((int)Mathf.Round(damage));
+                }
+                
             }
         }
+        scoreManager.IncreaseMult(_shot);
         //Instantiate(particles, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
