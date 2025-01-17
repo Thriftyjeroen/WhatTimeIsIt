@@ -152,16 +152,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 4672436726377427768}
         m_TargetAssemblyTypeName: UI_Manager, Assembly-CSharp
         m_MethodName: Button
-        m_Mode: 3
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: MainMenu
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &881545932069868570
@@ -709,16 +709,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Pausescreen, Assembly-CSharp
-        m_MethodName: PauseScreenOff
-        m_Mode: 1
+      - m_Target: {fileID: 4672436726377427768}
+        m_TargetAssemblyTypeName: UI_Manager, Assembly-CSharp
+        m_MethodName: Button
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: LevelSelect
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &2617666292723497464
@@ -734,6 +734,7 @@ GameObject:
   - component: {fileID: 4197045768722777776}
   - component: {fileID: 3437857124292697869}
   - component: {fileID: 4672436726377427768}
+  - component: {fileID: 2878615470041623273}
   m_Layer: 0
   m_Name: prefabmanager
   m_TagString: Untagged
@@ -814,6 +815,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd2c4d27069d2174e96249ae554f10be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2878615470041623273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2617666292723497464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5383f615bc930d148a2df5539e15bbdd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WinLoseText: {fileID: 0}
+  PopUp: {fileID: 0}
 --- !u!1 &2854880965592948647
 GameObject:
   m_ObjectHideFlags: 0
@@ -1121,16 +1136,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 4672436726377427768}
         m_TargetAssemblyTypeName: UI_Manager, Assembly-CSharp
         m_MethodName: Button
-        m_Mode: 3
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 2
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: Settings
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &3812845492308694793
