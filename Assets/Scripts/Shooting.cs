@@ -157,7 +157,6 @@ public class shooting : MonoBehaviour
         {
             if (!specialAbilityActive)
             {
-                Debug.Log("activated weez gun special");
                 mountPoint.transform.Rotate(0, 0, -90);
                 spreadX = 0.01f;
                 spreadY = 0.2f;
@@ -165,7 +164,6 @@ public class shooting : MonoBehaviour
             }
             else
             {
-                Debug.Log("de-activated 9 barrle gun special");
                 mountPoint.transform.Rotate(0, 0, 90);
                 spreadX = 0.2f;
                 spreadY = 0.01f;
@@ -176,7 +174,6 @@ public class shooting : MonoBehaviour
         {
             if (!specialAbilityActive)
             {
-                Debug.Log("activated 9 barrle gun special");
                 spreadX = 0.1f;
                 spreadY = 0.1f;
                 timeBetweenShots = 0.01f;
@@ -192,7 +189,6 @@ public class shooting : MonoBehaviour
         }
         else if(flintlock.activeInHierarchy)
         {
-            Debug.Log("flintlock abilty activated");
             if (!specialAbilityActive)
             {
                 
@@ -201,10 +197,6 @@ public class shooting : MonoBehaviour
                 Rigidbody rb = obj.GetComponent<Rigidbody>();
                 rb.AddForce((-transform.forward + Vector3.up) * bombThrowForce , ForceMode.Impulse);
             }
-        }
-        else
-        {
-            Debug.Log("uh oh, no ability activated!");
         }
         // Start cooldown
         specialAbilityReady = false;
@@ -237,6 +229,5 @@ public class shooting : MonoBehaviour
     private void ResetSpecialAbility()
     {
         specialAbilityReady = true;
-        Debug.Log("Special ability ready!");
     }
 }

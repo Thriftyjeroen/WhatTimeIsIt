@@ -57,11 +57,13 @@ public class Bomb : MonoBehaviour
                 {
                     enemy.TakeDamage((int)Mathf.Round(damage));
                     scoreManager.IncreaseScore((int)Mathf.Round(damage));
+                    scoreManager.IncreaseMult(_shot);
                 }
                 
             }
+            
         }
-        scoreManager.IncreaseMult(_shot);
+        
         //Instantiate(particles, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }

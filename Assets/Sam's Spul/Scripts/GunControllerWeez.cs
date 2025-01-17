@@ -20,7 +20,6 @@ public class GunControllerWeez: MonoBehaviour
 
     void Shoot()
     {
-        Debug.Log("shoot animation SHOULD play");
         canShoot = false;
         animatorGun2.SetTrigger("Reload");
         animatorWeezGun.SetTrigger("Reload");
