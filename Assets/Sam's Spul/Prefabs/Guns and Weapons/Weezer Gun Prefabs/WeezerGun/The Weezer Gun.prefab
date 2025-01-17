@@ -7120,7 +7120,6 @@ MonoBehaviour:
   gun2: {fileID: 5310690117072153468, guid: 11e31e73605d1374ba1027523a299266, type: 3}
   crossbow: {fileID: 1825085595656664444, guid: 52d3bce587ed4ae41a68536711b6fef3, type: 3}
   flintlock: {fileID: 312977827984678102, guid: 00ab4a0cc8811d94facd5da2e5d05f2b, type: 3}
-  mountPoint: {fileID: 0}
   damage: 20
   timeBetweenShooting: 0.5
   reloadSpeed: 1.82
@@ -7138,11 +7137,9 @@ MonoBehaviour:
   enemy:
     serializedVersion: 2
     m_Bits: 63
-  bomb: {fileID: 0}
-  bombThrowForce: 20
+  muzzleFlash: {fileID: 1000010254994808, guid: 9defeac88977c0d448aa4541073ee9e4, type: 3}
   bulletHole: {fileID: 2972552224966586805, guid: 9a2c9aaa93b33b2409e4269385a1d78b, type: 3}
   bulletTracer: {fileID: 5031712833824843428, guid: 9337765c684567b4ca3f367747006dca, type: 3}
-  scoreManager: {fileID: 0}
 --- !u!114 &7998009877550910124
 MonoBehaviour:
   m_ObjectHideFlags: 0
