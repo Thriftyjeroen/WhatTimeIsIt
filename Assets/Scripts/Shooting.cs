@@ -1,5 +1,4 @@
 using System.Collections;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using static UnityEngine.Rendering.DebugUI.Table;
 
@@ -26,7 +25,7 @@ public class shooting : MonoBehaviour
     public Camera cam;
     public RaycastHit rayHit;
     public Transform shootingPoint;
-    public LayerMask enemy;
+    public LayerMask enemy, player;
     [SerializeField] private GameObject bomb;
     [SerializeField] private float bombThrowForce;
     public GameObject bulletHole;
@@ -84,18 +83,19 @@ public class shooting : MonoBehaviour
         Vector3 spreadOffset = cam.transform.right * x + cam.transform.up * y;
         Vector3 direction = cam.transform.forward + spreadOffset;
         //raycast using the random range from spread as 'direction'
-        if (Physics.Raycast(cam.transform.position, direction, out rayHit, range))
+        if (Physics.Raycast(cam.transform.position, direction, out rayHit, range, ~player))
         {
             Debug.DrawLine(transform.position, rayHit.point, Color.green, 1000f);
             Instantiate(bulletHole, rayHit.point + (rayHit.normal * 0.1f), Quaternion.FromToRotation(Vector3.up, rayHit.normal));
             TrailRenderer trail = Instantiate(bulletTracer, shootingPoint.transform.position, Quaternion.identity);
             StartCoroutine(SpawnTrail(trail, rayHit));
+
             if (rayHit.collider.CompareTag("Enemy"))
             {
                 rayHit.collider.GetComponent<EnemyHealth>().TakeDamage(damage);
                 scoreManager.IncreaseScore(damage);
-
             }
+
             if (rayHit.collider.CompareTag("Bomb"))
             {
                 rayHit.collider.GetComponent<Bomb>().Explode(1);
