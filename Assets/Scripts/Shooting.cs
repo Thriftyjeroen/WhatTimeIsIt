@@ -205,14 +205,7 @@ public class shooting : MonoBehaviour
         {
             if (!specialAbilityActive)
             {
-                //piercing shot with knockback, might stun if knocked into a wall
-                RaycastHit[] hits = Physics.RaycastAll(cam.transform.position, cam.transform.forward, range, enemy);
-                Debug.DrawLine(transform.position, rayHit.point, Color.yellow, 1000f);
-                foreach (RaycastHit hit in hits)
-                {
-                    GameObject enemy = hit.collider.gameObject;
-                    Debug.Log("THE TONY HAWK HAWK TUAH I AINT TALKING TO YA");
-                }
+                
             }
         }
         // Start cooldown
