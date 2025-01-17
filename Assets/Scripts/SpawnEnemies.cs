@@ -10,7 +10,7 @@ public class SpawnEnemies : MonoBehaviour
     [SerializeField] List<GameObject> spawnPos = new List<GameObject>();
     [SerializeField] List<GameObject> enemyTypes = new List<GameObject>();
     [SerializeField] List<GameObject> enemiesNotActive = new List<GameObject>();
-    List<GameObject> enemiesActive = new List<GameObject>();
+    [SerializeField] List<GameObject> enemiesActive = new List<GameObject>();
 
     bool activated = false;
     float time = 0;

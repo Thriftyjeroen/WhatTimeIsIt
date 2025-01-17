@@ -22,7 +22,7 @@ public class ScoreUploadManager : MonoBehaviour
         string pName = PlayerPrefs.GetString("Name");
 
         Scene scene = SceneManager.GetActiveScene();
-        int pLevel = scene.buildIndex - 2;
+        int pLevel = scene.buildIndex - 4;
         int pScore = int.Parse(fullScore.text);
 
         if (Application.internetReachability == NetworkReachability.NotReachable)
