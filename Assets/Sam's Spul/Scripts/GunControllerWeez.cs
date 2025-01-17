@@ -24,7 +24,7 @@ public class GunControllerWeez: MonoBehaviour
         animatorGun2.SetTrigger("Reload");
         animatorWeezGun.SetTrigger("Reload");
         animatorCrossbow.SetTrigger("Reload");
-        animatorFlintlock.SetTrigger("doodooCaca");
+        animatorFlintlock.SetTrigger("Reload");
     }
     public void OnReloadComplete()
     {
