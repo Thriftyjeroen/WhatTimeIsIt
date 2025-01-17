@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 4795981829030199128}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6, y: 0, z: -10}
+  m_LocalPosition: {x: 6, y: -0.1, z: -11.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7300,6 +7300,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 365a6545eb501d945a233e70a6118789, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weezGun: {fileID: 0}
+  gun2: {fileID: 0}
+  crossbow: {fileID: 0}
+  flintlock: {fileID: 0}
+  mountPoint: {fileID: 0}
   damage: 20
   timeBetweenShooting: 0.5
   reloadSpeed: 2.1
@@ -7307,6 +7312,7 @@ MonoBehaviour:
   timeBetweenShots: 0.08
   spreadX: 0.03
   spreadY: 0.03
+  specialAbilityCooldown: 0
   magazineZise: 9
   bulletsPerShot: 9
   automaticFire: 0
@@ -7316,9 +7322,11 @@ MonoBehaviour:
   enemy:
     serializedVersion: 2
     m_Bits: 63
-  muzzleFlash: {fileID: 1000010254994808, guid: 9defeac88977c0d448aa4541073ee9e4, type: 3}
+  bomb: {fileID: 0}
+  bombThrowForce: 0
   bulletHole: {fileID: 1000010844420130, guid: 4edabb1c0dde62743b137378c7d22980, type: 3}
   bulletTracer: {fileID: 0}
+  scoreManager: {fileID: 0}
 --- !u!95 &6224786360892789135
 Animator:
   serializedVersion: 7
