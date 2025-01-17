@@ -15,13 +15,17 @@ public class Health : MonoBehaviour
     void Update()
     {
         setText();
-    }
-    public void Plushealth()
-    {
-        health += 1;
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            TakeDamager(10);
+        }
     }
     public void setText()
     {
         HealthText.text = "hitpoints: " + health.ToString();
+    }
+    public void TakeDamager(int damage)
+    {
+        health -= damage;
     }
 }
