@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UIElements;
 using static UnityEngine.Rendering.DebugUI.Table;
 
 public class EnemyShooting : MonoBehaviour
@@ -41,11 +42,10 @@ public class EnemyShooting : MonoBehaviour
     public void FindPlayer()
     {
         // Set the detection radius
-        float detectionRadius = 10f;
+        float detectionRadius = 20f;
 
         // Get all colliders within the sphere radius
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, detectionRadius);
-
 
         // Loop through each collider in the hitColliders array
         foreach (Collider col in hitColliders)
@@ -57,6 +57,11 @@ public class EnemyShooting : MonoBehaviour
                 Shoot();
             }
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(transform.position, 20f);
     }
 
     private void Shoot()

@@ -19,7 +19,7 @@ public class ToxicWater : MonoBehaviour
                 despawn.EnemyDead(obj);
                 break;
             default:
-                Debug.LogException(new Exception($"Unknown object enterd the water and is nutrelized: {obj.name}"));//custom error message
+                Debug.LogException(new Exception($"Unknown object enterd the water and has been neutralized: {obj.name}"));//custom error message
                 Destroy(obj);
                 //throw new Exception("test");
                 break;
