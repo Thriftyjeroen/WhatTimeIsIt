@@ -5,6 +5,7 @@ public class EnemyAi : MonoBehaviour
 {
     [SerializeField] Transform target; 
     private NavMeshAgent agent;
+    bool resetPos = false;
 
     void Start()
     {
@@ -34,12 +35,20 @@ public class EnemyAi : MonoBehaviour
 
             if (!playerFound)
             {
-                agent.enabled = true;
+                if (resetPos)
+                {
+                    agent.nextPosition = transform.position;
+                    resetPos = false;
+                }
+                agent.isStopped = false;
+                agent.updatePosition = true;
                 agent.SetDestination(target.position);
             }
             else
             {
-                agent.enabled = false;
+                resetPos = true;
+                agent.updatePosition = false;
+                agent.SetDestination(target.position);
             }
         }
     }

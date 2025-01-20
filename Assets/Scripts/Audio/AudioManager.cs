@@ -39,7 +39,7 @@ public class AudioManager : MonoBehaviour
 
     public void PlaySound(string pSound)
     {
-        GameObject sound = Instantiate((GameObject)Resources.Load($"prefabs/{pSound}"));
+        GameObject sound = Instantiate((GameObject)Resources.Load($"prefabs/{pSound}"), this.transform);
         Instantiate(sound);
     }
 }
