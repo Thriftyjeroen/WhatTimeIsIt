@@ -4,17 +4,18 @@ using UnityEngine;
 
 public class MultIncreaseManager : MonoBehaviour
 {
+    private ScoreManager scoreManager;
     TMP_Text score;
     AudioSource source;
     private void Start()
     {
-        score = GameObject.FindGameObjectsWithTag("TempScore")[0].GetComponent<TMP_Text>();
+        scoreManager = GameObject.FindGameObjectsWithTag("scoreManager")[0].GetComponent<ScoreManager>();
         source = GetComponent<AudioSource>();
-        source.pitch = 1 + (Int32.Parse(score.text.Split("x ")[1]) * 0.05946f);
+        source.pitch = 1 + (scoreManager.GetMult() * 0.05946f);
     }
     void Update()
     {
-        if (!source.isPlaying)
+        if (source != null && !source.isPlaying)
         {
             Destroy(gameObject);
         }
