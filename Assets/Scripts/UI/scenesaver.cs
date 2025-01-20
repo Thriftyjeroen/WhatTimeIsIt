@@ -44,7 +44,7 @@ public class SceneSaver : MonoBehaviour
 
     public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-       
+       Time.timeScale = 1.0f;
         previousSceneName = lastSceneName;
         lastSceneName = scene.name; 
     }

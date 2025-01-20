@@ -78,7 +78,7 @@ public class ScoreManager : MonoBehaviour
         while (true)
         {
             yield return new WaitForSecondsRealtime(0.1f);
-            if (fullScore > 0)
+            if (fullScore > 0 && Time.timeScale > 0f)
             {
                 fullScore -= 1;
                 fullScoreText.text = fullScore.ToString();
