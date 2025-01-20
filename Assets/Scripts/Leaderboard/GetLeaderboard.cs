@@ -18,6 +18,7 @@ public class GetLeaderboard : MonoBehaviour
 
     public void Start()
     {
+        playerName = PlayerPrefs.GetString("Name");
         ShowScoreBoard(playerName, level);
     }
 
