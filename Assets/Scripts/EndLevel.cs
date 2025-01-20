@@ -5,6 +5,11 @@ public class EndLevel : MonoBehaviour //if the player reach the end of the level
 {
     [SerializeField] string loadScene;
     [SerializeField] ScoreUploadManager scoreUploadManager;
+    SceneManager sceneManager;
+    private void Start()
+    {
+        sceneManager = GetComponent<SceneManager>();
+    }
     private void OnTriggerEnter(Collider other)
     {
         //if (other.gameObject.name.ToLower().Contains("player")) SceneManager.LoadScene(loadScene);
