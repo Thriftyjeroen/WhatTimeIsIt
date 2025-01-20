@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 4827661368218378440}
   - component: {fileID: 5829288948392672519}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: cool glasses
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -133,9 +133,10 @@ GameObject:
   - component: {fileID: 559237166479310331}
   - component: {fileID: 49075517302086104}
   - component: {fileID: 5986918773015773701}
+  - component: {fileID: 6425663415820026757}
   m_Layer: 0
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -267,7 +268,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 648e7aec930cdd74d9fe8f20ca5a47b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
+  target: {fileID: 8784098934068933231, guid: 34d0592f8cd05014b8b41ed4497d97b5, type: 3}
 --- !u!54 &5986918773015773701
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -295,6 +296,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 96
   m_CollisionDetection: 0
+--- !u!114 &6425663415820026757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6058289165469008356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48cee279efa10b0439dce94072826247, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
 --- !u!1001 &7661349120692706432
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -363,13 +377,62 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 9157009637923908716, guid: 52d3bce587ed4ae41a68536711b6fef3, type: 3}
+    - {fileID: 1030212268293416638, guid: 52d3bce587ed4ae41a68536711b6fef3, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1825085595656664444, guid: 52d3bce587ed4ae41a68536711b6fef3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7306685164626209180}
   m_SourcePrefab: {fileID: 100100000, guid: 52d3bce587ed4ae41a68536711b6fef3, type: 3}
 --- !u!4 &2032638861552316691 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8532058676982787475, guid: 52d3bce587ed4ae41a68536711b6fef3, type: 3}
+  m_PrefabInstance: {fileID: 7661349120692706432}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &3316741711866862052 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4924118211502818660, guid: 52d3bce587ed4ae41a68536711b6fef3, type: 3}
+  m_PrefabInstance: {fileID: 7661349120692706432}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8288476828753979900 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1825085595656664444, guid: 52d3bce587ed4ae41a68536711b6fef3, type: 3}
+  m_PrefabInstance: {fileID: 7661349120692706432}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7306685164626209180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8288476828753979900}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fd45915c2828db44bb4ccb6aa46631f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  crossbow: {fileID: 8288476828753979900}
+  mountPoint: {fileID: 8043329753222976974}
+  bulletPrefab: {fileID: 347552844045539730, guid: 3619e3d8b64a46f428214f2a8637d8e4, type: 3}
+  animatorCrossbow: {fileID: 8866752893604914476}
+  bulletSpawnPoint: {fileID: 3316741711866862052}
+  damage: 0
+  timeBetweenShooting: 0
+  reloadSpeed: 0
+  range: 0
+  timeBetweenShots: 0
+  spreadX: 0
+  spreadY: 0
+  specialAbilityCooldown: 0
+  magazineZise: 0
+  bulletsPerShot: 0
+  automaticFire: 0
+  shootingPoint: {fileID: 0}
+--- !u!95 &8866752893604914476 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 1251891468165921196, guid: 52d3bce587ed4ae41a68536711b6fef3, type: 3}
   m_PrefabInstance: {fileID: 7661349120692706432}
   m_PrefabAsset: {fileID: 0}

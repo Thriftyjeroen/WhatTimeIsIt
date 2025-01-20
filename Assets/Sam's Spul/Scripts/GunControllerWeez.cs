@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class GunControllerWeez: MonoBehaviour
@@ -10,9 +11,10 @@ public class GunControllerWeez: MonoBehaviour
 
     void Update()
     {
+        
         if (Input.GetMouseButtonDown(0) && canShoot)
         {
-                Shoot();
+            Shoot();
         }
     }
 
@@ -26,7 +28,6 @@ public class GunControllerWeez: MonoBehaviour
     }
     public void OnReloadComplete()
     {
-        print("can shoot");
-        canShoot=true;
+        canShoot = true;
     }
 }

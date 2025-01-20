@@ -2,42 +2,44 @@ using UnityEngine;
 
 public class Pausescreen : MonoBehaviour
 {
-    [SerializeField] GameObject pausescreen;
-    bool ison;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    [SerializeField] private GameObject pausescreen; // Ensure this is assigned in the inspector
+    private bool isPaused;
+
     void Start()
     {
         pausescreen.SetActive(false);
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && !ison)
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            ison = true;
-            PauseScreenOn();
-        }
-        else if (Input.GetKeyDown(KeyCode.Escape) && ison)
-        {
-            ison = false;
-            PauseScreenOff();
+            if (isPaused)
+            {
+                PauseScreenOff();
+            }
+            else
+            {
+                PauseScreenOn();
+            }
         }
     }
+
     public void PauseScreenOn()
     {
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
         pausescreen.SetActive(true);
         Time.timeScale = 0f;
-
+        isPaused = true; // Set paused state
     }
+
     public void PauseScreenOff()
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         pausescreen.SetActive(false);
-        ison = false;
         Time.timeScale = 1f;
+        isPaused = false; // Reset paused state
     }
 }
