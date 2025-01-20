@@ -9350,6 +9350,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GoalText: {fileID: 102846386}
+--- !u!114 &1730857929274088686 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4534724761718633513, guid: 3b65fec7fd334fc48826afea5fc07b66, type: 3}
+  m_PrefabInstance: {fileID: 1730857929274088682}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1730857929274088684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5383f615bc930d148a2df5539e15bbdd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5717555039966961273
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9658,6 +9669,10 @@ PrefabInstance:
       propertyPath: HealthText
       value: 
       objectReference: {fileID: 550400192}
+    - target: {fileID: 9201364015803226955, guid: 98819024790cdab4bb61cd03769716a0, type: 3}
+      propertyPath: WinLoseScript
+      value: 
+      objectReference: {fileID: 1730857929274088686}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

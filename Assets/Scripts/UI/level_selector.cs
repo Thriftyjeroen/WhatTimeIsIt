@@ -54,7 +54,7 @@ public class level_selector : MonoBehaviour
         {
             SceneManager.LoadScene("buildLevel");
         }
-            SceneManager.LoadScene(levelname);
+            //SceneManager.LoadScene(levelname);
         
     }
     private void ShowPopup(string level)
