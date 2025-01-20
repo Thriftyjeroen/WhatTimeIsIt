@@ -212,7 +212,6 @@ public class shooting : MonoBehaviour
                     GameObject enemy = hit.collider.gameObject;
                     Debug.DrawLine(transform.position, hit.point, Color.green, 1000f);
                     // Example: Log the name of each enemy hit
-                    Debug.Log($"Hit enemy: {enemy.name}");
                     if (enemy.TryGetComponent(out Rigidbody rb))
                     {
                         rb.AddForce((-transform.forward) * 10f, ForceMode.Impulse );

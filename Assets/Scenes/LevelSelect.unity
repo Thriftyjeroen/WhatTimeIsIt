@@ -3259,6 +3259,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 3775077}
+    - target: {fileID: 5323261816262812062, guid: 00ab4a0cc8811d94facd5da2e5d05f2b, type: 3}
+      propertyPath: cam
+      value: 
+      objectReference: {fileID: 918013496}
     - target: {fileID: 7292852761052728673, guid: 00ab4a0cc8811d94facd5da2e5d05f2b, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -5234,6 +5238,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2289797446575101082, guid: 00ab4a0cc8811d94facd5da2e5d05f2b, type: 3}
   m_PrefabInstance: {fileID: 750775443}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &1182570599 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 2152326806341613780, guid: 00ab4a0cc8811d94facd5da2e5d05f2b, type: 3}
+  m_PrefabInstance: {fileID: 750775443}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1199647977
 GameObject:
   m_ObjectHideFlags: 0
@@ -6791,7 +6800,7 @@ MonoBehaviour:
   animatorWeezGun: {fileID: 103379673}
   animatorGun2: {fileID: 1221302572}
   animatorCrossbow: {fileID: 473135989}
-  animatorFlintlock: {fileID: 0}
+  animatorFlintlock: {fileID: 1182570599}
 --- !u!114 &1860006360
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7576,6 +7585,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9157009637923908716, guid: 52d3bce587ed4ae41a68536711b6fef3, type: 3}
+      propertyPath: cam
+      value: 
+      objectReference: {fileID: 918013496}
     - target: {fileID: 9186917674766275013, guid: 52d3bce587ed4ae41a68536711b6fef3, type: 3}
       propertyPath: m_Mesh
       value: 
