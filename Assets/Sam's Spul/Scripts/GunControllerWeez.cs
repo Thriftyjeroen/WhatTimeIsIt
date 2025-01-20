@@ -14,7 +14,7 @@ public class GunControllerWeez: MonoBehaviour
         
         if (Input.GetMouseButtonDown(0) && canShoot)
         {
-                Shoot();
+            Shoot();
         }
     }
 

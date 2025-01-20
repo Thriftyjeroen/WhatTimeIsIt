@@ -10,7 +10,7 @@ public class SpawnEnemies : MonoBehaviour
     [SerializeField] List<GameObject> spawnPos = new List<GameObject>();
     [SerializeField] List<GameObject> enemyTypes = new List<GameObject>();
     [SerializeField] List<GameObject> enemiesNotActive = new List<GameObject>();
-    List<GameObject> enemiesActive = new List<GameObject>();
+    [SerializeField] List<GameObject> enemiesActive = new List<GameObject>();
 
     bool activated = false;
     float time = 0;
@@ -26,22 +26,25 @@ public class SpawnEnemies : MonoBehaviour
             enemiesActive.Add(enemy);
             enemiesNotActive.Remove(enemy);
         }
+        activated = true;
     }
     void Reinforcement()//if the player unlockes the area there will be at least 1 new enemy spawned based on the number of the respawnTimer
     {
         if (!activated) return;
         time += Time.deltaTime;
-        if (time < respawnTimer) return;
+        if (!(time > respawnTimer)) return;
+        GameObject reïnforcement;
         if (enemiesNotActive.Count != 0)
         {
-            GameObject reïnforcement = enemiesNotActive[Random.Range(0, enemiesNotActive.Count)];
+            reïnforcement = enemiesNotActive[Random.Range(0, enemiesNotActive.Count)];
             reïnforcement.SetActive(true);
-            reïnforcement.transform.position = spawnPos[Random.Range(0, spawnPos.Count)].transform.position;
-            enemiesActive.Add(reïnforcement);
             enemiesNotActive.Remove(reïnforcement);
         }
-        else enemiesActive.Add(Instantiate(enemyTypes[Random.Range(0, enemyTypes.Count)],parrond.transform));
-        time -= 10;
+        else reïnforcement = Instantiate(enemyTypes[Random.Range(0, enemyTypes.Count)], parrond.transform);
+        
+        reïnforcement.transform.position = spawnPos[Random.Range(0, spawnPos.Count)].transform.position;
+        enemiesActive.Add(reïnforcement);
+        time = 0;
     }
     private void OnCollisionEnter(Collision collision)
     {
