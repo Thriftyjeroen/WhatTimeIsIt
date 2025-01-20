@@ -19,6 +19,10 @@ public class ScoreManager : MonoBehaviour
         StartCoroutine(KeepAddingScore());
         StartCoroutine(KeepDecayingScore());
     }
+    public float GetMult()
+    {
+        return mult;
+    }
 
 
     public void IncreaseScore(int damage)
