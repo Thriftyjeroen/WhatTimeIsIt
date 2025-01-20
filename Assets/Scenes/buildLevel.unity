@@ -521,10 +521,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'the goal is to get score by killing enemies,
-
-    too continue you need
-    to find the timemachine'
+  m_text: The goal is to score points by killing enemies. To continue, you need to
+    find the time machine.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 7e05eed91faa4254e83915303ba55777, type: 2}
   m_sharedMaterial: {fileID: 7442477916396566412, guid: 7e05eed91faa4254e83915303ba55777, type: 2}
@@ -589,7 +587,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -445.078, w: -91.50974}
+  m_margin: {x: 0, y: 0, z: -486.65057, w: -91.50974}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
