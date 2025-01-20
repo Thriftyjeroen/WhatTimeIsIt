@@ -793,11 +793,11 @@ MeshCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4847954135985824502, guid: 15f253ee7d408d64c9ef7c575e82a98f, type: 3}
 --- !u!114 &212808654
@@ -843,12 +843,12 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.4386053, y: 2.0179498, z: 0.0012006254}
-  m_Center: {x: 0.2885814, y: -0.0006802081, z: -0.02932894}
+  m_Size: {x: 1.4386053, y: 2.0179498, z: 0.026713332}
+  m_Center: {x: 0.28858137, y: -0.00068023684, z: -0.03876247}
 --- !u!43 &239784520
 Mesh:
   m_ObjectHideFlags: 0
