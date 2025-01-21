@@ -104,6 +104,10 @@ PrefabInstance:
       propertyPath: mountPoint
       value: 
       objectReference: {fileID: 5368806451441709457}
+    - target: {fileID: 4250778868947856916, guid: 34d0592f8cd05014b8b41ed4497d97b5, type: 3}
+      propertyPath: player.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
     - target: {fileID: 5659559920252141950, guid: 34d0592f8cd05014b8b41ed4497d97b5, type: 3}
       propertyPath: m_VersionIndex
       value: 94

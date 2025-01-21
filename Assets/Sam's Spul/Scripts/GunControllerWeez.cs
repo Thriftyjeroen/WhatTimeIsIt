@@ -14,11 +14,11 @@ public class GunControllerWeez: MonoBehaviour
         
         if (Input.GetMouseButtonDown(0) && canShoot)
         {
-            Shoot();
+            Pew();
         }
     }
 
-    void Shoot()
+    void Pew()
     {
         canShoot = false;
         animatorGun2.SetTrigger("Reload");
