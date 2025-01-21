@@ -13,7 +13,7 @@ public class TempScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Player.transform.position.y <= -15)
+        if(Player.transform.position.y <= -30)
         {
             WinLoseScript.Lose();
         }
