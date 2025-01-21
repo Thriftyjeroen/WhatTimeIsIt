@@ -41,6 +41,7 @@ public class GetLeaderboard : MonoBehaviour
             {
                 Debug.LogError(www.error);
                 board.text += "\n\nCannot connect to leaderboard server.";
+                yield break;
             }
 
             ScoresWrapper scoresWrapped = JsonUtility.FromJson<ScoresWrapper>(www.downloadHandler.text);
