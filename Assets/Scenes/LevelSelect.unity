@@ -732,7 +732,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5428195978795311870, guid: 3b65fec7fd334fc48826afea5fc07b66, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8630240418834001737, guid: 3b65fec7fd334fc48826afea5fc07b66, type: 3}
       propertyPath: Gun2
