@@ -8,7 +8,7 @@ public class ScoreUploadManager : MonoBehaviour
 {
     public bool done = false;
     public bool failed = false;
-    [SerializeField] TMP_Text fullScore;
+    public TMP_Text fullScore;
 
     public void UploadScore()
     {
