@@ -6943,6 +6943,9 @@ MonoBehaviour:
   enemy:
     serializedVersion: 2
     m_Bits: 831
+  player:
+    serializedVersion: 2
+    m_Bits: 0
   bomb: {fileID: 0}
   bombThrowForce: 20
   bulletHole: {fileID: 0}
