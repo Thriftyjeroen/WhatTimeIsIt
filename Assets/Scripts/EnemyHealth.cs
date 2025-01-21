@@ -2,60 +2,48 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
-    // Enemy's starting health
-    public int maxHealth = 100;
-    private int currentHealth;
-   //[SerializeField] shooting shooting;
-   SpawnEnemies spawnEnemies; 
+    [Header("Health")]
+    public int currentHealth;
 
-    // Reference to a possible death effect
-  //  public GameObject deathEffect;
+    private SpawnEnemies spawnEnemies;
+    private EnemyTypeSettings enemyTypeSettings;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        // Initialize the enemy's health to the maximum health
-        currentHealth = maxHealth;
-      spawnEnemies = FindFirstObjectByType<SpawnEnemies>();
+        // Get the EnemyTypeSettings component and initialize health
+        enemyTypeSettings = GetComponent<EnemyTypeSettings>();
+        if (enemyTypeSettings != null)
+        {
+            enemyTypeSettings.InitializeHealth();
+            currentHealth = enemyTypeSettings.maxHealth;
+        }
+        else
+        {
+            Debug.LogWarning("EnemyTypeSettings component is missing!");
+        }
+
+        spawnEnemies = FindFirstObjectByType<SpawnEnemies>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        // Placeholder for player attack logic
-        // Example: Replace with actual attack detection logic (e.g., collision or raycast)
-        //if (Input.GetKeyDown(KeyCode.Mouse0)) // Simulate attack with space key
-        //{
-        //    // Check weapon type and deal damage
-        //    TakeDamage(shooting.damage);
-        //}
-    }
-
-    // Method to apply damage to the enemy
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
 
-        // Check if the enemy is dead
         if (currentHealth <= 0)
         {
             Die();
         }
     }
 
-    // Method to handle the enemy's death
     private void Die()
     {
-        Debug.Log("Enemy died!");
+        Debug.Log($"{gameObject.name} died!");
 
-        // Play death effect if assigned
-        // if (deathEffect != 0)
-        // {
-        //     Instantiate(deathEffect, transform.position, Quaternion.identity);
-        // }
+        if (spawnEnemies != null)
+        {
+            spawnEnemies.EnemyDead(this.gameObject);
+        }
 
-        // Destroy the enemy GameObject
-        spawnEnemies.EnemyDead(this.gameObject);
-
+        Destroy(gameObject);
     }
 }
