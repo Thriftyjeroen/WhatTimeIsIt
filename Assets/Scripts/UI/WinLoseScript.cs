@@ -22,7 +22,6 @@ public class WinLoseScript : MonoBehaviour
     {
         PopUp.SetActive(true);
         scoretext.text = ScoreUploadManager.fullScore.text;
-        SceneManager.LoadScene("LevelSelect");
         WinLoseText.text = "you have won";
     }
     public void Lose()
@@ -37,6 +36,8 @@ public class WinLoseScript : MonoBehaviour
         {
             ScoreUploadManager.UploadScore();
             Win();
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
             Time.timeScale = 0f;
         }
         if (other.gameObject.name.ToLower().Contains("water"))
@@ -45,5 +46,9 @@ public class WinLoseScript : MonoBehaviour
             Time.timeScale = 0f; 
 
         }
+    }
+    public void SwitchScene()
+    {
+        SceneManager.LoadScene("LevelSelect");
     }
 }
