@@ -1,10 +1,12 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class WinLoseScript : MonoBehaviour
 {
-    [SerializeField] TMP_Text WinLoseText;
+    [SerializeField] TMP_Text WinLoseText,scoretext;
     [SerializeField] GameObject PopUp;
+    [SerializeField] ScoreUploadManager ScoreUploadManager;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -19,13 +21,12 @@ public class WinLoseScript : MonoBehaviour
     public void Win() 
     {
         PopUp.SetActive(true);
-        print("hi");
+        scoretext.text = ScoreUploadManager.fullScore.text;
         WinLoseText.text = "you have won";
     }
     public void Lose()
     {
         PopUp.SetActive(true);
-        print("you lose");
         WinLoseText.text = "you have lost";
 
     }
@@ -33,11 +34,21 @@ public class WinLoseScript : MonoBehaviour
     {
         if (other.gameObject.name.ToLower().Contains("finish"))
         {
+            ScoreUploadManager.UploadScore();
             Win();
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            Time.timeScale = 0f;
         }
         if (other.gameObject.name.ToLower().Contains("water"))
         {
             Lose();
+            Time.timeScale = 0f; 
+
         }
+    }
+    public void SwitchScene()
+    {
+        SceneManager.LoadScene("LevelSelect");
     }
 }
