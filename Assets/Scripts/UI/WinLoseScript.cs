@@ -8,7 +8,7 @@ public class WinLoseScript : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        PopUp.SetActive(false);
+       // PopUp.SetActive(false);
     }
 
     // Update is called once per frame
@@ -35,7 +35,7 @@ public class WinLoseScript : MonoBehaviour
         {
             Win();
         }
-        if (other.gameObject.name.ToLower().Contains("water.001"))
+        if (other.gameObject.name.ToLower().Contains("water"))
         {
             Lose();
         }

@@ -12,12 +12,13 @@ public class GetLeaderboard : MonoBehaviour
 {
     [SerializeField] TMP_Text board;
     List<ScoreEntry> scores;
-    [SerializeField] GameObject loadingCircle;
+    // [SerializeField] GameObject loadingCircle;
     [SerializeField] int level;
     [SerializeField] string playerName;
 
     public void Start()
     {
+        playerName = PlayerPrefs.GetString("Name");
         ShowScoreBoard(playerName, level);
     }
 
@@ -65,7 +66,7 @@ public class GetLeaderboard : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(0.01f);
-            loadingCircle.SetActive((board.text == "Scoreboard"));
+            //loadingCircle.SetActive((board.text == "Scoreboard"));
         }
     }
 }
