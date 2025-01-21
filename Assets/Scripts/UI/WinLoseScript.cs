@@ -22,31 +22,41 @@ public class WinLoseScript : MonoBehaviour
     public void Win()
     {
         StartCoroutine(HandleWin());
+        
     }
     public void Lose()
     {
-        PopUp.SetActive(true);
-        WinLoseText.text = "you have lost";
-        Time.timeScale = 0f;
 
-    }
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.name.ToLower().Contains("finish"))
         {
-            ScoreUploadManager.UploadScore();
-            Win();
+            //ScoreUploadManager.UploadScore();
+            PopUp.SetActive(true);
+            scoretext.text = ScoreUploadManager.fullScore.text;
+            WinLoseText.text = "You have lost";
+            Time.timeScale = 0f;
+
+        }
+    }
+        private void OnTriggerEnter(Collider other)
+        {
+            string objectName = other.gameObject.name.ToLower();
+
+            if (objectName.Contains("finish"))
+            {
+                Debug.Log("Win triggered.");
+                ScoreUploadManager.UploadScore();
+                Win();
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
+            else if (objectName.Contains("water"))
+            {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
-
-        }
-        if (other.gameObject.name.ToLower().Contains("water"))
-        {
             Lose();
-
-
+            }
         }
-    }
+
+
     public void SwitchScene()
     {
         SceneManager.LoadScene("LevelSelect");
