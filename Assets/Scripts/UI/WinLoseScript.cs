@@ -34,10 +34,13 @@ public class WinLoseScript : MonoBehaviour
         if (other.gameObject.name.ToLower().Contains("finish"))
         {
             Win();
+            Time.timeScale = 0f;
         }
         if (other.gameObject.name.ToLower().Contains("water"))
         {
             Lose();
+            Time.timeScale = 0f; 
+
         }
     }
 }
