@@ -37,10 +37,13 @@ public class WinLoseScript : MonoBehaviour
         {
             ScoreUploadManager.UploadScore();
             Win();
+            Time.timeScale = 0f;
         }
         if (other.gameObject.name.ToLower().Contains("water"))
         {
             Lose();
+            Time.timeScale = 0f; 
+
         }
     }
 }
