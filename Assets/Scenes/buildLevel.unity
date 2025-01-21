@@ -9016,7 +9016,7 @@ PrefabInstance:
     - target: {fileID: 351622937789733855, guid: 3b65fec7fd334fc48826afea5fc07b66, type: 3}
       propertyPath: multIncreasePlayer
       value: 
-      objectReference: {fileID: 2937974747773357501, guid: 266e290e207e8c44dbfea4aeb2f6c5d2, type: 3}
+      objectReference: {fileID: 2937974747773357501, guid: 28aeed28e38e3db40a3e2f536ece9e65, type: 3}
     - target: {fileID: 396153625854942798, guid: 3b65fec7fd334fc48826afea5fc07b66, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 764

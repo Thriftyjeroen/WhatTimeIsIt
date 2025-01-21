@@ -14,14 +14,13 @@ public class Bomb : MonoBehaviour
     [SerializeField] float gravityScale;
     private float maxDamage = 100;
 
-    private static GameObject particles;
+    [SerializeField] GameObject explosionSound;
+    [SerializeField] GameObject particles;
+
     [SerializeField] private ScoreManager scoreManager;
     void Start()
     {
-        if (!particles)
-        {
-            particles = Resources.Load<GameObject>("Particle System");
-        }
+        // SKib
     }
     private void Awake()
     {
@@ -42,8 +41,12 @@ public class Bomb : MonoBehaviour
 
     public void Explode(int _shot)
     {
+        Instantiate(particles, transform.position, transform.rotation);
+        Instantiate(explosionSound);
         Collider[] hitColliders = new Collider[10];
         int collidersHit = Physics.OverlapSphereNonAlloc(transform.position, explosionRadius, hitColliders);
+
+        int enemiesHit = 0;
         for(int i = 0; i < collidersHit; i++)
         {
             if (hitColliders[i].TryGetComponent(out Rigidbody rb))
@@ -52,19 +55,20 @@ public class Bomb : MonoBehaviour
             }
             if (hitColliders[i].TryGetComponent(out EnemyHealth enemy))
             {
+                enemiesHit++;
                 float damage = maxDamage - Vector3.Distance(transform.position, hitColliders[i].transform.position) * maxDamage / explosionRadius;
                 if (damage > 0)
                 {
                     enemy.TakeDamage((int)Mathf.Round(damage));
                     scoreManager.IncreaseScore((int)Mathf.Round(damage));
-                    scoreManager.IncreaseMult(_shot);
                 }
                 
             }
             
         }
-        
-        //Instantiate(particles, transform.position, Quaternion.identity);
+
+        scoreManager.IncreaseMult(enemiesHit);
+
         Destroy(gameObject);
     }
 }
