@@ -487,7 +487,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 72f56b83336615942b30ffdb3d56b6b0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.2
+      value: 9.24
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 72f56b83336615942b30ffdb3d56b6b0, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3697,7 +3697,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6483536904562724643, guid: b60d92707495ad74e82a3c3664f0d1ec, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.4
+      value: 5.31
       objectReference: {fileID: 0}
     - target: {fileID: 6483536904562724643, guid: b60d92707495ad74e82a3c3664f0d1ec, type: 3}
       propertyPath: m_LocalPosition.z
@@ -4178,7 +4178,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6483536904562724643, guid: b60d92707495ad74e82a3c3664f0d1ec, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2
+      value: 5.24
       objectReference: {fileID: 0}
     - target: {fileID: 6483536904562724643, guid: b60d92707495ad74e82a3c3664f0d1ec, type: 3}
       propertyPath: m_LocalPosition.z
@@ -7805,7 +7805,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6483536904562724643, guid: b60d92707495ad74e82a3c3664f0d1ec, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.25
+      value: 5.35
       objectReference: {fileID: 0}
     - target: {fileID: 6483536904562724643, guid: b60d92707495ad74e82a3c3664f0d1ec, type: 3}
       propertyPath: m_LocalPosition.z
@@ -9500,7 +9500,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5428195978795311870, guid: 3b65fec7fd334fc48826afea5fc07b66, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5878168642754114744, guid: 3b65fec7fd334fc48826afea5fc07b66, type: 3}
       propertyPath: m_text
@@ -9654,6 +9654,10 @@ PrefabInstance:
       propertyPath: WeezerGun
       value: 
       objectReference: {fileID: 1154335989}
+    - target: {fileID: 8833948530972360141, guid: 3b65fec7fd334fc48826afea5fc07b66, type: 3}
+      propertyPath: m_Name
+      value: retry
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8630240418834001737, guid: 3b65fec7fd334fc48826afea5fc07b66, type: 3}
     m_RemovedGameObjects:

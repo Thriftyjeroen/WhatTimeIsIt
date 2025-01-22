@@ -9,7 +9,10 @@ public class WinLoseScript : MonoBehaviour
     [SerializeField] GameObject PopUp;
     [SerializeField] ScoreUploadManager ScoreUploadManager;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    
+    public void Start()
+    {
+        PopUp.SetActive(false);
+    }
     public void Win()
     {
         StartCoroutine(HandleWin());
