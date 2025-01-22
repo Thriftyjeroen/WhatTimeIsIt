@@ -523,7 +523,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 72f56b83336615942b30ffdb3d56b6b0, type: 3}
       propertyPath: m_Name
-      value: Enamy spawnpoint
+      value: Enemy spawnpoint
       objectReference: {fileID: 0}
     - target: {fileID: 8164078558771037576, guid: 72f56b83336615942b30ffdb3d56b6b0, type: 3}
       propertyPath: m_Name
@@ -9392,7 +9392,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4424393412868188220, guid: 3b65fec7fd334fc48826afea5fc07b66, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4534724761718633513, guid: 3b65fec7fd334fc48826afea5fc07b66, type: 3}
       propertyPath: m_Enabled
@@ -9540,11 +9540,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8562336284653715209, guid: 3b65fec7fd334fc48826afea5fc07b66, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 211
+      value: 145
       objectReference: {fileID: 0}
     - target: {fileID: 8562336284653715209, guid: 3b65fec7fd334fc48826afea5fc07b66, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 424
+      value: 404
       objectReference: {fileID: 0}
     - target: {fileID: 8630240418834001737, guid: 3b65fec7fd334fc48826afea5fc07b66, type: 3}
       propertyPath: Gun2
