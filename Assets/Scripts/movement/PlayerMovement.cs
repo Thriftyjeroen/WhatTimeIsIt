@@ -55,6 +55,10 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        if (Time.timeScale == 0f)
+        {
+            return; 
+        }
         if (characterController.isGrounded)
         {
             characterVelocityMomentum = Vector3.zero;
