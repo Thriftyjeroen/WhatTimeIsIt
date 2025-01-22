@@ -4346,6 +4346,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7029948723529949830, guid: 15f253ee7d408d64c9ef7c575e82a98f, type: 3}
+      propertyPath: m_Name
+      value: water
+      objectReference: {fileID: 0}
     - target: {fileID: -6670209695126082631, guid: 15f253ee7d408d64c9ef7c575e82a98f, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.7071068
@@ -9066,7 +9070,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5428195978795311870, guid: 3b65fec7fd334fc48826afea5fc07b66, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5878168642754114744, guid: 3b65fec7fd334fc48826afea5fc07b66, type: 3}
       propertyPath: m_text
