@@ -19,17 +19,19 @@ public class WinLoseScript : MonoBehaviour
         // Set time on 0 
         Time.timeScale = 0f;
         StartCoroutine(HandleWin());
-  
+
 
     }
     public void Lose()
     {
-            active = true;
-            PopUp.SetActive(true);
-            scoretext.text = ScoreUploadManager.fullScore.text;
-            WinLoseText.text = "You have lost";
-            Time.timeScale = 0f;
-           
+        active = true;
+        PopUp.SetActive(true);
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        scoretext.text = ScoreUploadManager.fullScore.text;
+        WinLoseText.text = "You have lost";
+        Time.timeScale = 0f;
+
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -42,7 +44,7 @@ public class WinLoseScript : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }
-       
+
     }
 
 
@@ -84,8 +86,8 @@ public class WinLoseScript : MonoBehaviour
         {
             WinLoseText.text = "You have won, and your score was uploaded.";
         }
-        
- 
+
+
 
     }
 }
