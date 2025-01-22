@@ -16,7 +16,7 @@ public class Health : MonoBehaviour
     void Update()
     {
         setText();
-        if(health <= 0)
+        if (health <= 0)
         {
             WinLoseScript.Lose();
             Time.timeScale = 0f;

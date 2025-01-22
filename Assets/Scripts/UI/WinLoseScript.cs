@@ -8,6 +8,7 @@ public class WinLoseScript : MonoBehaviour
     [SerializeField] TMP_Text WinLoseText, scoretext;
     [SerializeField] GameObject PopUp;
     [SerializeField] ScoreUploadManager ScoreUploadManager;
+    public bool active;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public void Start()
     {
@@ -15,19 +16,22 @@ public class WinLoseScript : MonoBehaviour
     }
     public void Win()
     {
+        // Set time on 0 
+        Time.timeScale = 0f;
         StartCoroutine(HandleWin());
+
 
     }
     public void Lose()
     {
+        active = true;
+        PopUp.SetActive(true);
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        scoretext.text = ScoreUploadManager.fullScore.text;
+        WinLoseText.text = "You have lost";
+        Time.timeScale = 0f;
 
-        {
-            PopUp.SetActive(true);
-            scoretext.text = ScoreUploadManager.fullScore.text;
-            WinLoseText.text = "You have lost";
-            Time.timeScale = 0f;
-
-        }
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -40,17 +44,13 @@ public class WinLoseScript : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }
-        if (objectName.Contains("water"))
-        {
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-            Lose();
-        }
+
     }
 
 
     public void SwitchScene()
     {
+        Time.timeScale = 1f;
         SceneManager.LoadScene("LevelSelect");
     }
     public void ResetScene()
@@ -63,6 +63,8 @@ public class WinLoseScript : MonoBehaviour
 
     IEnumerator HandleWin()
     {
+
+        active = true;
         // Start uploading the score
         ScoreUploadManager.UploadScore();
 
@@ -84,6 +86,9 @@ public class WinLoseScript : MonoBehaviour
         {
             WinLoseText.text = "You have won, and your score was uploaded.";
         }
+
+
+
     }
 }
 

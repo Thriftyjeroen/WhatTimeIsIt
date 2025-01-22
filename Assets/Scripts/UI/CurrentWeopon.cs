@@ -24,6 +24,7 @@ public class CurrentWeopon : MonoBehaviour
     }
     public void slot1()
     {
+        print("SLOT1");
         slot1background.SetActive (true);
         slot2background.SetActive(false);
         slot3background.SetActive(false);
@@ -31,6 +32,7 @@ public class CurrentWeopon : MonoBehaviour
     }
     public void slot2()
     {
+        print("SLOT2");
         slot1background.SetActive (false);
         slot2background.SetActive (true);
         slot3background.SetActive (false);
@@ -38,6 +40,7 @@ public class CurrentWeopon : MonoBehaviour
     }
     public void slot3()
     {
+        print("SLOT3");
         slot1background.SetActive(false);
         slot2background.SetActive(false);
         slot3background.SetActive(true);
@@ -45,6 +48,7 @@ public class CurrentWeopon : MonoBehaviour
     }
     public void slot4()
     {
+        print("SLOT4");
         slot1background.SetActive(false);
         slot2background.SetActive(false);
         slot3background.SetActive(false);
