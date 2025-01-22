@@ -9070,7 +9070,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5428195978795311870, guid: 3b65fec7fd334fc48826afea5fc07b66, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5878168642754114744, guid: 3b65fec7fd334fc48826afea5fc07b66, type: 3}
       propertyPath: m_text
@@ -9224,6 +9224,10 @@ PrefabInstance:
       propertyPath: WeezerGun
       value: 
       objectReference: {fileID: 1154335989}
+    - target: {fileID: 8833948530972360141, guid: 3b65fec7fd334fc48826afea5fc07b66, type: 3}
+      propertyPath: m_Name
+      value: retry
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8630240418834001737, guid: 3b65fec7fd334fc48826afea5fc07b66, type: 3}
     m_RemovedGameObjects:

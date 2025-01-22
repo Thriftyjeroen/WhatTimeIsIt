@@ -7,7 +7,7 @@ public class scenemangerscript : MonoBehaviour
     void Start()
     {
         // Find the SceneSaver object that persists across scenes
-        sceneSaver = FindObjectOfType<SceneSaver>();
+        sceneSaver = FindFirstObjectByType<SceneSaver>();
     }
 
     public void LoadLastScene()
