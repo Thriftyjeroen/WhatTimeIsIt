@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Rendering;
 using static UnityEngine.Rendering.DebugUI.Table;
 using static UnityEngine.UI.Image;
 using Random = UnityEngine.Random;
@@ -119,6 +120,8 @@ public class shooting : MonoBehaviour
         {
             Reload();
         }
+
+
     }
     private void ResetShot()
     {
@@ -138,6 +141,7 @@ public class shooting : MonoBehaviour
     }
     private IEnumerator SpawnTrail(TrailRenderer Trail, RaycastHit hit)
     {
+        Debug.Log("Shooting.cs SpawnTrail() called");
         float time = 0;
         Vector3 startPosition = Trail.transform.position;
         while (time < 1)
@@ -214,12 +218,12 @@ public class shooting : MonoBehaviour
                     // Example: Log the name of each enemy hit
                     if (enemy.TryGetComponent(out Rigidbody rb))
                     {
-                        rb.AddForce((-transform.forward) * 10f, ForceMode.Impulse );
+                        rb.AddForce((-transform.forward) * 10f, ForceMode.Impulse);
                     }
                     if (enemy.TryGetComponent(out EnemyHealth hp))
                     {
-                            hp.TakeDamage(damage);
-                            scoreManager.IncreaseScore(damage);
+                        hp.TakeDamage(damage);
+                        scoreManager.IncreaseScore(damage);
                         if (hits.Length > 2)
                         {
                             scoreManager.IncreaseMult(1);
