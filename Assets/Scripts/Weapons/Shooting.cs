@@ -102,7 +102,7 @@ public class shooting : MonoBehaviour
 
             if (rayHit.collider.CompareTag("Bomb"))
             {
-                rayHit.collider.GetComponent<Bomb>().Explode(true);
+                rayHit.collider.GetComponent<Bomb>().Explode(1);
 
             }
         }

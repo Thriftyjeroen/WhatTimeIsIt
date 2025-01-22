@@ -39,7 +39,7 @@ public class Bomb : MonoBehaviour
         GetComponent<Rigidbody>().linearVelocity -= Vector3.up * gravityScale;
     }
 
-    public void Explode(bool _shot)
+    public void Explode(int _shot)
     {
         Instantiate(particles, transform.position, transform.rotation);
         Instantiate(explosionSound);
@@ -61,10 +61,10 @@ public class Bomb : MonoBehaviour
                 {
                     enemy.TakeDamage((int)Mathf.Round(damage));
                     scoreManager.IncreaseScore((int)Mathf.Round(damage));
-                    if (_shot)
+                    if (_shot > 0)
                     {
                         scoreManager.IncreaseMult(_shot);
-                        _shot = false;
+                        _shot--;
                     }
                     
 
