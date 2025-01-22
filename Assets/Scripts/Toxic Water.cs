@@ -23,7 +23,7 @@ public class ToxicWater : MonoBehaviour
             default:
                 Debug.LogException(new Exception($"Unknown object enterd the water and has been neutralized: {obj.name}"));//custom error message
                 Destroy(obj);
-                //throw new Exception("test");
+                //throw new Exception("test"); 
                 break;
         }
     }

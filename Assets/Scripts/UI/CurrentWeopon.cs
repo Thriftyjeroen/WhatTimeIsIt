@@ -7,6 +7,10 @@ public class CurrentWeopon : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        slot1background = GameObject.Find("slot 1 background");
+        slot2background = GameObject.Find("slot 2 background");
+        slot3background = GameObject.Find("slot 3 background");
+        slot4background = GameObject.Find("slot 4 background");
         slot1background.SetActive(false);
         slot2background.SetActive(false);
         slot3background.SetActive(false);

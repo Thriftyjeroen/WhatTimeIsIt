@@ -19,6 +19,7 @@ public class Health : MonoBehaviour
         if(health <= 0)
         {
             WinLoseScript.Lose();
+            Time.timeScale = 0f;
         }
        
     }

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5577391178892445454}
   - component: {fileID: 4663852078094840640}
   m_Layer: 0
-  m_Name: MultIncreaseSound
+  m_Name: Explosion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -43,10 +43,10 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 0e6459e0e0bc66747afd1ea31efdfa88, type: 3}
-  m_Resource: {fileID: 8300000, guid: 0e6459e0e0bc66747afd1ea31efdfa88, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 94c6d30d71f7b3e4ab6a8cd875e379b5, type: 3}
+  m_Resource: {fileID: 8300000, guid: 94c6d30d71f7b3e4ab6a8cd875e379b5, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.01
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -55,9 +55,9 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 5000
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -90,7 +90,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
