@@ -42,12 +42,7 @@ public class WinLoseScript : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }
-        if (objectName.Contains("water"))
-        {
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-            Lose();
-        }
+       
     }
 
 
