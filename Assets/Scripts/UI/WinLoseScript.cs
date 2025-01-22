@@ -16,9 +16,9 @@ public class WinLoseScript : MonoBehaviour
     }
     public void Win()
     {
-        Active = true;
+        //Active = true;
         StartCoroutine(HandleWin());
-        Active = false;
+        
 
     }
     public void Lose()
@@ -67,6 +67,7 @@ public class WinLoseScript : MonoBehaviour
 
     IEnumerator HandleWin()
     {
+        Active = true;
         // Start uploading the score
         ScoreUploadManager.UploadScore();
 
@@ -88,6 +89,7 @@ public class WinLoseScript : MonoBehaviour
         {
             WinLoseText.text = "You have won, and your score was uploaded.";
         }
+        Active = false;
     }
 }
 

@@ -13,7 +13,7 @@ public class Pausescreen : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && winLoseScript.Active)
+        if (Input.GetKeyDown(KeyCode.Escape) && winLoseScript.Active == false)
         {
             if (isPaused)
             {
