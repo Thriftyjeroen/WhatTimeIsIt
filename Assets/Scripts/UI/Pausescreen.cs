@@ -4,7 +4,7 @@ public class Pausescreen : MonoBehaviour
 {
     [SerializeField] private GameObject pausescreen; // Ensure this is assigned in the inspector
     private bool isPaused;
-    [SerializeField]WinLoseScript winLoseScript;
+    [SerializeField] private WinLoseScript winLoseScript;  // Reference to WinLoseScript to check the game state
 
     void Start()
     {
@@ -13,7 +13,8 @@ public class Pausescreen : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && winLoseScript.Active)
+        // Only allow the pause screen if the game is not in a win/lose state (i.e., Active is false)
+        if (Input.GetKeyDown(KeyCode.Escape) && winLoseScript.active == false)
         {
             if (isPaused)
             {
