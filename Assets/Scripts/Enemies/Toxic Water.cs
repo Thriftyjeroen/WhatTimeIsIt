@@ -4,6 +4,8 @@ using UnityEngine.SceneManagement;
 
 public class ToxicWater : MonoBehaviour
 {
+    WinLoseScript death;
+    private void Start() => death = GetComponent<WinLoseScript>();
     private void OnTriggerEnter(Collider other) => DeathCheck(other.gameObject);
     private void OnCollisionEnter(Collision collision) => DeathCheck(collision.gameObject);
     void DeathCheck(GameObject obj)
@@ -12,7 +14,8 @@ public class ToxicWater : MonoBehaviour
         switch (obj.gameObject.name.ToLower())
         {
             case string player when player.Contains("player"):
-                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                death.Lose();
+                //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
                 //print(SceneManager.GetActiveScene().name);
                 break;
             case string enemy when enemy.Contains("enemy"):
