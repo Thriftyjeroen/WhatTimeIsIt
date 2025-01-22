@@ -15,6 +15,15 @@ public class MusicHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (tempScore.text != "0")
+        {
+            stems[1].volume = 0;
+            stems[2].volume = 1;
+        }
+        else
+        {
+            stems[1].volume = 1;
+            stems[2].volume = 0;
+        }
     }
 }
