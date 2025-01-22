@@ -8,6 +8,7 @@ public class GunControllerWeez: MonoBehaviour
     [SerializeField] Animator animatorCrossbow;
     [SerializeField] Animator animatorFlintlock;
     private bool canShoot = true;
+    private bool canAbility = true;
 
     void Update()
     {
@@ -16,15 +17,28 @@ public class GunControllerWeez: MonoBehaviour
         {
             Pew();
         }
+        if (Input.GetMouseButtonDown(1) && canAbility)
+        {
+            Ability();
+        }
     }
 
     void Pew()
     {
         canShoot = false;
+        canAbility = false;
         animatorGun2.SetTrigger("Reload");
         animatorWeezGun.SetTrigger("Reload");
         animatorCrossbow.SetTrigger("Reload");
         animatorFlintlock.SetTrigger("Reload");
+    }
+    void Ability()
+    {
+        canAbility = false;
+        canShoot = false;
+        animatorGun2.SetTrigger("Ability");
+        animatorCrossbow.SetTrigger("Ability");
+        animatorFlintlock.SetTrigger("Ability");
     }
     public void OnReloadComplete()
     {
