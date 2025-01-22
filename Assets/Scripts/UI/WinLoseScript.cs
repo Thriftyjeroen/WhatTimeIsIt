@@ -42,7 +42,15 @@ public class WinLoseScript : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }
-       
+
+        if (objectName.Contains("water"))
+        {
+            ScoreUploadManager.UploadScore();
+            Lose();
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+
     }
 
 
