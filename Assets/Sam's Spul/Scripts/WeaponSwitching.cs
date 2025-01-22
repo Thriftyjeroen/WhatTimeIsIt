@@ -13,6 +13,7 @@ public class WeaponSwitching : MonoBehaviour
     [SerializeField] Animator nineBarrelAnimator;
     [SerializeField] Animator crossbowAnimator;
     [SerializeField] Animator flintlockAnimator;
+    [SerializeField] CurrentWeopon weopon;
 
     private void Start()
     {
@@ -31,6 +32,7 @@ public class WeaponSwitching : MonoBehaviour
             nineBarrel.SetActive(false);
             flintlock.SetActive(false);
             crossbow.SetActive(false);
+            weopon.slot1();
             gunControllerWeez.OnReloadComplete();
         }
 
@@ -41,6 +43,7 @@ public class WeaponSwitching : MonoBehaviour
             nineBarrel.SetActive(true);
             flintlock.SetActive(false);
             crossbow.SetActive(false);
+            weopon.slot2();
             gunControllerWeez.OnReloadComplete();
         }
 
@@ -51,6 +54,7 @@ public class WeaponSwitching : MonoBehaviour
             nineBarrel.SetActive(false);
             flintlock.SetActive(false);
             crossbow.SetActive(true);
+            weopon.slot3();
             gunControllerWeez.OnReloadComplete();
         }
 
@@ -61,6 +65,7 @@ public class WeaponSwitching : MonoBehaviour
             nineBarrel.SetActive(false);
             flintlock.SetActive(true);
             crossbow.SetActive(false);
+            weopon.slot4();
             gunControllerWeez.OnReloadComplete();
         }
     }
