@@ -2159,6 +2159,11 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!4 &141623069 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7803630191024553403, guid: 34d0592f8cd05014b8b41ed4497d97b5, type: 3}
+  m_PrefabInstance: {fileID: 349892505}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &238683785
 GameObject:
   m_ObjectHideFlags: 0
@@ -2814,7 +2819,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6682768787027785476, guid: 34d0592f8cd05014b8b41ed4497d97b5, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6929305457273943592, guid: 34d0592f8cd05014b8b41ed4497d97b5, type: 3}
       propertyPath: m_Mesh
@@ -2858,7 +2863,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7674304968583399780, guid: 34d0592f8cd05014b8b41ed4497d97b5, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7893429711858770592, guid: 34d0592f8cd05014b8b41ed4497d97b5, type: 3}
       propertyPath: m_IsActive
@@ -2885,9 +2890,17 @@ PrefabInstance:
       value: 6123
       objectReference: {fileID: 0}
     - target: {fileID: 8364812058046737323, guid: 34d0592f8cd05014b8b41ed4497d97b5, type: 3}
+      propertyPath: mountPoint
+      value: 
+      objectReference: {fileID: 141623069}
+    - target: {fileID: 8364812058046737323, guid: 34d0592f8cd05014b8b41ed4497d97b5, type: 3}
       propertyPath: scoreManager
       value: 
       objectReference: {fileID: 985480043}
+    - target: {fileID: 8364812058046737323, guid: 34d0592f8cd05014b8b41ed4497d97b5, type: 3}
+      propertyPath: player.m_Bits
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8468367499512421226, guid: 34d0592f8cd05014b8b41ed4497d97b5, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.00030958652

@@ -9,16 +9,7 @@ public class WinLoseScript : MonoBehaviour
     [SerializeField] GameObject PopUp;
     [SerializeField] ScoreUploadManager ScoreUploadManager;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        // PopUp.SetActive(false);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
+    
     public void Win()
     {
         StartCoroutine(HandleWin());
@@ -46,7 +37,7 @@ public class WinLoseScript : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }
-        else if (objectName.Contains("water"))
+        if (objectName.Contains("water"))
         {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
