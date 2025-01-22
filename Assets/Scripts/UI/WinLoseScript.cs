@@ -8,7 +8,7 @@ public class WinLoseScript : MonoBehaviour
     [SerializeField] TMP_Text WinLoseText, scoretext;
     [SerializeField] GameObject PopUp;
     [SerializeField] ScoreUploadManager ScoreUploadManager;
-    public bool Active;
+    public bool active;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public void Start()
     {
@@ -16,22 +16,20 @@ public class WinLoseScript : MonoBehaviour
     }
     public void Win()
     {
-        Active = true;
+        // Set time on 0 
+        Time.timeScale = 0f;
         StartCoroutine(HandleWin());
-        Active = false;
+  
 
     }
     public void Lose()
     {
-        Active = true;
-        {
+            active = true;
             PopUp.SetActive(true);
             scoretext.text = ScoreUploadManager.fullScore.text;
             WinLoseText.text = "You have lost";
             Time.timeScale = 0f;
-            Active = false;
-
-        }
+           
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -67,6 +65,8 @@ public class WinLoseScript : MonoBehaviour
 
     IEnumerator HandleWin()
     {
+
+        active = true;
         // Start uploading the score
         ScoreUploadManager.UploadScore();
 
@@ -88,6 +88,9 @@ public class WinLoseScript : MonoBehaviour
         {
             WinLoseText.text = "You have won, and your score was uploaded.";
         }
+        
+ 
+
     }
 }
 
