@@ -6,8 +6,8 @@ public class ToxicWater : MonoBehaviour
 {
     WinLoseScript death;
     private void Start() => death = GetComponent<WinLoseScript>();
-    private void OnTriggerEnter(Collider other) => DeathCheck(other.gameObject);
-    private void OnCollisionEnter(Collision collision) => DeathCheck(collision.gameObject);
+    private void OnTriggerStay(Collider other) => DeathCheck(other.gameObject);
+    private void OnCollisionStay(Collision collision) => DeathCheck(collision.gameObject);
     void DeathCheck(GameObject obj)
     {
         //print("test");
