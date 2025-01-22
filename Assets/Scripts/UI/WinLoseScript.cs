@@ -53,6 +53,7 @@ public class WinLoseScript : MonoBehaviour
 
     public void SwitchScene()
     {
+        Time.timeScale = 1f;
         SceneManager.LoadScene("LevelSelect");
     }
     public void ResetScene()
