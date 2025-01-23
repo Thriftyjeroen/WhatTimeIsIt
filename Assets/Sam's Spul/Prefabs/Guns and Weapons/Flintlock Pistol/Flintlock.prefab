@@ -6930,7 +6930,7 @@ MonoBehaviour:
   timeBetweenShooting: 0
   reloadSpeed: 1.1
   range: 1000000
-  timeBetweenShots: 0
+  timeBetweenShots: 2.5
   spreadX: 0
   spreadY: 0
   specialAbilityCooldown: 0

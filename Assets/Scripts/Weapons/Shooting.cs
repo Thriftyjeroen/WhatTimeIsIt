@@ -158,7 +158,6 @@ public class shooting : MonoBehaviour
     }
     private void ActivateSpecialAbility()
     {
-
         //if weezer gun is active
         if (weezGun.activeInHierarchy)
         {
@@ -179,8 +178,9 @@ public class shooting : MonoBehaviour
         }
         else if (gun2.activeInHierarchy)
         {
-            if (!specialAbilityActive)
+            if (specialAbilityReady)
             {
+                specialAbilityReady = false;
                 spreadX = 0.1f;
                 spreadY = 0.1f;
                 timeBetweenShots = 0.01f;
@@ -196,9 +196,9 @@ public class shooting : MonoBehaviour
         }
         else if (flintlock.activeInHierarchy)
         {
-            if (!specialAbilityActive)
+            if (specialAbilityReady)
             {
-
+                specialAbilityReady = false;
                 //throw a bomb
                 GameObject obj = Instantiate(bomb, transform.position + transform.forward * 1, Quaternion.identity);
                 Rigidbody rb = obj.GetComponent<Rigidbody>();
@@ -207,7 +207,7 @@ public class shooting : MonoBehaviour
         }
         else if (crossbow.activeInHierarchy)
         {
-            if (!specialAbilityActive)
+            if (specialAbilityReady)
             {
                 RaycastHit[] hits = Physics.RaycastAll(cam.transform.position, cam.transform.forward, range, enemy);
 

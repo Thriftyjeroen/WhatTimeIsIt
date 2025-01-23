@@ -7312,7 +7312,7 @@ MonoBehaviour:
   timeBetweenShots: 0.08
   spreadX: 0.03
   spreadY: 0.03
-  specialAbilityCooldown: 0
+  specialAbilityCooldown: 2.5
   magazineZise: 9
   bulletsPerShot: 9
   automaticFire: 0
