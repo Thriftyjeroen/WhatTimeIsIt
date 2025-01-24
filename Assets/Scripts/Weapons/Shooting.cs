@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Rendering;
 using static UnityEngine.Rendering.DebugUI.Table;
 using static UnityEngine.UI.Image;
 using Random = UnityEngine.Random;
@@ -119,6 +120,8 @@ public class shooting : MonoBehaviour
         {
             Reload();
         }
+
+
     }
     private void ResetShot()
     {
@@ -138,6 +141,7 @@ public class shooting : MonoBehaviour
     }
     private IEnumerator SpawnTrail(TrailRenderer Trail, RaycastHit hit)
     {
+        Debug.Log("Shooting.cs SpawnTrail() called");
         float time = 0;
         Vector3 startPosition = Trail.transform.position;
         while (time < 1)
@@ -154,7 +158,6 @@ public class shooting : MonoBehaviour
     }
     private void ActivateSpecialAbility()
     {
-
         //if weezer gun is active
         if (weezGun.activeInHierarchy)
         {
@@ -175,8 +178,9 @@ public class shooting : MonoBehaviour
         }
         else if (gun2.activeInHierarchy)
         {
-            if (!specialAbilityActive)
+            if (specialAbilityReady)
             {
+                specialAbilityReady = false;
                 spreadX = 0.1f;
                 spreadY = 0.1f;
                 timeBetweenShots = 0.01f;
@@ -192,9 +196,9 @@ public class shooting : MonoBehaviour
         }
         else if (flintlock.activeInHierarchy)
         {
-            if (!specialAbilityActive)
+            if (specialAbilityReady)
             {
-
+                specialAbilityReady = false;
                 //throw a bomb
                 GameObject obj = Instantiate(bomb, transform.position + transform.forward * 1, Quaternion.identity);
                 Rigidbody rb = obj.GetComponent<Rigidbody>();
@@ -203,7 +207,7 @@ public class shooting : MonoBehaviour
         }
         else if (crossbow.activeInHierarchy)
         {
-            if (!specialAbilityActive)
+            if (specialAbilityReady)
             {
                 RaycastHit[] hits = Physics.RaycastAll(cam.transform.position, cam.transform.forward, range, enemy);
 
@@ -214,12 +218,12 @@ public class shooting : MonoBehaviour
                     // Example: Log the name of each enemy hit
                     if (enemy.TryGetComponent(out Rigidbody rb))
                     {
-                        rb.AddForce((-transform.forward) * 10f, ForceMode.Impulse );
+                        rb.AddForce((-transform.forward) * 10f, ForceMode.Impulse);
                     }
                     if (enemy.TryGetComponent(out EnemyHealth hp))
                     {
-                            hp.TakeDamage(damage);
-                            scoreManager.IncreaseScore(damage);
+                        hp.TakeDamage(damage);
+                        scoreManager.IncreaseScore(damage);
                         if (hits.Length > 2)
                         {
                             scoreManager.IncreaseMult(1);

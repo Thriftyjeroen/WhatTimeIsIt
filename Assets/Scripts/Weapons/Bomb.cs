@@ -61,13 +61,20 @@ public class Bomb : MonoBehaviour
                 {
                     enemy.TakeDamage((int)Mathf.Round(damage));
                     scoreManager.IncreaseScore((int)Mathf.Round(damage));
+                    if (_shot > 0)
+                    {
+                        scoreManager.IncreaseMult(_shot);
+                        _shot--;
+                    }
+                    
+
                 }
                 
             }
             
         }
+        
 
-        scoreManager.IncreaseMult(enemiesHit);
 
         Destroy(gameObject);
     }

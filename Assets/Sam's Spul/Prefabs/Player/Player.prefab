@@ -52,6 +52,10 @@ PrefabInstance:
       propertyPath: player.m_Bits
       value: 64
       objectReference: {fileID: 0}
+    - target: {fileID: 1619862873372110440, guid: 34d0592f8cd05014b8b41ed4497d97b5, type: 3}
+      propertyPath: specialAbilityCooldown
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 2088868631642573757, guid: 34d0592f8cd05014b8b41ed4497d97b5, type: 3}
       propertyPath: m_VersionIndex
       value: 2888
@@ -88,6 +92,10 @@ PrefabInstance:
       propertyPath: player.m_Bits
       value: 64
       objectReference: {fileID: 0}
+    - target: {fileID: 2825857528721224748, guid: 34d0592f8cd05014b8b41ed4497d97b5, type: 3}
+      propertyPath: specialAbilityCooldown
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4108246235689633903, guid: 34d0592f8cd05014b8b41ed4497d97b5, type: 3}
       propertyPath: m_VersionIndex
       value: 7245
@@ -115,6 +123,10 @@ PrefabInstance:
     - target: {fileID: 4250778868947856916, guid: 34d0592f8cd05014b8b41ed4497d97b5, type: 3}
       propertyPath: player.m_Bits
       value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 4250778868947856916, guid: 34d0592f8cd05014b8b41ed4497d97b5, type: 3}
+      propertyPath: specialAbilityCooldown
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 5659559920252141950, guid: 34d0592f8cd05014b8b41ed4497d97b5, type: 3}
       propertyPath: m_VersionIndex
@@ -163,6 +175,10 @@ PrefabInstance:
     - target: {fileID: 8364812058046737323, guid: 34d0592f8cd05014b8b41ed4497d97b5, type: 3}
       propertyPath: player.m_Bits
       value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 8364812058046737323, guid: 34d0592f8cd05014b8b41ed4497d97b5, type: 3}
+      propertyPath: specialAbilityCooldown
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8516488571605007836, guid: 34d0592f8cd05014b8b41ed4497d97b5, type: 3}
       propertyPath: m_VersionIndex

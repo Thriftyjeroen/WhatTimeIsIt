@@ -32,7 +32,7 @@ Transform:
   m_GameObject: {fileID: 1825085595656664444}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.57029146, y: 0.19, z: -0.38020656}
+  m_LocalPosition: {x: 0.57029146, y: 0.40548712, z: -0.38020656}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7627,7 +7627,7 @@ MonoBehaviour:
   timeBetweenShots: 0.08
   spreadX: 0
   spreadY: 0
-  specialAbilityCooldown: 0
+  specialAbilityCooldown: 2.5
   magazineZise: 1
   bulletsPerShot: 1
   automaticFire: 0
@@ -7639,7 +7639,7 @@ MonoBehaviour:
     m_Bits: 63
   player:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   bomb: {fileID: 0}
   bombThrowForce: 0
   bulletHole: {fileID: 2972552224966586805, guid: 9a2c9aaa93b33b2409e4269385a1d78b, type: 3}
