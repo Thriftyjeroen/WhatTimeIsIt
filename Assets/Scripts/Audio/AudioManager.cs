@@ -9,13 +9,16 @@ public class AudioManager : MonoBehaviour
     public IEnumerator StartPlayingGunSoundLoop(float pShootingTimeOut)
     {
         string pSound = "GunShootSound";
-        GameObject sound = Instantiate((GameObject)Resources.Load($"prefabs/{pSound}"));
 
         playingGunSound = true;
         while (playingGunSound)
         {
             yield return new WaitForSecondsRealtime(pShootingTimeOut);
-            Instantiate(sound);
+            GameObject sound = Instantiate((GameObject)Resources.Load($"prefabs/{pSound}"));
+            if (gameObject.transform.parent.parent.parent.gameObject.CompareTag("Player"))
+            {
+                sound.GetComponent<AudioSource>().spatialBlend = 0;
+            }
         }
     }
     public IEnumerator StartPlayingCrossbowSoundLoop(float pShootingTimeOut)
@@ -40,6 +43,9 @@ public class AudioManager : MonoBehaviour
     public void PlaySound(string pSound)
     {
         GameObject sound = Instantiate((GameObject)Resources.Load($"prefabs/{pSound}"), this.transform);
-        Instantiate(sound);
+        if (gameObject.transform.parent.parent.parent.gameObject.CompareTag("Player"))
+        {
+            sound.GetComponent<AudioSource>().spatialBlend = 0;
+        }
     }
 }

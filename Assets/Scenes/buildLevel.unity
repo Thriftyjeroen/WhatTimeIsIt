@@ -2159,7 +2159,7 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: a785f8d089d278c4b82df1038f3c8721, type: 3}
   m_Resource: {fileID: 8300000, guid: a785f8d089d278c4b82df1038f3c8721, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.79
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -2353,7 +2353,7 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: 5144624a43b0b2f44ab5810089755357, type: 3}
   m_Resource: {fileID: 8300000, guid: 5144624a43b0b2f44ab5810089755357, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.228
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -10254,6 +10254,14 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 126275785}
+    - target: {fileID: 5424266712311737994, guid: 98819024790cdab4bb61cd03769716a0, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5498155040128877902, guid: 98819024790cdab4bb61cd03769716a0, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5747256773150545838, guid: 98819024790cdab4bb61cd03769716a0, type: 3}
       propertyPath: weopon
       value: 
@@ -10278,6 +10286,10 @@ PrefabInstance:
       propertyPath: scoreManager
       value: 
       objectReference: {fileID: 1672361702}
+    - target: {fileID: 6109368422625157022, guid: 98819024790cdab4bb61cd03769716a0, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6186093441530333135, guid: 98819024790cdab4bb61cd03769716a0, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -10370,6 +10382,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1451665869}
+    - target: {fileID: 8822608413420813102, guid: 98819024790cdab4bb61cd03769716a0, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8969031889846055552, guid: 98819024790cdab4bb61cd03769716a0, type: 3}
       propertyPath: m_Mesh
       value: 
