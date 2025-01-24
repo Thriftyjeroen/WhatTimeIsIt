@@ -10,27 +10,28 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Transform debugHitPointTransform;
     [SerializeField] private Transform hookshotTransform;
 
-    public Camera playerCamera;
-    public float walkSpeed = 12f;
-    public float runSpeed = 16f;
-    public float jumpPower = 15f;
-    public float gravity = 25f;
-    public float lookSpeed = 2f;
-    public float lookXLimit = 45f;
-    public float defaultHeight = 2f;
-    public float crouchHeight = 1f;
-    public float crouchSpeed = 3f;
+    public Camera playerCamera; // the camera who follows the player 
+    public float walkSpeed = 12f; // speed of how fast the player is while walking 
+    public float runSpeed = 16f; // speed of how fast player is while running 
+    public float jumpPower = 15f; // the power how high the players comes when jumping 
+    public float gravity = 25f; // determined the gravity 
+    public float lookSpeed = 2f; // how fast the camera is while looking around 
+    public float lookXLimit = 45f; // how far you can look on X axis
+    public float defaultHeight = 2f; // the normal height of the player 
+    public float crouchHeight = 1f; // the height of the player while crouching 
+    public float crouchSpeed = 3f; // how fast you can crouch 
 
-    private State state;
-    private float hookshotSize;
-    private float rotationX = 0f;
-    private bool canMove = true;
-    private Vector3 moveDirection = Vector3.zero;
-    private Vector3 hookshotPosition;
-    private Vector3 characterVelocityMomentum;
-    private CharacterController characterController;
-    private CameraFov cameraFov;
-    private Collider playerCollider;
+    private State state; // Current state of the player (Normal, HookshotThrown, HookshotFlyingPlayer)
+    private float hookshotSize; // Current length of the hookshot (visual and functional)
+    private float rotationX = 0f; // Vertical camera rotation value for clamping and movement
+    private bool canMove = true; // Flag to determine if the player can move (used to disable movement temporarily)
+    private Vector3 moveDirection = Vector3.zero; // The direction the player is moving in
+    private Vector3 hookshotPosition; // The target position of the hookshot (where it's anchored)
+    private Vector3 characterVelocityMomentum; // Momentum applied to the character for smooth movement transitions
+    private CharacterController characterController; // Reference to the CharacterController component managing player movement
+    private CameraFov cameraFov; // Reference to a script managing camera field of view changes
+    private Collider playerCollider; // Reference to the player's collider for interactions and physics calculations
+
 
 
     [SerializeField] GameObject hookPullSound;
@@ -57,7 +58,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Time.timeScale == 0f)
         {
-            return; 
+            return;
         }
         if (characterController.isGrounded)
         {
@@ -220,16 +221,17 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    // Handle the Movement of the Hookshot 
     private void HandleHookshotMovement()
     {
         hookshotTransform.LookAt(hookshotPosition);
 
-        Vector3 hookshotDirection = (hookshotPosition - transform.position).normalized;
+        Vector3 hookshotDirection = (hookshotPosition - transform.position).normalized; // calculated the direction of the hookshot 
 
-        float hookshotSpeedMin = 30f;
-        float hookshotSpeedMax = 60f;
-        float hookshotSpeed = Mathf.Clamp(Vector3.Distance(transform.position, hookshotPosition), hookshotSpeedMin, hookshotSpeedMax);
-        float hookshotSpeedMult = 2f;
+        float hookshotSpeedMin = 30f; // min speed of the hookshot 
+        float hookshotSpeedMax = 60f; // max speed of the hookshot 
+        float hookshotSpeed = Mathf.Clamp(Vector3.Distance(transform.position, hookshotPosition), hookshotSpeedMin, hookshotSpeedMax); // the speed of the hookshot
+        float hookshotSpeedMult = 2f; // mult of the hookshotspeed 
 
         // Move player along hookshot direction
         characterController.Move(hookshotDirection * hookshotSpeed * hookshotSpeedMult * Time.deltaTime);
@@ -242,11 +244,11 @@ public class PlayerMovement : MonoBehaviour
         float reachedHookshotDistance = 2f;
         if (distanceToHookshot < reachedHookshotDistance)
         {
-            Destroy(soundObject);
+            Destroy(soundObject); // destroyed the soundobject 
 
-            state = State.Normal;
-            canMove = true;
-            ResetGravityForce();
+            state = State.Normal; // set state to normal 
+            canMove = true; // set the boolean to true so player can move
+            ResetGravityForce(); // reset the gravity force 
             hookshotTransform.gameObject.SetActive(false);
             cameraFov.SetCameraFov(NORMAL_FOV);
             return;
@@ -282,24 +284,29 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
+    // Retracts the hookshot and resets player state
     private void RetractHookshot()
     {
-        state = State.Normal;
-        ResetGravityForce();
-        hookshotTransform.gameObject.SetActive(false);
-        cameraFov.SetCameraFov(NORMAL_FOV);
+        state = State.Normal; // Reset to normal state
+        ResetGravityForce();  // Stop gravity effects
+        hookshotTransform.gameObject.SetActive(false); // Hide hookshot visuals
+        cameraFov.SetCameraFov(NORMAL_FOV); // Reset camera FOV
     }
 
+
+    // Resets vertical movement to zero (stops gravity effect).
     private void ResetGravityForce()
     {
         moveDirection.y = 0;
     }
 
+    // Checks if the "F" key is pressed for hookshot action.
     private bool TestInputDownHookshot()
     {
         return Input.GetKeyDown(KeyCode.F);
     }
 
+    // Checks if the "Space" key is pressed for jump action.
     private bool TestInputJump()
     {
         return Input.GetKeyDown(KeyCode.Space);

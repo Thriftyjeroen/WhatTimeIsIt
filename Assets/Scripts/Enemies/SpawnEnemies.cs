@@ -3,58 +3,74 @@ using UnityEngine;
 
 public class SpawnEnemies : MonoBehaviour
 {
-    [SerializeField] int amaunt;
-    [SerializeField] float respawnTimer;
-    [SerializeField] GameObject parrond;
+    [SerializeField] int ammount; // Number of enemies (not used)
+    [SerializeField] float respawnTimer; // Time between enemy spawns
+    [SerializeField] GameObject parrond; // Parent object for spawned enemies
 
-    [SerializeField] List<GameObject> spawnPos = new List<GameObject>();
-    [SerializeField] List<GameObject> enemyTypes = new List<GameObject>();
-    [SerializeField] List<GameObject> enemiesNotActive = new List<GameObject>();
-    [SerializeField] List<GameObject> enemiesActive = new List<GameObject>();
+    [SerializeField] List<GameObject> spawnPos = new List<GameObject>(); // Spawn positions for enemies
+    [SerializeField] List<GameObject> enemyTypes = new List<GameObject>(); // Enemy types to spawn
+    [SerializeField] List<GameObject> enemiesNotActive = new List<GameObject>(); // Inactive enemies ready to spawn
+    [SerializeField] List<GameObject> enemiesActive = new List<GameObject>(); // Active enemies in the game
 
-    bool activated = false;
-    float time = 0;
+    bool activated = false; // Checks if spawning is activated
+    float time = 0; // Timer for respawn interval
 
-    void Start() => SpawnFirstWave();
-    void Update() => Reinforcement(); 
-    void SpawnFirstWave()//spawns the starting enemies
-    { 
-        while(enemiesNotActive.Count != 0)
+    void Start() => SpawnFirstWave(); // Spawn the first set of enemies
+    void Update() => Reinforcement(); // Spawn more enemies over time
+
+    // Spawns the first wave of enemies
+    void SpawnFirstWave()
+    {
+        // Activate all inactive enemies and add them to the active list
+        while (enemiesNotActive.Count != 0)
         {
             GameObject enemy = enemiesNotActive[0];
             enemy.SetActive(true);
             enemiesActive.Add(enemy);
             enemiesNotActive.Remove(enemy);
         }
-        activated = true;
+        activated = true; // Mark spawning as activated
     }
-    void Reinforcement()//if the player unlockes the area there will be at least 1 new enemy spawned based on the number of the respawnTimer
+
+    // Spawns reinforcement enemies after a certain time
+    void Reinforcement()
     {
-        if (!activated) return;
-        time += Time.deltaTime;
-        if (!(time > respawnTimer)) return;
+        if (!activated) return; // Do nothing if spawning is not activated
+        time += Time.deltaTime; // Increase timer
+        if (time <= respawnTimer) return; // Wait until enough time has passed
+
         GameObject reïnforcement;
+
+        // Spawn an inactive enemy if available
         if (enemiesNotActive.Count != 0)
         {
             reïnforcement = enemiesNotActive[Random.Range(0, enemiesNotActive.Count)];
             reïnforcement.SetActive(true);
             enemiesNotActive.Remove(reïnforcement);
         }
-        else reïnforcement = Instantiate(enemyTypes[Random.Range(0, enemyTypes.Count)], parrond.transform);
-        
+        else
+        {
+            // If no inactive enemies, create a new one from the enemy types
+            reïnforcement = Instantiate(enemyTypes[Random.Range(0, enemyTypes.Count)], parrond.transform);
+        }
+
+        // Set the new enemy's position randomly
         reïnforcement.transform.position = spawnPos[Random.Range(0, spawnPos.Count)].transform.position;
-        enemiesActive.Add(reïnforcement);
-        time = 0;
+        enemiesActive.Add(reïnforcement); // Add to active enemies
+        time = 0; // Reset timer
     }
+
+    // Detect when the player enters the area and activates spawning
     private void OnCollisionEnter(Collision collision)
     {
-        string name = collision.gameObject.name.ToLower();
-        if (name.Contains("player")) activated = true;
+        if (collision.gameObject.name.ToLower().Contains("player")) activated = true;
     }
+
+    // Handle when an enemy dies and is returned to the inactive list
     public void EnemyDead(GameObject enemy)
     {
-        enemiesNotActive.Add(enemy);
-        enemiesActive.Remove(enemy);
-        enemy.SetActive(false);
+        enemiesNotActive.Add(enemy); // Add to inactive list
+        enemiesActive.Remove(enemy); // Remove from active list
+        enemy.SetActive(false); // Deactivate enemy
     }
 }
