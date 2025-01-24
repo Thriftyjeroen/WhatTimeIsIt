@@ -2,73 +2,70 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
-    public Transform player; // Referentie naar de speler
-    public float detectionRange = 10f; // Afstand waarop de vijand de speler kan zien
-    public float attackRange = 2f; // Afstand waarop de vijand aanvalt
-    public float wanderRadius = 5f; // Radius voor willekeurig rondlopen
-    public float wanderTime = 3f; // Tijd tussen het veranderen van richtingen
-    public float moveSpeed = 3f; // Snelheid van de vijand
-    public LayerMask obstacleLayer; // Obstakels om rekening mee te houden
+    public Transform player; // Reference to the player
+    public float detectionRange = 10f; // Range at which the enemy detects the player
+    public float attackRange = 2f; // Range at which the enemy attacks the player
+    public float wanderRadius = 5f; // Radius for random wandering
+    public float wanderTime = 3f; // Time between direction changes when wandering
+    public float moveSpeed = 3f; // Movement speed of the enemy
+    public LayerMask obstacleLayer; // Layer mask for detecting obstacles
 
-    private Vector3 wanderTarget;
-    private float wanderTimer;
+    private Vector3 wanderTarget; // Current target position for wandering
+    private float wanderTimer; // Timer to track wandering interval
 
     void Start()
     {
-        wanderTarget = transform.position; // Start op huidige positie
-        wanderTimer = wanderTime;
+        wanderTarget = transform.position; // Initialize wander target at current position
+        wanderTimer = wanderTime; // Initialize the timer
     }
 
     void Update()
     {
-        transform.forward = wanderTarget;
-        
-        float distanceToPlayer = Vector3.Distance(transform.position, player.position);
+        transform.forward = wanderTarget; // Ensure enemy faces the target direction
+
+        float distanceToPlayer = Vector3.Distance(transform.position, player.position); // Calculate distance to player
 
         if (distanceToPlayer <= detectionRange)
         {
-            // Naar de speler bewegen
+            // Move towards the player if within detection range
             MoveTowards(player.position);
-
-            if (distanceToPlayer <= attackRange)
-            {
-                // Aanval uitvoeren (placeholder)
-                Debug.Log("Aanvallen!");
-            }
         }
         else
         {
-            // Willekeurig rondlopen
+            // Handle random wandering behavior
             wanderTimer += Time.deltaTime;
 
             if (wanderTimer >= wanderTime)
             {
+                // Get a new random position when timer exceeds the wander interval
                 wanderTarget = GetRandomPosition(transform.position, wanderRadius);
-                wanderTimer = 0;
+                wanderTimer = 0; // Reset the timer
             }
 
+            // Move towards the current wander target
             MoveTowards(wanderTarget);
         }
-
     }
 
     void MoveTowards(Vector3 target)
     {
-        Vector3 direction = (target - transform.position).normalized;
+        Vector3 direction = (target - transform.position).normalized; // Calculate direction to the target
         RaycastHit hit;
 
-        // Controleer of er een obstakel in de weg is
+        // Check if an obstacle is in the way
         if (!Physics.Raycast(transform.position, direction, out hit, 1f, obstacleLayer))
         {
+            // Move towards the target if no obstacle is detected
             transform.position += direction * moveSpeed * Time.deltaTime;
         }
     }
 
     Vector3 GetRandomPosition(Vector3 origin, float radius)
     {
+        // Generate a random position within the specified radius
         Vector3 randomDirection = Random.insideUnitSphere * radius;
         randomDirection += origin;
-        randomDirection.y = origin.y; // Houd dezelfde hoogte aan
+        randomDirection.y = origin.y; // Maintain the same height
         return randomDirection;
     }
 }
