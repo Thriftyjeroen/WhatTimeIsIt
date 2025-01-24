@@ -89,19 +89,24 @@ public class shooting : MonoBehaviour
         //raycast using the random range from spread as 'direction'
         if (Physics.Raycast(cam.transform.position, direction, out rayHit, range, ~player))
         {
+            // Draw a debug line from the shooting point to the raycast hit point (for visualization during development)
             Debug.DrawLine(transform.position, rayHit.point, Color.green, 1000f);
+            // Create a bullet hole decal at the hit position, slightly offset by the surface normal
             Instantiate(bulletHole, rayHit.point + (rayHit.normal * 0.1f), Quaternion.FromToRotation(Vector3.up, rayHit.normal));
+            // Spawn a bullet trail from the shooting point to the hit point
             TrailRenderer trail = Instantiate(bulletTracer, shootingPoint.transform.position, Quaternion.identity);
             StartCoroutine(SpawnTrail(trail, rayHit));
-
+            // Check if the raycast hit an enemy
             if (rayHit.collider.CompareTag("Enemy"))
             {
+                // Deal damage to the enemy's health component and gain score
                 rayHit.collider.GetComponent<EnemyHealth>().TakeDamage(damage);
                 scoreManager.IncreaseScore(damage);
             }
-
+            // Check if the raycast hit a bomb
             if (rayHit.collider.CompareTag("Bomb"))
             {
+                // Trigger the bomb's explosion with a parameter to gain 1 mult if it hits an enemy aswell
                 rayHit.collider.GetComponent<Bomb>().Explode(1);
 
             }
@@ -146,15 +151,14 @@ public class shooting : MonoBehaviour
         Vector3 startPosition = Trail.transform.position;
         while (time < 1)
         {
-            //t.transform.position += t.transform.forward * 10f * Time.deltaTime;
             Trail.transform.position = Vector3.Lerp(startPosition, hit.point, time);
 
             time += Time.deltaTime / Trail.time;
+            // Wait for the next frame before continuing the loop
             yield return null;
         }
+        // Ensure the TrailRenderer's final position is exactly at the hit point
         Trail.transform.position = hit.point;
-
-        //Destroy(Trail, time);
     }
     private void ActivateSpecialAbility()
     {
@@ -163,6 +167,7 @@ public class shooting : MonoBehaviour
         {
             if (!specialAbilityActive)
             {
+                // Rotate the mount point and adjust the spread
                 mountPoint.transform.Rotate(0, 0, -90);
                 spreadX = 0.01f;
                 spreadY = 0.2f;
@@ -170,6 +175,7 @@ public class shooting : MonoBehaviour
             }
             else
             {
+                // Revert rotation and reset the spread values
                 mountPoint.transform.Rotate(0, 0, 90);
                 spreadX = 0.2f;
                 spreadY = 0.01f;
@@ -180,14 +186,17 @@ public class shooting : MonoBehaviour
         {
             if (specialAbilityReady)
             {
+                // Temporarily adjust spread and firing properties for a quick burst
                 specialAbilityReady = false;
                 spreadX = 0.1f;
                 spreadY = 0.1f;
                 timeBetweenShots = 0.01f;
                 bulletsShot = bulletsPerShot;
+                // Trigger shooting logic
                 Shoot();
                 firing = true;
                 ApplyKickback();
+                // Reset firing rate if not actively firing
                 if (!firing)
                 {
                     timeBetweenShots = 0.08f;
@@ -209,23 +218,27 @@ public class shooting : MonoBehaviour
         {
             if (specialAbilityReady)
             {
+                // Cast a ray to detect all enemies in a straight line
                 RaycastHit[] hits = Physics.RaycastAll(cam.transform.position, cam.transform.forward, range, enemy);
 
                 foreach (RaycastHit hit in hits)
                 {
+                    // Get the hit object and debug its position
                     GameObject enemy = hit.collider.gameObject;
                     Debug.DrawLine(transform.position, hit.point, Color.green, 1000f);
-                    // Example: Log the name of each enemy hit
                     if (enemy.TryGetComponent(out Rigidbody rb))
                     {
+                        // Apply a knockback force to the enemy if it has a Rigidbody
                         rb.AddForce((-transform.forward) * 10f, ForceMode.Impulse);
                     }
+                    // Damage the enemy and update the score
                     if (enemy.TryGetComponent(out EnemyHealth hp))
                     {
                         hp.TakeDamage(damage);
                         scoreManager.IncreaseScore(damage);
                         if (hits.Length > 2)
                         {
+                            // Increase the score multiplier if more than 2 enemies are hit
                             scoreManager.IncreaseMult(1);
                         }
                     }
@@ -239,8 +252,10 @@ public class shooting : MonoBehaviour
     private void ApplyKickback()
     {
         PlayerMovement player = FindFirstObjectByType<PlayerMovement>();
+        // Define the knockback direction (opposite of the camera's forward direction with a slight upward angle)
         Vector3 knockbackDirection = -cam.transform.forward + Vector3.up * 0.2f;
         float knockbackStrength = 50f;
+        // Start a coroutine to apply the knockback effect over time
         StartCoroutine(ApplyKnockbackOverTime(player, knockbackDirection, knockbackStrength));
     }
     private IEnumerator ApplyKnockbackOverTime(PlayerMovement player, Vector3 direction, float strength)
@@ -248,12 +263,17 @@ public class shooting : MonoBehaviour
         CharacterController controller = player.GetComponent<CharacterController>();
         if (controller != null)
         {
+            // Continue applying knockback as long as the strength is greater than zero
             while (strength > 0)
             {
 
+                // Calculate the knockback velocity
                 Vector3 knockbackVelocity = direction * strength;
-                controller.Move(knockbackVelocity * Time.deltaTime); // Apply movement
-                //elapsed += Time.deltaTime;
+
+                // Move the player using the knockback velocity
+                controller.Move(knockbackVelocity * Time.deltaTime);
+
+                // Gradually reduce the knockback strength over time
                 strength -= Time.deltaTime * 50;
                 yield return null; // Wait until the next frame
             }
