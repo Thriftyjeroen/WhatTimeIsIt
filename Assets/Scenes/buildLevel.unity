@@ -4785,6 +4785,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -1346369550762627069, guid: 15f253ee7d408d64c9ef7c575e82a98f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1956046590}
+    - targetCorrespondingSourceObject: {fileID: -1346369550762627069, guid: 15f253ee7d408d64c9ef7c575e82a98f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1956046592}
   m_SourcePrefab: {fileID: 100100000, guid: 15f253ee7d408d64c9ef7c575e82a98f, type: 3}
 --- !u!1 &890035207 stripped
 GameObject:
@@ -8623,6 +8626,23 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 8802771628929948559, guid: 15f253ee7d408d64c9ef7c575e82a98f, type: 3}
+--- !u!114 &1956046592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1956046583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5383f615bc930d148a2df5539e15bbdd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WinLoseText: {fileID: 1037307845}
+  scoretext: {fileID: 55526909}
+  PopUp: {fileID: 861832697}
+  ScoreUploadManager: {fileID: 1672361703}
+  active: 1
 --- !u!4 &2008498869 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3684729371553988385, guid: 3b65fec7fd334fc48826afea5fc07b66, type: 3}
@@ -9815,7 +9835,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5428195978795311870, guid: 3b65fec7fd334fc48826afea5fc07b66, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5824894097619332879, guid: 3b65fec7fd334fc48826afea5fc07b66, type: 3}
       propertyPath: m_Color.a
