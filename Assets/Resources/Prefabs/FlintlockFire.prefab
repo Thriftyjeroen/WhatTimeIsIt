@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5577391178892445454}
   - component: {fileID: 4663852078094840640}
   m_Layer: 0
-  m_Name: FlintlockFire 1
+  m_Name: FlintlockFire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

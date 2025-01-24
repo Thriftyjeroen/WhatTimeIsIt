@@ -3,6 +3,10 @@ using UnityEngine;
 public class GunFireManager : MonoBehaviour
 {
     AudioSource source;
+    private void Awake()
+    {
+        
+    }
     private void Start()
     {
         source = GetComponent<AudioSource>();

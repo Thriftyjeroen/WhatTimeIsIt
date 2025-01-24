@@ -90,7 +90,19 @@ public class shooting : MonoBehaviour
         if (Physics.Raycast(cam.transform.position, direction, out rayHit, range, ~player))
         {
             Debug.DrawLine(transform.position, rayHit.point, Color.green, 1000f);
-            Instantiate(bulletHole, rayHit.point + (rayHit.normal * 0.1f), Quaternion.FromToRotation(Vector3.up, rayHit.normal));
+            if (!rayHit.collider.CompareTag("Enemy"))
+            {
+                Instantiate(bulletHole, rayHit.point + (rayHit.normal * 0.1f), Quaternion.FromToRotation(Vector3.up, rayHit.normal));
+            }
+            else
+            {
+                Instantiate(
+                    bulletHole,
+                    rayHit.point + (rayHit.normal * 0.1f),
+                    Quaternion.FromToRotation(Vector3.up, rayHit.normal),
+                    rayHit.collider.transform // Set the parent to the object that was hit
+                );
+            }
             TrailRenderer trail = Instantiate(bulletTracer, shootingPoint.transform.position, Quaternion.identity);
             StartCoroutine(SpawnTrail(trail, rayHit));
 
