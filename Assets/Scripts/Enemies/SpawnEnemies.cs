@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class SpawnEnemies : MonoBehaviour
 {
-    [SerializeField] int ammount; // Number of enemies (not used)
+
+    //[SerializeField] int ammount; // Number of enemies (not used)
     [SerializeField] float respawnTimer; // Time between enemy spawns
     [SerializeField] GameObject parrond; // Parent object for spawned enemies
 
@@ -23,6 +24,7 @@ public class SpawnEnemies : MonoBehaviour
     {
         // Activate all inactive enemies and add them to the active list
         while (enemiesNotActive.Count != 0)
+
         {
             GameObject enemy = enemiesNotActive[0];
             enemy.SetActive(true);
@@ -39,24 +41,21 @@ public class SpawnEnemies : MonoBehaviour
         time += Time.deltaTime; // Increase timer
         if (time <= respawnTimer) return; // Wait until enough time has passed
 
-        GameObject reïnforcement;
+        GameObject reÃ¯nforcement;
 
         // Spawn an inactive enemy if available
         if (enemiesNotActive.Count != 0)
-        {
-            reïnforcement = enemiesNotActive[Random.Range(0, enemiesNotActive.Count)];
-            reïnforcement.SetActive(true);
-            enemiesNotActive.Remove(reïnforcement);
-        }
-        else
-        {
-            // If no inactive enemies, create a new one from the enemy types
-            reïnforcement = Instantiate(enemyTypes[Random.Range(0, enemyTypes.Count)], parrond.transform);
-        }
 
-        // Set the new enemy's position randomly
-        reïnforcement.transform.position = spawnPos[Random.Range(0, spawnPos.Count)].transform.position;
-        enemiesActive.Add(reïnforcement); // Add to active enemies
+        {
+            reÃ¯nforcement = enemiesNotActive[Random.Range(0, enemiesNotActive.Count)];
+            reÃ¯nforcement.SetActive(true);
+            enemiesNotActive.Remove(reÃ¯nforcement);
+        }
+        // If no inactive enemies, create a new one from the enemy types
+        else reÃ¯nforcement = Instantiate(enemyTypes[Random.Range(0, enemyTypes.Count)], parrond.transform);
+
+        reÃ¯nforcement.transform.position = spawnPos[Random.Range(0, spawnPos.Count)].transform.position;//the postition of the new enemy will be set to the position of a random spawnpoint for the enemies
+        enemiesActive.Add(reÃ¯nforcement); // Add to active enemies
         time = 0; // Reset timer
     }
 
@@ -65,7 +64,6 @@ public class SpawnEnemies : MonoBehaviour
     {
         if (collision.gameObject.name.ToLower().Contains("player")) activated = true;
     }
-
     // Handle when an enemy dies and is returned to the inactive list
     public void EnemyDead(GameObject enemy)
     {
