@@ -8,162 +8,180 @@ using Random = UnityEngine.Random;
 
 public class shooting : MonoBehaviour
 {
-    //gun references
-    [SerializeField] GameObject weezGun;
-    [SerializeField] GameObject gun2;
-    [SerializeField] GameObject crossbow;
-    [SerializeField] GameObject flintlock;
-    [SerializeField] Transform mountPoint;
+    // Gun references
+    [SerializeField] GameObject weezGun; // Reference to the 'weezer' gun
+    [SerializeField] GameObject gun2; // Reference to the second gun
+    [SerializeField] GameObject crossbow; // Reference to the crossbow
+    [SerializeField] GameObject flintlock; // Reference to the flintlock
+    [SerializeField] Transform mountPoint; // The mount point for the gun
 
-    // gun stats
-    public int damage;
-    public float timeBetweenShooting, reloadSpeed, range, timeBetweenShots, spreadX, spreadY, specialAbilityCooldown;
-    public int magazineZise, bulletsPerShot;
-    public bool automaticFire;
-    int magazineRemainingAmmo, bulletsShot;
-    bool firing, readyToFire, reloading;
-    bool specialAbilityReady, specialAbilityActive;
+    // Gun stats
+    public int damage; // The damage dealt by the weapon
+    public float timeBetweenShooting, reloadSpeed, range, timeBetweenShots, spreadX, spreadY, specialAbilityCooldown; // Various parameters related to shooting mechanics
+    public int magazineZise, bulletsPerShot; // Magazine size and bullets per shot
+    public bool automaticFire; // Whether the gun fires automatically or not
+    int magazineRemainingAmmo, bulletsShot; // Track the remaining ammo in the magazine and the number of bullets shot
+    bool firing, readyToFire, reloading; // Flags for managing firing, readiness to fire, and reloading
+    bool specialAbilityReady, specialAbilityActive; // Flags for special ability activation and readiness
 
+    // Raycast and other references for shooting
+    public Transform gun; // The gun transform
+    public Camera cam; // The camera to determine the shooting direction
+    public RaycastHit rayHit; // Raycast hit details
+    public Transform shootingPoint; // The point from where the bullet is fired
+    public LayerMask enemy, player; // Layers for raycast detection
+    [SerializeField] private GameObject bomb; // Reference to the bomb object
+    [SerializeField] private float bombThrowForce; // Force applied when throwing the bomb
+    public GameObject bulletHole; // Prefab for bullet hole effect
+    [SerializeField] private TrailRenderer bulletTracer; // Bullet tracer effect
+    [SerializeField] private ScoreManager scoreManager; // Reference to the score manager
 
-    public Transform gun;
-    public Camera cam;
-    public RaycastHit rayHit;
-    public Transform shootingPoint;
-    public LayerMask enemy, player;
-    [SerializeField] private GameObject bomb;
-    [SerializeField] private float bombThrowForce;
-    public GameObject bulletHole;
-    [SerializeField] private TrailRenderer bulletTracer;
-    [SerializeField] private ScoreManager scoreManager;
     private void Awake()
     {
-        //on Awake it will reload ur gun so when you start its always filled with bullets. also ready to fire is set to true
+        // Initializes the gun with a full magazine on start and sets the weapon to be ready to fire
         magazineRemainingAmmo = magazineZise;
         readyToFire = true;
         specialAbilityReady = true;
-
     }
+
     private void Update()
     {
-        //every frame checking for input
+        // Every frame, check for input related to firing and special abilities
         GetInput();
     }
+
     private void GetInput()
     {
         if (automaticFire)
         {
-            //while user holds down the key, this allows for full automatic fire
+            // If automatic fire is enabled, fire while holding down the mouse button
             firing = Input.GetKey(KeyCode.Mouse0);
         }
         else
         {
-            //this is for single fire weapons using GetKeyDown instead of GetKey
+            // For single-shot weapons, fire when the mouse button is pressed
             firing = Input.GetKeyDown(KeyCode.Mouse0);
         }
-        //reload input. cannot reload with a full magazine, also cant reload while reloading.
+
+        // Reload input: can't reload if the magazine is full or if already reloading
         if (Input.GetKeyDown(KeyCode.R) && magazineRemainingAmmo < magazineZise && !reloading)
         {
-
             Reload();
         }
-        //shoot method cant shoot while shooting, reloading or if you have no ammo in your magazine
+
+        // Shoot input: can shoot if ready to fire, not reloading, and there is ammo
         if (readyToFire && firing && !reloading && magazineRemainingAmmo > 0)
         {
             bulletsShot = bulletsPerShot;
             Shoot();
         }
-        // Special ability input
+
+        // Special ability input: activate the special ability if ready
         if (Input.GetKeyDown(KeyCode.Mouse1) && specialAbilityReady)
         {
             ActivateSpecialAbility();
         }
     }
+
     private void Shoot()
     {
         readyToFire = false;
-        //spread
+
+        // Apply spread to simulate gun recoil/spread
         float x = Random.Range(-spreadX, spreadX);
         float y = Random.Range(-spreadY, spreadY);
         Vector3 spreadOffset = cam.transform.right * x + cam.transform.up * y;
         Vector3 direction = cam.transform.forward + spreadOffset;
-        //raycast using the random range from spread as 'direction'
+
+        // Perform raycast to detect what the bullet hits
         if (Physics.Raycast(cam.transform.position, direction, out rayHit, range, ~player))
         {
             Debug.DrawLine(transform.position, rayHit.point, Color.green, 1000f);
+
+            // Bullet hole effect at the impact point
             Instantiate(bulletHole, rayHit.point + (rayHit.normal * 0.1f), Quaternion.FromToRotation(Vector3.up, rayHit.normal));
+
+            // Bullet tracer effect
             TrailRenderer trail = Instantiate(bulletTracer, shootingPoint.transform.position, Quaternion.identity);
             StartCoroutine(SpawnTrail(trail, rayHit));
 
+            // If an enemy is hit, apply damage and update the score
             if (rayHit.collider.CompareTag("Enemy"))
             {
                 rayHit.collider.GetComponent<EnemyHealth>().TakeDamage(damage);
                 scoreManager.IncreaseScore(damage);
             }
 
+            // If a bomb is hit, trigger the explosion
             if (rayHit.collider.CompareTag("Bomb"))
             {
                 rayHit.collider.GetComponent<Bomb>().Explode(1);
-
             }
         }
 
-        //takes one bullet out of remaining ammo
+        // Decrease ammo count after shooting
         magazineRemainingAmmo--;
-        //bullets shot count down by one so you can make guns using burst fire or shotgun blasts
         bulletsShot--;
+
+        // Reset shot readiness after a delay based on firing rate
         Invoke("ResetShot", timeBetweenShooting);
+
+        // If there are more bullets to shoot, fire again after the timeBetweenShots delay
         if (bulletsShot > 0 && magazineRemainingAmmo > 0)
         {
             Invoke("Shoot", timeBetweenShots);
         }
+
+        // Reload if the magazine is empty
         if (magazineRemainingAmmo <= 0)
         {
             Reload();
         }
-
-
     }
+
     private void ResetShot()
     {
-        //reset shot is used with Invoke so different guns can have different firing speeds. 
+        // Reset shot readiness to true after a delay
         readyToFire = true;
     }
+
     private void Reload()
     {
+        // Start the reloading process
         reloading = true;
         Invoke("ReloadFinished", reloadSpeed);
     }
+
     private void ReloadFinished()
     {
-        //reload finished used with Invoke so different guns can have different reloading speeds
+        // Finish reloading and refill the magazine
         magazineRemainingAmmo = magazineZise;
         reloading = false;
     }
+
     private IEnumerator SpawnTrail(TrailRenderer Trail, RaycastHit hit)
     {
-        Debug.Log("Shooting.cs SpawnTrail() called");
         float time = 0;
         Vector3 startPosition = Trail.transform.position;
         while (time < 1)
         {
-            //t.transform.position += t.transform.forward * 10f * Time.deltaTime;
+            // Move the trail to the hit point over time
             Trail.transform.position = Vector3.Lerp(startPosition, hit.point, time);
-
             time += Time.deltaTime / Trail.time;
             yield return null;
         }
         Trail.transform.position = hit.point;
-
-        //Destroy(Trail, time);
     }
+
     private void ActivateSpecialAbility()
     {
-        //if weezer gun is active
+        // Handle special abilities for different guns
         if (weezGun.activeInHierarchy)
         {
+            // If the 'weezer' gun is active, toggle the special ability
             if (!specialAbilityActive)
             {
-                mountPoint.transform.Rotate(0, 0, -90);
+                mountPoint.transform.Rotate(0, 0, -90); // Rotate the mount point
                 spreadX = 0.01f;
                 spreadY = 0.2f;
                 specialAbilityActive = true;
@@ -178,6 +196,7 @@ public class shooting : MonoBehaviour
         }
         else if (gun2.activeInHierarchy)
         {
+            // Special ability for the second gun: rapid fire
             if (specialAbilityReady)
             {
                 specialAbilityReady = false;
@@ -196,10 +215,10 @@ public class shooting : MonoBehaviour
         }
         else if (flintlock.activeInHierarchy)
         {
+            // Special ability for the flintlock: throw a bomb
             if (specialAbilityReady)
             {
                 specialAbilityReady = false;
-                //throw a bomb
                 GameObject obj = Instantiate(bomb, transform.position + transform.forward * 1, Quaternion.identity);
                 Rigidbody rb = obj.GetComponent<Rigidbody>();
                 rb.AddForce((-transform.forward + Vector3.up) * bombThrowForce, ForceMode.Impulse);
@@ -207,15 +226,14 @@ public class shooting : MonoBehaviour
         }
         else if (crossbow.activeInHierarchy)
         {
+            // Special ability for the crossbow: knockback enemies
             if (specialAbilityReady)
             {
+                specialAbilityReady = false;
                 RaycastHit[] hits = Physics.RaycastAll(cam.transform.position, cam.transform.forward, range, enemy);
-
                 foreach (RaycastHit hit in hits)
                 {
                     GameObject enemy = hit.collider.gameObject;
-                    Debug.DrawLine(transform.position, hit.point, Color.green, 1000f);
-                    // Example: Log the name of each enemy hit
                     if (enemy.TryGetComponent(out Rigidbody rb))
                     {
                         rb.AddForce((-transform.forward) * 10f, ForceMode.Impulse);
@@ -232,36 +250,40 @@ public class shooting : MonoBehaviour
                 }
             }
         }
-        // Start cooldown
+
+        // Start special ability cooldown
         specialAbilityReady = false;
         Invoke("ResetSpecialAbility", specialAbilityCooldown);
     }
+
     private void ApplyKickback()
     {
+        // Apply a knockback effect to the player when firing a powerful weapon
         PlayerMovement player = FindFirstObjectByType<PlayerMovement>();
         Vector3 knockbackDirection = -cam.transform.forward + Vector3.up * 0.2f;
         float knockbackStrength = 50f;
         StartCoroutine(ApplyKnockbackOverTime(player, knockbackDirection, knockbackStrength));
     }
+
     private IEnumerator ApplyKnockbackOverTime(PlayerMovement player, Vector3 direction, float strength)
     {
+        // Apply knockback over time to simulate the recoil effect
         CharacterController controller = player.GetComponent<CharacterController>();
         if (controller != null)
         {
             while (strength > 0)
             {
-
                 Vector3 knockbackVelocity = direction * strength;
-                controller.Move(knockbackVelocity * Time.deltaTime); // Apply movement
-                //elapsed += Time.deltaTime;
+                controller.Move(knockbackVelocity * Time.deltaTime);
                 strength -= Time.deltaTime * 50;
-                yield return null; // Wait until the next frame
+                yield return null;
             }
         }
     }
 
     private void ResetSpecialAbility()
     {
+        // Reset special ability readiness after the cooldown
         specialAbilityReady = true;
     }
 }
