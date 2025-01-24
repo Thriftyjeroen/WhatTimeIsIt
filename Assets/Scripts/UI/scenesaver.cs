@@ -3,9 +3,9 @@ using UnityEngine.SceneManagement;
 
 public class SceneSaver : MonoBehaviour
 {
-    private string lastSceneName;
-    private string previousSceneName; // To store the scene before the last one
-    private static SceneSaver instance;
+    private string lastSceneName; // Stores the name of the last loaded scene
+    private string previousSceneName; // Stores the name of the scene before the last one
+    private static SceneSaver instance; // Singleton instance to ensure only one SceneSaver exists
 
     void Awake()
     {
@@ -20,17 +20,17 @@ public class SceneSaver : MonoBehaviour
             Destroy(gameObject); // Destroy duplicate instance if one already exists
         }
     }
+
     void Start()
     {
-        
- 
+        // Initialize scene tracking with the current active scene
         lastSceneName = SceneManager.GetActiveScene().name;
-        previousSceneName = lastSceneName; // Initially, it's the same as the current scene
+        previousSceneName = lastSceneName; // Initially, both are the same
     }
-    
 
     public void loadLastScene()
     {
+        // Load the previous scene if it exists
         if (!string.IsNullOrEmpty(previousSceneName))
         {
             Debug.Log("Loading last scene: " + previousSceneName);
@@ -44,18 +44,21 @@ public class SceneSaver : MonoBehaviour
 
     public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-       Time.timeScale = 1.0f;
+        // Update scene tracking when a new scene is loaded
+        Time.timeScale = 1.0f;
         previousSceneName = lastSceneName;
-        lastSceneName = scene.name; 
+        lastSceneName = scene.name;
     }
 
     void OnEnable()
     {
+        // Subscribe to the sceneLoaded event
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     void OnDisable()
     {
+        // Unsubscribe from the sceneLoaded event
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 }
